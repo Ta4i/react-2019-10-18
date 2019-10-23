@@ -1,33 +1,24 @@
-import React, {Component} from 'react'
+import React, {useState} from 'react'
 
-class ReviewForm extends Component {
-  state = {
-    text: '',
+function ReviewForm(props) {
+  const [reviewText, setReviewText] = useState('')
+
+  const handleReviewTextChange = function(e) {
+    setReviewText(e.target.value)
   }
 
-  render() {
-    return (
-      <form onSubmit={this.handleSubmit}>
-        <p>Add your review:</p>
-        <input
-          value={this.state.text}
-          onChange={this.handleInput}
-          type={'text'}
-        />
-      </form>
-    )
-  }
-
-  handleInput = e => {
-    this.setState({
-      text: e.target.value.length > 6 ? '' : e.target.value,
-    })
-  }
-
-  handleSubmit = e => {
+  const handleReviewAddSubmit = function(e) {
+    alert(`Thank you for your request: ${reviewText}`)
+    setReviewText('')
     e.preventDefault()
-    console.log('submit', this.state)
   }
+
+  return (
+    <form onSubmit={handleReviewAddSubmit}>
+      <p>Write some comments please:</p>
+      <input value={reviewText} onChange={handleReviewTextChange} type="text" />
+    </form>
+  )
 }
 
 export default ReviewForm
