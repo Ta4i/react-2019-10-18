@@ -13,11 +13,22 @@ class Restaurant extends Component {
       0
     )
     const averageRating = reviewCount ? amountRating / reviewCount : 0
+    // @todo: move funcs to helpers
+    const numRound = num => {
+      return Math.round(parseFloat(num) * 100) / 100
+    }
+    const numRoundToHalf = num => {
+      let d = Math.floor(num)
+      let i = num % d
+      return i < 0.25 ? d : i < 0.75 ? d + 0.5 : d + 1
+    }
     return (
       <div>
         <Typography.Title level={2}>{restaurant.name}</Typography.Title>
-        <Rate disabled defaultValue={averageRating} />
-        <Typography.Text>Average Rating: {averageRating}</Typography.Text>
+        <Rate disabled allowHalf defaultValue={numRoundToHalf(averageRating)} />
+        <Typography.Text>
+          Average Rating: {numRound(averageRating)}
+        </Typography.Text>
         <ReviewList reviews={restaurant.reviews} />
         <ReviewForm />
         <Menu menu={restaurant.menu} />
