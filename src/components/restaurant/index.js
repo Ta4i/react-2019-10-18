@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {Typography, Rate} from 'antd'
 import Menu from '../menu'
 import ReviewForm from '../review-form'
+import Reviews from '../reviews'
 
 class Restaurant extends Component {
   render() {
@@ -15,6 +16,7 @@ class Restaurant extends Component {
           {restaurant.name}
           <Rate allowHalf disabled value={rate} />
         </Typography.Title>
+        <Reviews reviews={reviews} />
         <ReviewForm />
         <Menu menu={restaurant.menu} />
       </div>

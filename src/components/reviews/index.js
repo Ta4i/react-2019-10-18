@@ -1,7 +1,15 @@
 import React from 'react'
+import {List, Typography} from 'antd'
 
 function Reviews(props) {
-  return <div>Reviews</div>
+  const {reviews} = props
+  return (
+    <List
+      bordered
+      dataSource={reviews.map(review => review.text)}
+      renderItem={item => <List.Item>{item}</List.Item>}
+    />
+  )
 }
 
 export default Reviews
