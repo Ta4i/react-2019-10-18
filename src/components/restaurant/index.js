@@ -17,7 +17,6 @@ class Restaurant extends Component {
     // и передаем ему 4.6 - он не округляет сам до 4.5. сделаем это сами ;)
     const averageRating = roundToHalf(sumOfRatings / restaurant.reviews.length)
 
-    console.log(averageRating)
     return (
       <div>
         <Row gutter={24}>
@@ -39,10 +38,10 @@ class Restaurant extends Component {
           <Col span={8}>
             <Typography.Title level={4}>Reviews:</Typography.Title>
             <Reviews reviews={restaurant.reviews} />
+            <Typography.Title level={4}>Add your review:</Typography.Title>
+            <ReviewForm />
           </Col>
         </Row>
-
-        <ReviewForm />
       </div>
     )
   }

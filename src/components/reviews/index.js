@@ -5,13 +5,14 @@ function Reviews(props) {
   const {reviews} = props
   const reviewsTags = reviews.map(item => (
     <Comment
+      key={item.id}
       author={item.user}
       content={
         <div>
           <p>{item.text}</p>
-          <p>
+          <div>
             Rating: <Rate disabled allowHalf defaultValue={item.rating} />
-          </p>
+          </div>
         </div>
       }
     />
