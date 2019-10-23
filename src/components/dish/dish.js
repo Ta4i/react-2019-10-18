@@ -1,5 +1,5 @@
 import React from 'react'
-import {Card, Typography, Button, Badge} from 'antd'
+import {Card, Typography, Button, Badge, Col} from 'antd'
 import amount from '../../decorators/amount'
 
 const {Text} = Typography
@@ -26,16 +26,18 @@ function Dish(props) {
   )
 
   return (
-    <div>
+    <Col span={12}>
       <Card title={titleTag}>
-        <Text>Ingredients:</Text>
-        <Text>{dish.ingredients.join(', ')}</Text>
+        <div>
+          <Text strong>Ingredients:</Text> {dish.ingredients.join(', ')}
+        </div>
         <br />
-        <Button onClick={decrease}>-</Button>&nbsp;
-        <Text>{amount}</Text>&nbsp;
-        <Button onClick={increase}>+</Button>
+        <div>
+          <Text strong>To cart:</Text> <Button onClick={decrease}>-</Button>{' '}
+          <Text>{amount}</Text> <Button onClick={increase}>+</Button>
+        </div>
       </Card>
-    </div>
+    </Col>
   )
 }
 

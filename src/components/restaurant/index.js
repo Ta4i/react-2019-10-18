@@ -3,6 +3,7 @@ import {Typography, Rate, Row, Col} from 'antd'
 import Menu from '../menu'
 import ReviewForm from '../review-form'
 import Reviews from '../reviews'
+import {roundToHalf} from '../helpers/Math'
 
 class Restaurant extends Component {
   render() {
@@ -11,6 +12,9 @@ class Restaurant extends Component {
       (sum, item) => (sum += item.rating),
       0
     )
+
+    // в Rate обнаружил такой баг - даже если мы выставляем флаг allowHalf,
+    // и передаем ему 4.6 - он не округляет сам до 4.5. сделаем это сами ;)
     const averageRating = roundToHalf(sumOfRatings / restaurant.reviews.length)
 
     console.log(averageRating)
@@ -18,7 +22,9 @@ class Restaurant extends Component {
       <div>
         <Row gutter={24}>
           <Col span={16}>
-            <Typography.Title level={3}>{restaurant.name}</Typography.Title>
+            <Typography.Title level={3}>
+              Welcome to {restaurant.name}
+            </Typography.Title>
           </Col>
           <Col span={8}>
             Average Rating:{' '}
@@ -27,7 +33,7 @@ class Restaurant extends Component {
         </Row>
         <Row gutter={24}>
           <Col span={16}>
-            <Typography.Title level={4}>Menu:</Typography.Title>
+            <Typography.Title level={4}>Our Menu:</Typography.Title>
             <Menu menu={restaurant.menu} />
           </Col>
           <Col span={8}>
@@ -40,12 +46,6 @@ class Restaurant extends Component {
       </div>
     )
   }
-}
-
-function roundToHalf(number) {
-  // в Rate обнаружил такой баг - даже если мы выставляем флаг allowHalf,
-  // и передаем ему 4.6 - он не округляет сам до 4.5. сделаем это сами ;)
-  return Math.floor(number / 0.5) * 0.5
 }
 
 export default Restaurant
