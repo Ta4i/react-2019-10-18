@@ -6,6 +6,5 @@ import {restaurants} from './fixtures'
 
 ReactDOM.render(
   <App restaurants={restaurants} />,
-  document.getElementById('root1')
+  document.getElementById('root')
 )
- 
