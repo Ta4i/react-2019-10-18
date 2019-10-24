@@ -1,5 +1,6 @@
 import React from 'react'
 import {List} from 'antd'
+import './index.css'
 
 function Reviews(props) {
   const {data} = props
@@ -10,8 +11,8 @@ function Reviews(props) {
       dataSource={data}
       bordered
       renderItem={item => (
-        <div className="review">
-          <div className="user">{item.user}</div>
+        <div class="review">
+          <div class="user">{item.user}</div>
           <div>{item.text}</div>
         </div>
       )}
