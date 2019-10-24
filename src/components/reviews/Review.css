@@ -1,0 +1,7 @@
+.Review {
+  margin-bottom: 20px;
+}
+.Review-header {
+  display: flex;
+  justify-content: space-between;
+}
