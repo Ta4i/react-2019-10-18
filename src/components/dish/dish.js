@@ -20,7 +20,7 @@ function Dish(props) {
 
   return (
     <div>
-      <Card title={dish.name}>
+      <Card title={dish.name} style={{borderColor: amount > 0 ? 'black' : ''}}>
         <Text>{dish.ingredients.join(', ')}</Text>
         <br />
         <Text underline>${dish.price}</Text>

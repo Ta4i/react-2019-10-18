@@ -1,33 +1,23 @@
-import React, {Component} from 'react'
+import React, {useState} from 'react'
+import {Typography} from 'antd'
 
-class ReviewForm extends Component {
-  state = {
-    text: '',
-  }
+const {Text} = Typography
 
-  render() {
-    return (
-      <form onSubmit={this.handleSubmit}>
-        <p>Add your review:</p>
-        <input
-          value={this.state.text}
-          onChange={this.handleInput}
-          type={'text'}
-        />
-      </form>
-    )
-  }
-
-  handleInput = e => {
-    this.setState({
-      text: e.target.value.length > 6 ? '' : e.target.value,
-    })
-  }
-
-  handleSubmit = e => {
+function ReviewForm() {
+  const [text, setText] = useState('')
+  const handleInput = e =>
+    e.target.value.length > 6 ? setText('') : setText(e.target.value)
+  const handleSubmit = e => {
     e.preventDefault()
-    console.log('submit', this.state)
+    console.log({text})
   }
+  return (
+    <div>
+      <Text>Add your review:</Text>
+      <form onSubmit={handleSubmit}>
+        <input value={text} onChange={handleInput} type={'text'} />
+      </form>
+    </div>
+  )
 }
-
 export default ReviewForm
