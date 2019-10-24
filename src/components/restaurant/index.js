@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {Typography, Rate} from 'antd'
 import Menu from '../menu'
 import ReviewForm from '../review-form'
+import Reviews from '../reviews'
 import calcObjPropertyAverageInArr from '../../utils/calc-obj-property-average-in-arr'
 import roundToHalf from '../../utils/round-to-half'
 
@@ -15,6 +16,7 @@ class Restaurant extends Component {
       <div>
         <Typography.Title level={2}>{restaurant.name}</Typography.Title>
         <Rate value={roundedRating} allowHalf />
+        <Reviews restaurant={restaurant} />
         <ReviewForm />
         <Menu menu={restaurant.menu} />
       </div>
