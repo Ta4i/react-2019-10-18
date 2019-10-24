@@ -17,6 +17,7 @@ class Restaurant extends Component {
         <ReviewForm />
         <Typography.Title level={3}>Reviews</Typography.Title>
         <Reviews reviews={restaurant.reviews} />
+        <Typography.Title level={3}>Menu</Typography.Title>
         <Menu menu={restaurant.menu} />
       </div>
     )

@@ -1,5 +1,5 @@
 import React from 'react'
-
+import {Card, Typography} from 'antd'
 const {Text} = Typography
 
 function Review(props) {
@@ -8,9 +8,9 @@ function Review(props) {
   return (
     <div>
       <Card title={review.user}>
-        <Text>{review.text}</Text>
+        <Text>"Description: "{review.text}</Text>
         <br />
-        <Text>${review.rating}</Text>
+        <Text>"Rate: "{review.rating}</Text>
       </Card>
     </div>
   )
