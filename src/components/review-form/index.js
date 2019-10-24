@@ -1,33 +1,19 @@
-import React, {Component} from 'react'
+import React from 'react'
+import input from '../../decorators/input'
 
-class ReviewForm extends Component {
-  state = {
-    text: '',
-  }
+function ReviewForm(props) {
+  const {inputValue, handleInput} = props
 
-  render() {
-    return (
-      <form onSubmit={this.handleSubmit}>
-        <p>Add your review:</p>
-        <input
-          value={this.state.text}
-          onChange={this.handleInput}
-          type={'text'}
-        />
-      </form>
-    )
-  }
-
-  handleInput = e => {
-    this.setState({
-      text: e.target.value.length > 6 ? '' : e.target.value,
-    })
-  }
-
-  handleSubmit = e => {
+  const handleSubmit = e => {
     e.preventDefault()
-    console.log('submit', this.state)
   }
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <p>Add your review:</p>
+      <input value={inputValue} onChange={handleInput} type={'text'} />
+    </form>
+  )
 }
 
-export default ReviewForm
+export default input(ReviewForm)

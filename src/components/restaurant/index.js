@@ -3,6 +3,7 @@ import {Typography} from 'antd'
 import Menu from '../menu'
 import ReviewForm from '../review-form'
 import Rate from '../rate'
+import Reviews from '../reviews'
 
 class Restaurant extends Component {
   render() {
@@ -15,6 +16,7 @@ class Restaurant extends Component {
         </span>
         <ReviewForm />
         <Menu menu={restaurant.menu} />
+        <Reviews data={restaurant.reviews} />
       </div>
     )
   }
