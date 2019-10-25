@@ -1,9 +1,12 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import ReviewForm from '../review-form'
 import Review from './review'
 import {Col, Row} from 'antd'
 
-function Reviews({reviews} /*props*/) {
+function Reviews({reviews, fetchReviews} /*props*/) {
+  useEffect(() => {
+    fetchReviews && fetchReviews()
+  }, [])
   return (
     <Row type="flex" justify="center" gutter={{xs: 8, sm: 16, md: 24}}>
       <Col xs={24} md={16}>
