@@ -1,5 +1,6 @@
 import React from 'react'
 import {Rate} from 'antd'
+import PropTypes from 'prop-types'
 
 function AverageRating({reviews}) {
   const rawRating =
@@ -12,6 +13,10 @@ function AverageRating({reviews}) {
       <Rate defaultValue={normalizedRating} disabled allowHalf />
     </div>
   )
+}
+
+AverageRating.propTypes = {
+  reviews: PropTypes.arrayOf(PropTypes.object).isRequired,
 }
 
 export default AverageRating

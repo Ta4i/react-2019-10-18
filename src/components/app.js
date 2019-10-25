@@ -2,6 +2,10 @@ import React, {Component} from 'react'
 import Restaurant from './restaurant'
 
 class App extends Component {
+  static defaultProps = {
+    restaurants: [],
+  }
+
   state = {
     value: 0,
     otherValue: 'foo bar',
@@ -30,5 +34,7 @@ class App extends Component {
     return <Restaurant restaurant={restaurants[0]} />
   }
 }
+
+// App.defaultProps = {}
 
 export default App

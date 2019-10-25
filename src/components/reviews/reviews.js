@@ -3,7 +3,7 @@ import ReviewForm from '../review-form'
 import Review from './review'
 import {Col, Row} from 'antd'
 
-function Reviews({reviews}) {
+function Reviews({reviews} /*props*/) {
   return (
     <Row type="flex" justify="center" gutter={{xs: 8, sm: 16, md: 24}}>
       <Col xs={24} md={16}>
@@ -14,6 +14,10 @@ function Reviews({reviews}) {
       </Col>
     </Row>
   )
+}
+
+Reviews.defaultProps = {
+  reviews: [],
 }
 
 export default Reviews
