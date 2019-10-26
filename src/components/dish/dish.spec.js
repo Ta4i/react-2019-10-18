@@ -32,4 +32,28 @@ describe('Dish', function() {
         .text()
     ).toBe('1')
   })
+
+  it('when click on Minus button it should decrease amount', function() {
+    const dishData = restaurants[0].menu[0]
+    const wrapper = mount(<Dish dish={dishData} />)
+    const increase = wrapper
+      .find('button[data-automation-id="INCREASE"]')
+      .first()
+    const decrease = wrapper
+      .find('button[data-automation-id="DECREASE"]')
+      .first()
+    const amount = wrapper.find('div[data-automation-id="AMOUNT"]').first()
+
+    increase.simulate('click').simulate('click')
+    expect(amount.text()).toBe('2')
+
+    decrease.simulate('click')
+    expect(amount.text()).toBe('1')
+
+    decrease.simulate('click')
+    expect(amount.text()).toBe('0')
+
+    decrease.simulate('click')
+    expect(amount.text()).toBe('0')
+  })
 })
