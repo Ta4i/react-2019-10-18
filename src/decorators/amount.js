@@ -1,6 +1,7 @@
 // HOC higher order component
 import React from 'react'
 import useAmount from '../hooks/use-amount'
+import PropTypes from 'prop-types'
 
 function amount(OriginalComponent) {
   return props => {
@@ -15,6 +16,10 @@ function amount(OriginalComponent) {
       />
     )
   }
+}
+
+amount.propTypes = {
+  OriginalComponent: PropTypes.func.isRequired,
 }
 
 export default amount
