@@ -3,6 +3,7 @@ import React, {useState} from 'react'
 import useInput from '../../hooks/use-input'
 
 import styles from './review-form.module.css'
+import Review from '../reviews/review'
 
 const ReviewForm = () => {
   const [rate, setRate] = useState()
@@ -20,7 +21,7 @@ const ReviewForm = () => {
           <Typography.Title className={styles.addReviewTitle} level={4}>
             Leave your review
           </Typography.Title>
-          <Form onSubmit={handleSubmit}>
+          <Form onSubmit={handleSubmit} data-automation-name="newReview">
             <Input.TextArea
               rows={3}
               value={text}
