@@ -1,9 +1,18 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import Dish from '../dish'
 import PropTypes from 'prop-types'
 
 function Menu(props) {
-  const {menu} = props
+  const {menu, fetchMenuFromServer} = props
+
+  const loadMenuFromServer = function() {
+    if (fetchMenuFromServer) {
+      fetchMenuFromServer()
+    }
+  }
+
+  useEffect(loadMenuFromServer, [])
+
   return (
     <div>
       {menu.map(dishInfo => (
