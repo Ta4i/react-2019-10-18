@@ -26,7 +26,12 @@ Review.propTypes = {
   user: PropTypes.string.isRequired,
   text: PropTypes.string.isRequired,
   rating: function(props, propName) {
-    if (props[propName] < 0 || props[propName] > 5) {
+    if (
+      !props[propName] ||
+      !Number.isFinite(props[propName]) ||
+      props[propName] < 0 ||
+      props[propName] > 5
+    ) {
       return new Error(
         `Invalid prop ${propName}. Rating must be a number from 0 to 5.`
       )
