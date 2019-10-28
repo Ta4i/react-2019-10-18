@@ -32,4 +32,31 @@ describe('Dish', function() {
         .text()
     ).toBe('1')
   })
+
+  it('when click Minus button it should reduce amount', function() {
+    const dishData = {
+      id: 'd75f762a-eadd-49be-8918-ed0daa8dd024',
+      name: 'Chicken tikka masala',
+      price: 12,
+      ingredients: ['chicken', 'rice'],
+    }
+
+    const wrapper = mount(<Dish dish={dishData} />)
+    wrapper
+      .find('button[data-automation-id="INCREASE"]')
+      .first()
+      .simulate('click')
+      .simulate('click')
+      .simulate('click')
+    wrapper
+      .find('button[data-automation-id="DECREASE"]')
+      .first()
+      .simulate('click')
+    expect(
+      wrapper
+        .find('div[data-automation-id="AMOUNT"]')
+        .first()
+        .text()
+    ).toBe('2')
+  })
 })
