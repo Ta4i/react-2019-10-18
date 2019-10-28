@@ -1,7 +1,12 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import Dish from '../dish'
+import {PropTypes} from 'prop-types'
 
-function Menu(props) {
+function Menu(props, {fetchMenu}) {
+  const foo = () => {
+    fetchMenu && fetchMenu()
+  }
+  useEffect(foo, [])
   const {menu} = props
   return (
     <div>
@@ -12,4 +17,7 @@ function Menu(props) {
   )
 }
 
+Menu.propTypes = {
+  menu: PropTypes.arrayOf(PropTypes.object).isRequired,
+}
 export default Menu

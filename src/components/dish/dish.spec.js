@@ -6,10 +6,13 @@ import {restaurants} from '../../fixtures'
 
 Enzyme.configure({adapter: new Adapter()})
 
+const dishData = restaurants[0].menu[0]
+const wrapper = mount(<Dish dish={dishData} />)
+
 describe('Dish', function() {
   it('show name', function() {
-    const dishData = restaurants[0].menu[0]
-    const wrapper = mount(<Dish dish={dishData} />)
+    //const dishData = restaurants[0].menu[0]
+    //const wrapper = mount(<Dish dish={dishData} />)
     expect(
       wrapper
         .find('h4[data-automation-id="DISH_NAME"]')
@@ -19,10 +22,10 @@ describe('Dish', function() {
   })
 
   it('when click on Plus button it should increase amount', function() {
-    const dishData = restaurants[0].menu[0]
-    const wrapper = mount(<Dish dish={dishData} />)
+    //const dishData = restaurants[0].menu[0]
+    //const wrapper = mount(<Dish dish={dishData} />)
     wrapper
-      .find('button[data-automation-id="INCREASE"]')
+      .find('Button[data-automation-id="INCREASE"]')
       .first()
       .simulate('click')
     expect(
@@ -31,5 +34,19 @@ describe('Dish', function() {
         .first()
         .text()
     ).toBe('1')
+  })
+  it('then click Minus button amount should decrease', function() {
+    wrapper
+      .setProps({amount: 1})
+      .find('Button[data-automation-id="DECREASE"]')
+      .first()
+      .simulate('click')
+    expect(
+      wrapper
+        .setProps({amount: 1})
+        .find('div[data-automation-id="AMOUNT"]')
+        .first()
+        .text()
+    ).toBe('0')
   })
 })

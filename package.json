@@ -14,6 +14,7 @@
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.15.1",
     "husky": "^2.3.0",
+    "jest": "^24.9.0",
     "prettier": "1.17.1",
     "pretty-quick": "^1.10.0"
   },
@@ -42,5 +43,17 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "description": "1. Перед выполнением сделайте мердж мастера моего репозитория себе в форк (чтобы иметь актуальный кодбейс);\r 2. Создайте ветку для выполнения ДЗ;\r 3. Выполните ДЗ в этой ветке;\r 4. Сделайте Pull Request этой ветки на мастер моего репозитория;\r 5. Напишите мне (m.kramarenko@javascript.info) письмо со ссылкой на PR.",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/actoract/react-2019-10-18.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/actoract/react-2019-10-18/issues"
+  },
+  "homepage": "https://github.com/actoract/react-2019-10-18#readme"
 }
