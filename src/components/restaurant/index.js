@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import PropTypes from 'prop-types'
 import {Typography} from 'antd'
 import Menu from '../menu'
 import Reviews from '../reviews'
@@ -35,6 +36,10 @@ class Restaurant extends Component {
       </div>
     )
   }
+}
+
+Restaurant.propTypes = {
+  restaurant: PropTypes.object.isRequired,
 }
 
 export default Restaurant

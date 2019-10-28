@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import {Card, Typography, Button, Row, Col} from 'antd'
 import amount from '../../decorators/amount'
 import styles from './dish.module.css'
@@ -39,6 +40,7 @@ function Dish(props) {
                 className={styles.button}
                 icon="minus"
                 onClick={decrease}
+                data-automation-id="DECREASE"
               />
               <Button
                 className={styles.button}
@@ -52,6 +54,13 @@ function Dish(props) {
       </Row>
     </Card>
   )
+}
+
+Dish.propTypes = {
+  dish: PropTypes.object.isRequired,
+  amount: PropTypes.number.isRequired,
+  increase: PropTypes.func.isRequired,
+  decrease: PropTypes.func.isRequired,
 }
 
 export default amount(Dish)
