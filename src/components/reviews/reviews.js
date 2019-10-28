@@ -2,6 +2,7 @@ import React, {useEffect} from 'react'
 import ReviewForm from '../review-form'
 import Review from './review'
 import {Col, Row} from 'antd'
+import PropTypes from 'prop-types'
 
 function Reviews({reviews, fetchReviews} /*props*/) {
   const foo = () => {
@@ -12,9 +13,13 @@ function Reviews({reviews, fetchReviews} /*props*/) {
     <Row type="flex" justify="center" gutter={{xs: 8, sm: 16, md: 24}}>
       <Col xs={24} md={16}>
         {reviews.map(review => (
-          <Review review={review} key={review.id} />
+          <Review
+            review={review}
+            key={review.id}
+            data-automation-id="REVIEW_ITEM"
+          />
         ))}
-        <ReviewForm />
+        <ReviewForm data-automation-id="REVIEW_FORM" />
       </Col>
     </Row>
   )
@@ -24,4 +29,8 @@ Reviews.defaultProps = {
   reviews: [],
 }
 
+Reviews.propTypes = {
+  reviews: PropTypes.arrayOf(PropTypes.object),
+  fetchReviews: PropTypes.func,
+}
 export default Reviews

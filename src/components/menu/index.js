@@ -1,5 +1,6 @@
 import React from 'react'
 import Dish from '../dish'
+import PropTypes from 'prop-types'
 
 function Menu(props) {
   const {menu} = props
@@ -12,4 +13,7 @@ function Menu(props) {
   )
 }
 
+Menu.propTypes = {
+  menu: PropTypes.arrayOf(PropTypes.object),
+}
 export default Menu
