@@ -1,6 +1,7 @@
 import React from 'react'
 import {Row, Col, Typography, Rate, Card} from 'antd'
 import styles from './review.module.css'
+import PropTypes, {string} from 'prop-types'
 
 const Review = ({review}) => (
   <Card className={styles.review}>
@@ -19,4 +20,13 @@ const Review = ({review}) => (
     </Row>
   </Card>
 )
+
+Review.propTypes = {
+  review: PropTypes.shape({
+    id: PropTypes.string,
+    user: PropTypes.string,
+    rating: PropTypes.number,
+  }).isRequired,
+}
+
 export default Review

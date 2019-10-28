@@ -162,6 +162,7 @@ const restaurants = [
         rating: 5,
       },
     ],
+    reviewsClosed: true,
   },
 ]
 
