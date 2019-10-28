@@ -1,30 +1,37 @@
 import React, {Component} from 'react'
-import {Typography, Rate} from 'antd'
+import {Typography} from 'antd'
 import Menu from '../menu'
-import ReviewForm from '../review-form'
 import Reviews from '../reviews'
+import AverageRating from '../average-rating'
 
 class Restaurant extends Component {
-  ratingCalculator(reviews) {
-    const numberOfReviews = reviews.length
-    let usersRating = 0
-    reviews.forEach(review => {
-      usersRating += review.rating
-    })
+  state = {
+    error: null,
+  }
 
-    return usersRating / numberOfReviews
+  componentDidCatch(error, errorInfo) {
+    this.setState({
+      error,
+    })
   }
 
   render() {
-    const {restaurant} = this.props
+    const {
+      restaurant: {name, reviews, menu},
+    } = this.props
+
+    if (this.state.error) {
+      return (
+        <Typography.Title type="danger">Something went wrong</Typography.Title>
+      )
+    }
 
     return (
       <div>
-        <Typography.Title level={2}>{restaurant.name}</Typography.Title>
-        <Rate allowHalf value={this.ratingCalculator(restaurant.reviews)} />
-        <Reviews reviews={restaurant.reviews} />
-        <ReviewForm />
-        <Menu menu={restaurant.menu} />
+        <Typography.Title level={2}>{name}</Typography.Title>
+        <AverageRating reviews={reviews} />
+        <Reviews reviews={reviews} />
+        <Menu menu={menu} />
       </div>
     )
   }
