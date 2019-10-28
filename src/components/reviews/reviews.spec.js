@@ -1,5 +1,5 @@
 import React from 'react'
-import Enzyme, {mount} from 'enzyme'
+import Enzyme, {mount, shallow} from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
 import Reviews from './reviews'
 import {restaurants} from '../../fixtures'
@@ -21,24 +21,16 @@ describe('Reviews', function() {
       restaurants[0].reviews.length
     )
   })
-  it('checking review user', () => {
-    wrapper
-      .find('Review[data-automation-id="REVIEW"]')
-      .forEach((item, index) => {
-        expect(
-          item.find('Typography[data-automation-id="REVIEW-NAME"]').text()
-        ).toEqual(restaurants[0].reviews[index].user)
-        console.log(restaurants[0].reviews[index].user)
-      })
-  })
-  it('checking review text', () => {
-    wrapper
-      .find('Review[data-automation-id="REVIEW"]')
-      .forEach((item, index) => {
-        expect(
-          item.find('Typography[data-automation-id="REVIEW-TEXT"]').text()
-        ).toEqual(restaurants[0].reviews[index].text)
-        console.log(restaurants[0].reviews[index].text)
-      })
+  it('checking review user and text', () => {
+    wrapper.find('Review[data-automation-id="REVIEW"]').forEach((node, i) => {
+      expect(
+        node.find('Typography[data-automation-id="REVIEW-NAME"]').text()
+      ).toEqual(restaurants[0].reviews[i].user)
+      expect(
+        node.find('Typography[data-automation-id="REVIEW-TEXT"]').text()
+      ).toEqual(restaurants[0].reviews[i].text)
+      console.log(restaurants[0].reviews[i].user)
+      console.log(restaurants[0].reviews[i].text)
+    })
   })
 })
