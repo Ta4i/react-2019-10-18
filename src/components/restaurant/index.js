@@ -3,6 +3,7 @@ import {Typography} from 'antd'
 import Menu from '../menu'
 import Reviews from '../reviews'
 import AverageRating from '../average-rating'
+import PropTypes from 'prop-types'
 
 class Restaurant extends Component {
   state = {
@@ -16,6 +17,11 @@ class Restaurant extends Component {
   }
 
   render() {
+    function timeOutMenu() {
+      setTimeout(() => {
+        console.log('asdf')
+      }, 4000)
+    }
     const {
       restaurant: {name, reviews, menu},
     } = this.props
@@ -31,10 +37,19 @@ class Restaurant extends Component {
         <Typography.Title level={2}>{name}</Typography.Title>
         <AverageRating reviews={reviews} />
         <Reviews reviews={reviews} />
-        <Menu menu={menu} />
+        <Menu menu={menu} timeOut={timeOutMenu} />
       </div>
     )
   }
+}
+
+Restaurant.propTypes = {
+  id: PropTypes.string,
+  name: PropTypes.string,
+  location: PropTypes.object,
+  image: PropTypes.string,
+  menu: PropTypes.arrayOf(PropTypes.object).isRequired,
+  reviews: PropTypes.arrayOf(PropTypes.object).isRequired,
 }
 
 export default Restaurant
