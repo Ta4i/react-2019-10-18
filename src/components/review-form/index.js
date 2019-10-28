@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React from 'react'
 import input from '../../decorators/input'
 
@@ -13,3 +14,6 @@ function ReviewForm(props) {
 }
 
 export default input(ReviewForm)
+=======
+export {default} from './review-form'
+>>>>>>> upstream/master

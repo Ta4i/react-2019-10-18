@@ -1,5 +1,6 @@
 import {useState} from 'react'
 
+<<<<<<< HEAD
 function useInput(initialInput = '') {
   const [textInput, setTextInput] = useState(initialInput)
 
@@ -20,3 +21,14 @@ function useInput(initialInput = '') {
 }
 
 export default useInput
+=======
+const nonEmpty = value => !!value
+
+export default (initialValue = '', validate = nonEmpty) => {
+  const [state, setState] = useState(initialValue)
+
+  const handleChange = ev => setState(ev.target.value)
+
+  return [state, handleChange, validate(state)]
+}
+>>>>>>> upstream/master

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React from 'react'
 import {List, Avatar} from 'antd'
 
@@ -31,3 +32,6 @@ function Reviews(props) {
 }
 
 export default Reviews
+=======
+export {default} from './reviews'
+>>>>>>> upstream/master
