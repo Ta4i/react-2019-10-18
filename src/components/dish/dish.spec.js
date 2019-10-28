@@ -32,4 +32,38 @@ describe('Dish', function() {
         .text()
     ).toBe('1')
   })
+
+  it('should show 0 when amount is 0 and Minus button is clicked on', function() {
+    const dishData = restaurants[0].menu[0]
+    const wrapper = mount(<Dish dish={dishData} />)
+    wrapper
+      .find('button[data-automation-id="DECREASE"]')
+      .first()
+      .simulate('click')
+    expect(
+      wrapper
+        .find('div[data-automation-id="AMOUNT"]')
+        .first()
+        .text()
+    ).toBe('0')
+  })
+
+  it('should bla', function() {
+    const dishData = restaurants[0].menu[0]
+    const wrapper = mount(<Dish dish={dishData} />)
+    wrapper
+      .find('button[data-automation-id="INCREASE"]')
+      .first()
+      .simulate('click')
+    wrapper
+      .find('button[data-automation-id="DECREASE"]')
+      .first()
+      .simulate('click')
+    expect(
+      wrapper
+        .find('div[data-automation-id="AMOUNT"]')
+        .first()
+        .text()
+    ).toBe('0')
+  })
 })
