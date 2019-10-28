@@ -26,4 +26,10 @@ describe('Reviews', function() {
       .length
     expect(amountOfReviews).toBe(0)
   })
+
+  it('should contain Leave Your Review form', function() {
+    const reviewsData = []
+    const wrapper = mount(<Reviews reviews={reviewsData} />)
+    expect(wrapper.find('div[data-automation-id="REVIEW-FORM"]').length).toBe(1)
+  })
 })

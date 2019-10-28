@@ -14,7 +14,7 @@ const ReviewForm = () => {
   }
 
   return (
-    <Card className={styles.reviewForm}>
+    <Card className={styles.reviewForm} data-automation-id="REVIEW-FORM">
       <Row type="flex" align="middle">
         <Col xs={24} md={18} align="left">
           <Typography.Title className={styles.addReviewTitle} level={4}>
