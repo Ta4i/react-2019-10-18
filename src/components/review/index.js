@@ -1,5 +1,6 @@
 import React from 'react'
 import {Card, Typography} from 'antd'
+import PropTypes from 'prop-types'
 const {Text} = Typography
 
 function Review(props) {
@@ -16,4 +17,12 @@ function Review(props) {
   )
 }
 
+Review.propTypes = {
+  review: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    user: PropTypes.string.isRequired,
+    text: PropTypes.string.isRequired,
+    rating: PropTypes.number.isRequired,
+  }).isRequired,
+}
 export default Review

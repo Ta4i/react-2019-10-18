@@ -2,6 +2,7 @@ import React, {useEffect} from 'react'
 import ReviewForm from '../review-form'
 import Review from './review'
 import {Col, Row} from 'antd'
+import PropTypes from 'prop-types'
 
 function Reviews({reviews, fetchReviews} /*props*/) {
   const foo = () => {
@@ -24,4 +25,8 @@ Reviews.defaultProps = {
   reviews: [],
 }
 
+Reviews.propTypes = {
+  reviews: PropTypes.arrayOf(PropTypes.object),
+  fetchReviews: PropTypes.func,
+}
 export default Reviews
