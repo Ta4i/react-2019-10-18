@@ -39,6 +39,7 @@ function Dish(props) {
                 className={styles.button}
                 icon="minus"
                 onClick={decrease}
+                data-automation-id="DECREASE"
               />
               <Button
                 className={styles.button}
