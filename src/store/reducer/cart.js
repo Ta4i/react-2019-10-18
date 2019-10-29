@@ -1,11 +1,21 @@
 export const cartReducer = (cartState = {}, action) => {
-  if (action.type === 'ADD_TO_CART') {
-    const {dishId} = action.payload
-    const currentAmount = cartState[dishId] || 0
-    return {
-      ...cartState,
-      [dishId]: currentAmount + 1,
-    }
+  const {dishId} = action.payload || {dishId: null}
+  const currentAmount = cartState[dishId] || 0
+
+  switch (action.type) {
+    case 'ADD_TO_CART':
+      return {
+        ...cartState,
+        [dishId]: currentAmount + 1,
+      }
+
+    case 'REMOVE_FROM_CART':
+      return {
+        ...cartState,
+        [dishId]: currentAmount - 1,
+      }
+
+    default:
+      return cartState
   }
-  return cartState
 }
