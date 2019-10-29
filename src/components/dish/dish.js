@@ -2,6 +2,7 @@ import React from 'react'
 import {Card, Typography, Button, Row, Col} from 'antd'
 import amount from '../../decorators/amount'
 import styles from './dish.module.css'
+import PropTypes from 'prop-types'
 
 function Dish(props) {
   const {
@@ -52,6 +53,17 @@ function Dish(props) {
       </Row>
     </Card>
   )
+}
+
+Dish.propTypes = {
+  dish: PropTypes.shape({
+    name: PropTypes.string,
+    ingredients: PropTypes.array,
+    price: PropTypes.number,
+  }),
+  amount: PropTypes.number,
+  increase: PropTypes.func,
+  decrease: PropTypes.func,
 }
 
 export default amount(Dish)
