@@ -31,8 +31,8 @@ class Restaurant extends Component {
       <div>
         <Typography.Title level={2}>{name}</Typography.Title>
         <AverageRating reviews={reviews} />
-        <Reviews reviews={reviews} />
         <Menu menu={menu} />
+        <Reviews reviews={reviews} />
       </div>
     )
   }

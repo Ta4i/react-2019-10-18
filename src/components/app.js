@@ -1,6 +1,8 @@
 import React, {Component} from 'react'
+import {Layout} from 'antd'
 import Restaurant from './restaurant'
 import PropTypes from 'prop-types'
+import Header from './header'
 
 class App extends Component {
   static defaultProps = {
@@ -32,7 +34,14 @@ class App extends Component {
 
   render() {
     const {restaurants} = this.props
-    return <Restaurant restaurant={restaurants[0]} />
+    return (
+      <Layout>
+        <Header />
+        <Layout.Content>
+          <Restaurant restaurant={restaurants[0]} />
+        </Layout.Content>
+      </Layout>
+    )
   }
 }
 
