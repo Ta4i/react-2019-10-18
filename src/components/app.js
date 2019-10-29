@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import Restaurant from './restaurant'
+import PropTypes from 'prop-types'
 
 class App extends Component {
   static defaultProps = {
@@ -36,5 +37,9 @@ class App extends Component {
 }
 
 // App.defaultProps = {}
+
+App.propTypes = {
+  restaurants: PropTypes.arrayOf(Restaurant.propTypes.restaurant).isRequired,
+}
 
 export default App
