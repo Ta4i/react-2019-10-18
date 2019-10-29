@@ -3,8 +3,17 @@ import {Typography} from 'antd'
 import Menu from '../menu'
 import Reviews from '../reviews'
 import AverageRating from '../average-rating'
+import PropTypes from 'prop-types'
 
 class Restaurant extends Component {
+  static propTypes = {
+    restaurant: PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      reviews: PropTypes.arrayOf(PropTypes.object).isRequired,
+      menu: PropTypes.arrayOf(PropTypes.object).isRequired,
+    }).isRequired,
+  }
+
   state = {
     error: null,
   }

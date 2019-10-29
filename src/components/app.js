@@ -1,9 +1,14 @@
 import React, {Component} from 'react'
 import Restaurant from './restaurant'
+import PropTypes from 'prop-types'
 
 class App extends Component {
   static defaultProps = {
     restaurants: [],
+  }
+
+  static propTypes = {
+    restaurants: PropTypes.array,
   }
 
   state = {
