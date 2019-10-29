@@ -3,6 +3,8 @@ import {Card, Typography, Button, Row, Col} from 'antd'
 import amount from '../../decorators/amount'
 import styles from './dish.module.css'
 import PropTypes from 'prop-types'
+import {connect} from 'react-redux'
+import {addToCart} from '../../store/ac'
 
 function Dish(props) {
   const {
@@ -45,7 +47,7 @@ function Dish(props) {
               <Button
                 className={styles.button}
                 icon="plus"
-                onClick={increase}
+                onClick={() => increase(dish.id)}
                 data-automation-id="INCREASE"
               />
             </Button.Group>
@@ -65,5 +67,18 @@ Dish.propTypes = {
   }),
 }
 
-export default amount(Dish)
+const mapStateToProps = (store, ownProps) => {
+  return {
+    amount: store.cart[ownProps.dish.id] || 0,
+  }
+}
+
+const mapDispatchToProps = dispatch => ({
+  increase: id => dispatch(addToCart(id)),
+})
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Dish)
 export {Dish as DishComponent}
