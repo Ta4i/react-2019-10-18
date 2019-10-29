@@ -4,6 +4,7 @@ import Restaurant from './restaurant'
 import PropTypes from 'prop-types'
 import Header from './header'
 import Counter from './counter'
+import {connect} from 'react-redux'
 
 class App extends Component {
   static defaultProps = {
@@ -53,4 +54,8 @@ App.propTypes = {
   restaurants: PropTypes.arrayOf(Restaurant.propTypes.restaurant).isRequired,
 }
 
-export default App
+const mapStateToProps = store => ({
+  restaurants: store.restaurants,
+})
+
+export default connect(mapStateToProps)(App)
