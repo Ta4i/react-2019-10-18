@@ -57,13 +57,13 @@ function Dish(props) {
 
 Dish.propTypes = {
   dish: PropTypes.shape({
-    name: PropTypes.string,
-    ingredients: PropTypes.array,
-    price: PropTypes.number,
-  }),
-  amount: PropTypes.number,
-  increase: PropTypes.func,
-  decrease: PropTypes.func,
+    name: PropTypes.string.isRequired,
+    ingredients: PropTypes.array.isRequired,
+    price: PropTypes.number.isRequired,
+  }).isRequired,
+  amount: PropTypes.number.isRequired,
+  increase: PropTypes.func.isRequired,
+  decrease: PropTypes.func.isRequired,
 }
 
 export default amount(Dish)
