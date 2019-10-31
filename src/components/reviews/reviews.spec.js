@@ -1,12 +1,21 @@
 import React from 'react'
-import Enzyme, {mount} from 'enzyme'
-import Adapter from 'enzyme-adapter-react-16'
+import {mount} from 'enzyme'
 import Reviews from './reviews'
-
-Enzyme.configure({adapter: new Adapter()})
+import {restaurants} from '../../fixtures'
 
 describe('Reviews', function() {
   it('show call fetchReviews if it is provided', function(done) {
     mount(<Reviews reviews={[]} fetchReviews={() => done()} />)
+  })
+
+  it('should render all reviews from data', function() {
+    const [{reviews}] = restaurants
+    const wrapper = mount(<Reviews reviews={reviews} />)
+    expect(
+      wrapper.find(`div[data-automation-id="REVIEW_${reviews[0].id}"]`).length
+    ).toEqual(1)
+    expect(
+      wrapper.find(`div[data-automation-id="REVIEW_${reviews[1].id}"]`).length
+    ).toEqual(1)
   })
 })
