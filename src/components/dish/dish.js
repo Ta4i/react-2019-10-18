@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React from 'react'
 import {Card, Typography, Button, Row, Col} from 'antd'
 import amount from '../../decorators/amount'
 import styles from './dish.module.css'
