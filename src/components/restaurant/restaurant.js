@@ -4,6 +4,7 @@ import Menu from '../menu'
 import Reviews from '../reviews'
 import AverageRating from '../average-rating'
 import PropTypes from 'prop-types'
+import Order from '../order/order'
 
 class Restaurant extends Component {
   state = {
@@ -32,6 +33,7 @@ class Restaurant extends Component {
         <Typography.Title level={2}>{name}</Typography.Title>
         <AverageRating reviews={reviews} />
         <Menu menu={menu} />
+        <Order />
         <Reviews reviews={reviews} />
       </div>
     )
