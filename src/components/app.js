@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {Layout} from 'antd'
 import Restaurant from './restaurant'
+import Order from './order'
 import PropTypes from 'prop-types'
 import Header from './header'
 import Counter from './counter'
@@ -43,6 +44,7 @@ class App extends Component {
         <Layout.Content>
           <Restaurant restaurant={restaurants[0]} />
         </Layout.Content>
+        <Order />
       </Layout>
     )
   }
