@@ -22,17 +22,6 @@ class App extends Component {
   //     value: props.initialValue
   //   }
   // }
-  //
-  // componentDidMount() {
-  //   // fetch data
-  // }
-  // componentDidUpdate(prevProps) {
-  //   // subscribe on some events
-  // }
-  // componentWillUnmount() {
-  //   console.log('Did unmount')
-  //   // unsubscribe from some events
-  // }
 
   render() {
     const {restaurants} = this.props
