@@ -1,12 +1,13 @@
 import {combineReducers} from 'redux'
 import {countReducer} from './count'
 import {restaurantsReducer} from './restaurants'
-import {cartReducer} from './cart'
+import {orderReducer} from './cart'
 
 const reducer = combineReducers({
   count: countReducer,
   restaurants: restaurantsReducer,
-  cart: cartReducer,
+  cart: orderReducer,
+  order: orderReducer,
 })
 
 export {reducer}
