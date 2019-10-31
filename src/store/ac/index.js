@@ -19,3 +19,21 @@ export const removeFromCart = id => ({
     dishId: id,
   },
 })
+
+export const addToOrder = dish => ({
+  type: 'ADD_TO_ORDER',
+  payload: {
+    dishId: dish.id,
+    name: dish.name,
+    price: dish.price,
+  },
+})
+
+export const removeFromOrder = dish => ({
+  type: 'REMOVE_FROM_ORDER',
+  payload: {
+    dishId: dish.id,
+    name: dish.name,
+    price: dish.price,
+  },
+})

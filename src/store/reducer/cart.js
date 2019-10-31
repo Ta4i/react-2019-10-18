@@ -12,7 +12,7 @@ export const cartReducer = (cartState = {}, action) => {
     const currentAmount = cartState[dishId] || 0
     return {
       ...cartState,
-      [dishId]: currentAmount - 1 > 0 ? currentAmount - 1 : 0,
+      [dishId]: currentAmount - 1,
     }
   }
   return cartState
