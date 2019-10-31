@@ -1,0 +1,8 @@
+.cart-list {
+  width: 70%;
+  margin: 0 auto;
+}
+
+.cart-list__info {
+  margin-left: 10px;
+}
