@@ -26,5 +26,8 @@ CartBadge.propTypes = {
 }
 
 export default connect(store => ({
-  totalAmount: Object.values(store.cart).reduce((acc, item) => acc + item, 0),
+  totalAmount: Object.values(store.cart).reduce(
+    (acc, item) => acc + item.count,
+    0
+  ),
 }))(CartBadge)

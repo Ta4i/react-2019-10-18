@@ -41,13 +41,13 @@ function Dish(props) {
               <Button
                 className={styles.button}
                 icon="minus"
-                onClick={() => decrease(dish.id)}
+                onClick={() => decrease(dish.id, dish.name, dish.price)}
                 data-automation-id="DECREASE"
               />
               <Button
                 className={styles.button}
                 icon="plus"
-                onClick={() => increase(dish.id)}
+                onClick={() => increase(dish.id, dish.name, dish.price)}
                 data-automation-id="INCREASE"
               />
             </Button.Group>
@@ -68,14 +68,18 @@ Dish.propTypes = {
 }
 
 const mapStateToProps = (store, ownProps) => {
+  var amount = 0
+  if (store.cart[ownProps.dish.id] !== undefined) {
+    amount = store.cart[ownProps.dish.id].count
+  }
   return {
-    amount: store.cart[ownProps.dish.id] || 0,
+    amount: amount,
   }
 }
 
 const mapDispatchToProps = dispatch => ({
-  increase: id => dispatch(addToCart(id)),
-  decrease: id => dispatch(deleteFromCart(id)),
+  increase: (id, name, price) => dispatch(addToCart(id, name, price)),
+  decrease: (id, name, price) => dispatch(deleteFromCart(id, name, price)),
 })
 
 export default connect(
