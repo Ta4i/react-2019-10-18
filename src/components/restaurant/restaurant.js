@@ -34,7 +34,7 @@ class Restaurant extends Component {
         <AverageRating reviews={reviews} />
         <Menu menu={menu} />
         <Reviews reviews={reviews} />
-        <Order />
+        <Order menu={menu} />
       </div>
     )
   }
