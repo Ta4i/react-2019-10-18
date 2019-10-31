@@ -12,6 +12,7 @@ function CartBadge(props) {
         size="large"
         type="primary"
         className="cart-button"
+        onClick={props.onClick}
       />
     </Badge>
   )
@@ -19,6 +20,7 @@ function CartBadge(props) {
 
 CartBadge.defaultProps = {
   amount: 0,
+  onClick: () => {},
 }
 
 CartBadge.propTypes = {

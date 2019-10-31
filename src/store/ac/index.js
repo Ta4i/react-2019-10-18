@@ -19,3 +19,7 @@ export const removeFromCart = id => ({
     dishId: id,
   },
 })
+
+export const fetchDishes = () => ({
+  type: 'FETCH_DISHES',
+})
