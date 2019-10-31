@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {Typography} from 'antd'
 import PropTypes from 'prop-types'
+import {connect} from 'react-redux'
 import Menu from '../menu'
 import Reviews from '../reviews'
 import AverageRating from '../average-rating'
@@ -20,6 +21,7 @@ class Restaurant extends Component {
   render() {
     const {
       restaurant: {name, reviews, menu},
+      cartAmount,
     } = this.props
 
     if (this.state.error) {
@@ -34,7 +36,7 @@ class Restaurant extends Component {
         <AverageRating reviews={reviews} />
         <Menu menu={menu} />
         <Reviews reviews={reviews} />
-        <Order menu={menu} />
+        {cartAmount && <Order menu={menu} />}
       </div>
     )
   }
@@ -54,4 +56,10 @@ Restaurant.propTypes = {
   }),
 }
 
-export default Restaurant
+// export default Restaurant
+
+const mapStateToProps = state => ({
+  cartAmount: Object.values(state.cart).reduce((acc, val) => acc + val, 0),
+})
+
+export default connect(mapStateToProps)(Restaurant)

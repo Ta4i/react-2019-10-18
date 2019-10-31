@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {List} from 'antd'
+import {List, Typography} from 'antd'
 import _ from 'lodash'
 
 function Order({cardDishes}) {
@@ -8,15 +8,21 @@ function Order({cardDishes}) {
     (acc, val) => acc + val.amount * val.price,
     0
   )
+  const header = <Typography.Title level={4}>Order</Typography.Title>
+  const footer = (
+    <div>
+      <Typography.Text strong>Amount:</Typography.Text> ${orderSummary}
+    </div>
+  )
   return (
     <List
-      header={<div>Order</div>}
-      footer={<div>Amount: ${orderSummary}</div>}
+      header={header}
+      footer={footer}
       bordered
       dataSource={cardDishes}
       renderItem={({name, amount, price}) => (
         <List.Item>
-          {name}: {amount} ${price}
+          {amount} {name}: ${price}
         </List.Item>
       )}
     />

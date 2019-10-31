@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {Layout} from 'antd'
 import Restaurant from './restaurant'
-import PropTypes from 'prop-types'
+// import PropTypes from 'prop-types'
 import Header from './header'
 import Counter from './counter'
 import {connect} from 'react-redux'
@@ -50,9 +50,9 @@ class App extends Component {
 
 // App.defaultProps = {}
 
-App.propTypes = {
-  restaurants: PropTypes.arrayOf(Restaurant.propTypes.restaurant).isRequired,
-}
+// App.propTypes = {
+//   restaurants: PropTypes.arrayOf(Restaurant.propTypes.restaurant).isRequired,
+// }
 
 const mapStateToProps = store => ({
   restaurants: store.restaurants,
