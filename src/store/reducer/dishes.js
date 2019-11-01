@@ -1,10 +1,9 @@
 import {restaurants} from '../../fixtures'
 
-const restaurnatsMenuArrayToObjects = (arr, restaurantId) => {
-  return arr.reduce((obj, item) => {
-    obj[item.id] = item
-    obj[item.id].restaurantId = restaurantId
-    return obj
+const menuArrayToObjects = (arr, restaurantId) => {
+  return arr.reduce((object, dishData) => {
+    object[dishData.id] = {...dishData, restaurantId: restaurantId}
+    return object
   }, {})
 }
 
@@ -12,9 +11,9 @@ export const dishesReducer = (dishesState = {}, action) => {
   for (let i = 0; i < restaurants.length; i++) {
     dishesState = {
       ...dishesState,
-      ...restaurnatsMenuArrayToObjects(restaurants[i].menu, restaurants[i].id),
+      ...menuArrayToObjects(restaurants[i].menu, restaurants[i].id),
     }
   }
-  console.log(dishesState)
+
   return dishesState
 }

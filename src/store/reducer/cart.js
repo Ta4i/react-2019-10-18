@@ -13,9 +13,13 @@ export const cartReducer = (cartState = {}, action) => {
       const {dishId} = action.payload
       const currentAmount = cartState[dishId] || 0
 
+      if (!cartState.hasOwnProperty(dishId)) {
+        return cartState
+      }
+
       return {
         ...cartState,
-        [dishId]: currentAmount > 0 && currentAmount - 1,
+        [dishId]: currentAmount > 0 ? currentAmount - 1 : 0,
       }
     }
     default:

@@ -1,38 +1,50 @@
 import React from 'react'
-import {List} from 'antd'
 import styles from './order.css'
-
-const data = [
-  {
-    title: 'Dish01',
-  },
-  {
-    title: 'Dish02',
-  },
-]
+import Item from './item'
+import Total from './total'
+import {connect} from 'react-redux'
 
 function Order(props) {
+  const {dishesOrdered, dishesData} = props
+
+  let lines = Object.keys(dishesOrdered).reduce(function(result, id) {
+    if (dishesOrdered[id] > 0) {
+      result.push(
+        <Item
+          key={id}
+          name={dishesData[id].name}
+          quantity={dishesOrdered[id]}
+          price={dishesData[id].price}
+          total={dishesOrdered[id] * dishesData[id].price}
+        />
+      )
+    }
+    return result
+  }, [])
+
   return (
-    <List
-      className="cart-list"
-      itemLayout="horizontal"
-      header="Cart"
-      footer="Total: 10$"
-      bordered
-      size="small"
-      dataSource={data}
-      renderItem={item => (
-        <List.Item>
-          <List.Item.Meta
-            title={<a href="https://ant.design">{item.title}</a>}
-          />
-          <div className="cart-list__info cart-list__price">content</div>
-          <div className="cart-list__info cart-list__quantity">content</div>
-          <div className="cart-list__info cart-list__total">content</div>
-        </List.Item>
-      )}
-    />
+    <table>
+      <thead>
+        <tr>
+          <th>Dish</th>
+          <th>Price</th>
+          <th>Quantity</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody>{lines}</tbody>
+      <tfoot>
+        <Total dishesOrdered={dishesOrdered} dishesData={dishesData} />
+      </tfoot>
+    </table>
   )
 }
 
-export default Order
+const mapStateToProps = (store, ownProps) => {
+  return {
+    dishesOrdered: store.cart,
+    dishesData: store.dishes,
+  }
+}
+
+export default connect(mapStateToProps)(Order)
