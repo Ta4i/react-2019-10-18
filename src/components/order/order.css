@@ -1,0 +1,20 @@
+table {
+  border-collapse: collapse;
+  margin: 20px auto;
+  width: 50%;
+}
+th {
+  background: lightgray;
+}
+
+th,
+td {
+  border: 1px solid #ccc;
+  padding: 20px;
+  width: 20%;
+}
+
+th:first-child,
+td:first-child {
+  width: 40%;
+}
