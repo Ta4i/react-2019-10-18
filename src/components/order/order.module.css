@@ -1,5 +1,14 @@
 .wrapper {
   border: 3px solid black;
   width: 700px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.info {
+  border-top: 2px solid rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   padding: 10px;
 }

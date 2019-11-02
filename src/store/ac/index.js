@@ -6,16 +6,16 @@ export const decrement = () => ({
   type: 'DECREMENT',
 })
 
-export const addToCart = dish => ({
+export const addToCart = id => ({
   type: 'ADD_TO_CART',
   payload: {
-    dish,
+    dishId: id,
   },
 })
 
-export const revomeFromCart = dish => ({
+export const revomeFromCart = id => ({
   type: 'REMOVE_FROM_CART',
   payload: {
-    dish,
+    dishId: id,
   },
 })

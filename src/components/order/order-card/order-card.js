@@ -10,11 +10,10 @@ const OrderCard = props => {
           <Typography.Title level={4} data-automation-id="DISH_NAME">
             {dish.name}
           </Typography.Title>
-          <p>{dish.price} $</p>
         </Col>
-        <Col xs={8} md={6} lg={4} align="right">
-          <p>Amount: {dish.amount}</p>
-        </Col>
+        <p>
+          Price for {dish.amount} pcs: {dish.price * dish.amount} $
+        </p>
       </Row>
     </Card>
   )
