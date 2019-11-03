@@ -7,5 +7,23 @@ export const cartReducer = (cartState = {}, action) => {
       [dishId]: currentAmount + 1,
     }
   }
+
+  if (action.type === 'REMOVE_FROM_CART') {
+    const {dishId} = action.payload
+    const currentAmount = cartState[dishId] || 0
+    if (currentAmount === 0) {
+      return cartState
+    }
+    // if amount is 1 or less (somehow), remove this dish from the cart
+    if (cartState[dishId] < 2) {
+      const {[dishId]: temp, ...newState} = cartState
+      return newState
+    }
+    return {
+      ...cartState,
+      [dishId]: currentAmount - 1,
+    }
+  }
+
   return cartState
 }
