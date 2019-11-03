@@ -1,7 +1,16 @@
 import React, {Component} from 'react'
+import {Layout} from 'antd'
 import Restaurant from './restaurant'
+import PropTypes from 'prop-types'
+import Header from './header'
+import Counter from './counter'
+import {connect} from 'react-redux'
 
 class App extends Component {
+  static defaultProps = {
+    restaurants: [],
+  }
+
   state = {
     value: 0,
     otherValue: 'foo bar',
@@ -10,32 +19,43 @@ class App extends Component {
   // constructor(props) {
   //   super(props);
   //   this.state = {
-  //     value: 0
+  //     value: props.initialValue
   //   }
   // }
-
-  componentDidMount() {
-    console.log('Did mount')
-    this.setState(prevState => ({
-      value: prevState.value + 1,
-    }))
-    // fetch data
-  }
-  componentDidUpdate(prevProps) {
-    console.log('Did update', this.state.value, this.state.otherValue)
-    // subscribe on some events
-  }
-  componentWillUnmount() {
-    console.log('Did unmount')
-    // unsubscribe from some events
-  }
+  //
+  // componentDidMount() {
+  //   // fetch data
+  // }
+  // componentDidUpdate(prevProps) {
+  //   // subscribe on some events
+  // }
+  // componentWillUnmount() {
+  //   console.log('Did unmount')
+  //   // unsubscribe from some events
+  // }
 
   render() {
     const {restaurants} = this.props
-    return restaurants.map(restaurant => (
-      <Restaurant restaurant={restaurant} key={restaurant.id} />
-    ))
+    return (
+      <Layout>
+        <Header />
+        <Counter />
+        <Layout.Content>
+          <Restaurant restaurant={restaurants[0]} />
+        </Layout.Content>
+      </Layout>
+    )
   }
 }
 
-export default App
+// App.defaultProps = {}
+
+App.propTypes = {
+  restaurants: PropTypes.arrayOf(Restaurant.propTypes.restaurant).isRequired,
+}
+
+const mapStateToProps = store => ({
+  restaurants: store.restaurants,
+})
+
+export default connect(mapStateToProps)(App)
