@@ -7,14 +7,7 @@ import {connect} from 'react-redux'
 import {addToCart, removeCart} from '../../store/ac'
 
 function Dish(props) {
-  const {
-    dish,
-
-    // from decorator
-    amount,
-    increase,
-    decrease,
-  } = props
+  const {dish, amount, increase, decrease} = props
 
   return (
     <Card className={styles.productDetailedOrderCard}>
