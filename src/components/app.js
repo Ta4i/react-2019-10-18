@@ -3,8 +3,8 @@ import {Layout} from 'antd'
 import Restaurant from './restaurant'
 import PropTypes from 'prop-types'
 import Header from './header'
-import Counter from './counter'
 import {connect} from 'react-redux'
+import Order from './order'
 
 class App extends Component {
   static defaultProps = {
@@ -39,8 +39,8 @@ class App extends Component {
     return (
       <Layout>
         <Header />
-        <Counter />
         <Layout.Content>
+          <Order />
           <Restaurant restaurant={restaurants[0]} />
         </Layout.Content>
       </Layout>
