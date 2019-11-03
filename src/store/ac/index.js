@@ -12,3 +12,10 @@ export const addToCart = id => ({
     dishId: id,
   },
 })
+
+export const removeCart = id => ({
+  type: 'REMOVE_FROM_CART',
+  payload: {
+    dishId: id,
+  },
+})

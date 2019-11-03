@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {Typography} from 'antd'
 import Menu from '../menu'
 import Reviews from '../reviews'
+import Order from '../order'
 import AverageRating from '../average-rating'
 import PropTypes from 'prop-types'
 
@@ -33,6 +34,7 @@ class Restaurant extends Component {
         <AverageRating reviews={reviews} />
         <Menu menu={menu} />
         <Reviews reviews={reviews} />
+        <Order menu={menu} />
       </div>
     )
   }

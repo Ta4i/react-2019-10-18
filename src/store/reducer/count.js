@@ -3,7 +3,7 @@ export const countReducer = (countState = 12, action) => {
     return countState + 1
   }
   if (action.type === 'DECREMENT') {
-    return countState - 1
+    return countState > 0 ? countState - 1 : 0
   }
   return countState
 }
