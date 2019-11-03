@@ -1,5 +1,5 @@
 import React from 'react'
-import {List, Typography, Row, Col} from 'antd'
+import {Typography, Row, Col} from 'antd'
 import {DishComponent} from '../dish'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
@@ -26,20 +26,32 @@ function Order(props) {
           const cost = menu.find(dish => dish.id === key).price * count
           totalCost += cost
           return (
-            <div className={styles.dish}>
-              <Typography.Paragraph className={styles.dishName}>
+            <div className={styles.dish} key={key}>
+              <Typography.Paragraph
+                className={styles.dishName}
+                data-automation-id="DISH_NAME"
+              >
                 Наименование: {name}
               </Typography.Paragraph>
-              <Typography.Paragraph className={styles.dishInfo}>
+              <Typography.Paragraph
+                className={styles.dishInfo}
+                data-automation-id="DISH_COUNT"
+              >
                 Кол-во: {count}
               </Typography.Paragraph>
-              <Typography.Paragraph className={styles.dishInfo}>
+              <Typography.Paragraph
+                className={styles.dishInfo}
+                data-automation-id="DISH_COST"
+              >
                 Стоимость: {cost} $
               </Typography.Paragraph>
             </div>
           )
         })}
-        <Typography.Paragraph className={styles.totalCost}>
+        <Typography.Paragraph
+          className={styles.totalCost}
+          data-automation-id="DISH_TOTALCOST"
+        >
           Стоимость заказа: {totalCost} $
         </Typography.Paragraph>
       </Col>
@@ -58,5 +70,3 @@ const mapStateToProps = store => {
 }
 
 export default connect(mapStateToProps)(Order)
-
-export {Order as OrderComponent}
