@@ -9,8 +9,13 @@ export const cartReducer = (cartState = {}, action) => {
   } else if (action.type === 'REMOVE_FROM_CART') {
     const {dishId} = action.payload
     const currentAmount = cartState[dishId]
-    if (!currentAmount) {
+    if (currentAmount === undefined) {
       return cartState
+    } else if (currentAmount === 1) {
+      delete cartState[dishId]
+      return {
+        ...cartState,
+      }
     }
     return {
       ...cartState,
