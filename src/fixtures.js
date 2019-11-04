@@ -1,7 +1,7 @@
 const restaurants = [
   {
     id: 'a757a0e9-03c1-4a2a-b384-8ac21dbe2fb2',
-    name: 'Dishoom',
+    name: 'Dishroom',
     location: {
       lat: 51.51307933813641,
       lng: -0.13968944549560547,
