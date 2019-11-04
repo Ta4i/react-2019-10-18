@@ -1,34 +1,33 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {Card, Descriptions} from 'antd'
+import {Card, Descriptions, Typography} from 'antd'
+const {Text} = Typography
 
 function Order(props) {
-  const {menu, order} = props
-  // console.log(menu)
-  const showOrder = !!Object.entries(order).length
-  const orderedMenuItems = menu.filter(menuItem => {
-    return order[menuItem.id]
-  })
+  const {menu, cart} = props
+
+  const showOrder = !!Object.entries(cart).length
+  let order = createOrderObj(cart, menu)
 
   return (
     showOrder && (
       <Card>
         <Descriptions title="Order" column={1} bordered>
-          {Object.keys(order).map(orderId => (
+          {order.map(item => (
             <Descriptions.Item
-              key={orderId}
               label={
-                getMenuItemInfo(menu, orderId).name +
-                ', ' +
-                order[orderId] +
-                ' pc.'
+                item.name + ' - ' + item.price + '$, ' + item.amount + ' pc.'
               }
+              key={item.id}
             >
-              {getMenuItemInfo(menu, orderId).price * order[orderId]} $
+              {item.amount * item.price} $
             </Descriptions.Item>
           ))}
-          <Descriptions.Item label="Total">
-            {getOrderSum(order)} pc.{' '}
+
+          <Descriptions.Item label={'Total - ' + getOrderTotal(order) + ' pc.'}>
+            <Text strong underline>
+              {getOrderSum(order)} $
+            </Text>
           </Descriptions.Item>
         </Descriptions>
       </Card>
@@ -36,22 +35,28 @@ function Order(props) {
   )
 }
 
-function getOrderSum(order) {
-  // return order.reduce((sum, item) => sum = sum + item)
-  let sum = 0
-  for (let key in order) {
-    sum += order[key]
+function createOrderObj(cart, menu) {
+  let order = []
+
+  for (let id in cart) {
+    let menuItem = menu.find(menuEntry => menuEntry.id === id)
+    order.push({...menuItem, amount: cart[id]})
   }
-  return sum
+
+  return order
 }
 
-function getMenuItemInfo(menu, id) {
-  return menu.find(menuItem => menuItem.id === id)
+function getOrderTotal(order) {
+  return order.reduce((sum, item) => (sum += item.amount), 0)
+}
+
+function getOrderSum(order) {
+  return order.reduce((sum, item) => (sum += item.amount * item.price), 0)
 }
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    order: state.cart,
+    cart: state.cart,
   }
 }
 
