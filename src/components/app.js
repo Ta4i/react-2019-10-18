@@ -1,5 +1,10 @@
 import React, {Component} from 'react'
+import {Layout} from 'antd'
 import Restaurant from './restaurant'
+import PropTypes from 'prop-types'
+import Header from './header'
+import Counter from './counter'
+import {connect} from 'react-redux'
 
 class App extends Component {
   static defaultProps = {
@@ -14,7 +19,7 @@ class App extends Component {
   // constructor(props) {
   //   super(props);
   //   this.state = {
-  //     value: 0
+  //     value: props.initialValue
   //   }
   // }
   //
@@ -31,10 +36,26 @@ class App extends Component {
 
   render() {
     const {restaurants} = this.props
-    return <Restaurant restaurant={restaurants[0]} />
+    return (
+      <Layout>
+        <Header />
+        <Counter />
+        <Layout.Content>
+          <Restaurant restaurant={restaurants[0]} />
+        </Layout.Content>
+      </Layout>
+    )
   }
 }
 
 // App.defaultProps = {}
 
-export default App
+App.propTypes = {
+  restaurants: PropTypes.arrayOf(Restaurant.propTypes.restaurant).isRequired,
+}
+
+const mapStateToProps = store => ({
+  restaurants: store.restaurants,
+})
+
+export default connect(mapStateToProps)(App)
