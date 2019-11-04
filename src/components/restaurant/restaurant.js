@@ -3,6 +3,7 @@ import {Typography} from 'antd'
 import Menu from '../menu'
 import Reviews from '../reviews'
 import AverageRating from '../average-rating'
+import Order from '../order'
 import PropTypes from 'prop-types'
 
 class Restaurant extends Component {
@@ -31,6 +32,7 @@ class Restaurant extends Component {
       <div>
         <Typography.Title level={2}>{name}</Typography.Title>
         <AverageRating reviews={reviews} />
+        <Order />
         <Menu menu={menu} />
         <Reviews reviews={reviews} />
       </div>
