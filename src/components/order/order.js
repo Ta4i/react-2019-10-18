@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import * as styles from './order.module.css'
-import {Row, Col, Typography} from 'antd'
+import {Row, Col, Typography, List} from 'antd'
 
 class Order extends React.Component {
   render() {
@@ -12,24 +12,20 @@ class Order extends React.Component {
       <Row type="flex" justify="center">
         <Col xs={24} md={12} className={styles.orderContainer}>
           {!this.isCartEmpty() && (
-            <Typography.Title level={2}>Your order</Typography.Title>
-          )}
-
-          <div>
-            {order.map(item => (
-              <div key={item.id} className={styles.orderRow}>
-                <span>{item.product}</span>
-                <span>
-                  ${item.price} &times; {item.amount}
-                </span>
-              </div>
-            ))}
-          </div>
-
-          {!this.isCartEmpty() && (
-            <Typography.Paragraph strong style={{textAlign: 'right'}}>
-              Total: ${total}
-            </Typography.Paragraph>
+            <List
+              header={this.renderHeader()}
+              footer={this.renderFooter(total)}
+              bordered
+              dataSource={order}
+              renderItem={item => (
+                <List.Item style={{justifyContent: 'space-between'}}>
+                  <Typography.Text>{item.product}</Typography.Text>
+                  <Typography.Text>
+                    ${item.price} &times; {item.amount}
+                  </Typography.Text>
+                </List.Item>
+              )}
+            />
           )}
         </Col>
       </Row>
@@ -55,6 +51,18 @@ class Order extends React.Component {
 
   isCartEmpty() {
     return Object.keys(this.props.cart).length === 0
+  }
+
+  renderHeader() {
+    return <Typography.Paragraph strong>Your order</Typography.Paragraph>
+  }
+
+  renderFooter(total) {
+    return (
+      <Typography.Paragraph strong style={{textAlign: 'right'}}>
+        Total: ${total}
+      </Typography.Paragraph>
+    )
   }
 }
 
