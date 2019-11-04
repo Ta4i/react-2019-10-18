@@ -4,7 +4,7 @@ import Menu from '../menu'
 import Reviews from '../reviews'
 import AverageRating from '../average-rating'
 import PropTypes from 'prop-types'
-import Order from '../Order'
+import Order from '../order'
 
 class Restaurant extends Component {
   state = {
