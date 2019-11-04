@@ -33,8 +33,15 @@ class Order extends React.Component {
   }
 
   constructOrder() {
+    const dishes = []
+
+    // create array of dishes from all available restaurants
+    this.props.restaurants.forEach(item => {
+      dishes.push(...item.menu)
+    })
+
     return Object.keys(this.props.cart).map(id => {
-      const dish = this.props.menu.find(dish => dish.id === id)
+      const dish = dishes.find(dish => dish.id === id)
 
       return {
         id: dish.id,
@@ -75,7 +82,7 @@ class Order extends React.Component {
 
 const mapStateToProps = store => ({
   cart: store.cart,
-  menu: store.restaurants[0].menu,
+  restaurants: store.restaurants,
 })
 
 export default connect(mapStateToProps)(Order)
