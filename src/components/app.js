@@ -5,6 +5,7 @@ import PropTypes from 'prop-types'
 import Header from './header'
 import Counter from './counter'
 import {connect} from 'react-redux'
+import Order from './order/order'
 
 class App extends Component {
   static defaultProps = {
@@ -39,6 +40,7 @@ class App extends Component {
     return (
       <Layout>
         <Header />
+        <Order />
         <Counter />
         <Layout.Content>
           <Restaurant restaurant={restaurants[0]} />
