@@ -2,12 +2,3 @@
   padding-top: 15px;
   padding-bottom: 15px;
 }
-
-.orderContainer .ant-typography {
-  margin-bottom: 10px;
-}
-
-.orderRow {
-  display: flex;
-  justify-content: space-between;
-}

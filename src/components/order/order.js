@@ -54,12 +54,19 @@ class Order extends React.Component {
   }
 
   renderHeader() {
-    return <Typography.Paragraph strong>Your order</Typography.Paragraph>
+    return (
+      <Typography.Paragraph strong style={{marginBottom: 0}}>
+        Your order
+      </Typography.Paragraph>
+    )
   }
 
   renderFooter(total) {
     return (
-      <Typography.Paragraph strong style={{textAlign: 'right'}}>
+      <Typography.Paragraph
+        strong
+        style={{textAlign: 'right', marginBottom: 0}}
+      >
         Total: ${total}
       </Typography.Paragraph>
     )
