@@ -1,8 +1,11 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import {Card, Typography, Button, Row, Col} from 'antd'
 import amount from '../../decorators/amount'
 import styles from './dish.module.css'
 import PropTypes from 'prop-types'
+
+import {connect} from 'react-redux'
+import {addToCart} from '../../store/ac'
 
 function Dish(props) {
   const {
@@ -45,7 +48,7 @@ function Dish(props) {
               <Button
                 className={styles.button}
                 icon="plus"
-                onClick={increase}
+                onClick={() => increase(dish.id, dish.name, dish.price)}
                 data-automation-id="INCREASE"
               />
             </Button.Group>
@@ -57,10 +60,32 @@ function Dish(props) {
 }
 
 Dish.propTypes = {
-  dish: PropTypes.object.isRequired,
-  amount: PropTypes.number.isRequired,
-  increase: PropTypes.func.isRequired,
-  decrease: PropTypes.func.isRequired,
+  dish: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+    ingredients: PropTypes.arrayOf(PropTypes.string).isRequired,
+  }),
 }
 
-export default amount(Dish)
+const mapStateToProps = (store, ownProps) => {
+  let amount
+  if (store.cart && store.cart[ownProps.dish.id]) {
+    amount = store.cart[ownProps.dish.id].amount
+  } else {
+    amount = 0
+  }
+  return {
+    amount: amount,
+  }
+}
+
+const mapDispatchToProps = dispatch => ({
+  increase: (id, name, price) => dispatch(addToCart(id, name, price)),
+})
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Dish)
+export {Dish as DishComponent}
