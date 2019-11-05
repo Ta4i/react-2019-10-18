@@ -4,6 +4,7 @@ import styles from './dish.module.css'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {addToCart, removeFromCart} from '../../store/ac'
+import {selectDish, selectDishAmount} from '../../store/selectors'
 
 function Dish(props) {
   const {
@@ -68,7 +69,8 @@ Dish.propTypes = {
 
 const mapStateToProps = (store, ownProps) => {
   return {
-    amount: store.cart[ownProps.dish.id] || 0,
+    amount: selectDishAmount(store, ownProps),
+    dish: selectDish(store, ownProps),
   }
 }
 

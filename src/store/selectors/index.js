@@ -2,16 +2,20 @@ import {createSelector} from 'reselect'
 
 export const selectCart = store => store.cart
 
+export const selectDishes = store => store.dishes
+
 export const selectRestaurants = store => store.restaurants
 
 export const selectOrderedDishes = createSelector(
   selectCart,
   selectRestaurants,
-  (cart, restaurants) => {
+  selectDishes,
+  (cart, restaurants, dishes) => {
     return restaurants.reduce(
       (result, restaurant) => {
-        restaurant.menu.forEach(dish => {
-          const amount = cart[dish.id]
+        restaurant.menu.forEach(dishId => {
+          const dish = dishes.find(dish => dish.id === dishId)
+          const amount = cart[dishId]
           if (amount) {
             const totalDishPrice = amount * dish.price
             result.totalPrice += totalDishPrice
@@ -31,3 +35,10 @@ export const selectOrderedDishes = createSelector(
     )
   }
 )
+
+export const selectDishAmount = (store, ownProps) => {
+  return store.cart[ownProps.dishId] || 0
+}
+export const selectDish = (store, ownProps) => {
+  return store.dishes.find(dish => dish.id === ownProps.dishId)
+}

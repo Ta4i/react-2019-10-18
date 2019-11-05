@@ -6,15 +6,15 @@ function Menu(props) {
   const {menu} = props
   return (
     <div>
-      {menu.map(dishInfo => (
-        <Dish dish={dishInfo} key={dishInfo.id} />
+      {menu.map(dishId => (
+        <Dish dishId={dishId} key={dishId} />
       ))}
     </div>
   )
 }
 
 Menu.propTypes = {
-  menu: PropTypes.arrayOf(DishComponent.propTypes.dish).isRequired,
+  menu: PropTypes.arrayOf(PropTypes.string).isRequired,
 }
 
 export default Menu

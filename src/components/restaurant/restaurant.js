@@ -31,7 +31,7 @@ class Restaurant extends Component {
     return (
       <div>
         <Typography.Title level={2}>{name}</Typography.Title>
-        <AverageRating reviews={reviews} />
+        {/*<AverageRating reviews={reviews} />*/}
         <div className={styles.col}>
           <Menu menu={menu} />
         </div>
