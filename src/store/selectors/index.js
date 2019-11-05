@@ -14,7 +14,7 @@ export const selectOrderedDishes = createSelector(
     return restaurants.reduce(
       (result, restaurant) => {
         restaurant.menu.forEach(dishId => {
-          const dish = dishes.find(dish => dish.id === dishId)
+          const dish = dishes[dishId]
           const amount = cart[dishId]
           if (amount) {
             const totalDishPrice = amount * dish.price
@@ -40,5 +40,5 @@ export const selectDishAmount = (store, ownProps) => {
   return store.cart[ownProps.dishId] || 0
 }
 export const selectDish = (store, ownProps) => {
-  return store.dishes.find(dish => dish.id === ownProps.dishId)
+  return store.dishes[ownProps.dishId]
 }
