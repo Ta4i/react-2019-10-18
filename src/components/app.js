@@ -5,6 +5,7 @@ import PropTypes from 'prop-types'
 import Header from './header'
 import {connect} from 'react-redux'
 import Cart from './cart'
+import Counter from './counter'
 
 class App extends Component {
   static defaultProps = {
@@ -39,6 +40,7 @@ class App extends Component {
     return (
       <Layout>
         <Header />
+        <Counter />
         <Layout.Content>
           <Row>
             <Col span={18}>
