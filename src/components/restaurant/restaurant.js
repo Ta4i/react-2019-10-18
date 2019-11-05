@@ -4,6 +4,7 @@ import Menu from '../menu'
 import Reviews from '../reviews'
 import AverageRating from '../average-rating'
 import PropTypes from 'prop-types'
+import styles from './restaurant.module.css'
 
 class Restaurant extends Component {
   state = {
@@ -31,8 +32,10 @@ class Restaurant extends Component {
       <div>
         <Typography.Title level={2}>{name}</Typography.Title>
         <AverageRating reviews={reviews} />
-        <Menu menu={menu} />
-        <Reviews reviews={reviews} />
+        <div className={styles.col}>
+          <Menu menu={menu} />
+        </div>
+        {/*<Reviews reviews={reviews} />*/}
       </div>
     )
   }
