@@ -8,8 +8,11 @@ import CartRow from './cart-row'
 import CartItem from './cart-item'
 import {connect} from 'react-redux'
 import './cart.css'
+import {selectOrderedDishes} from '../../store/selectors'
 
-function Cart({className, totalPrice, dishes}) {
+function Cart({className, orderedDishes}) {
+  console.log('Render cart', JSON.stringify(orderedDishes))
+  const {dishes, totalPrice} = orderedDishes
   if (dishes.length === 0) {
     return null
   }
@@ -43,28 +46,8 @@ function Cart({className, totalPrice, dishes}) {
   )
 }
 
-export default connect(state => {
-  const {cart, restaurants} = state
+const mapStateToProps = state => ({
+  orderedDishes: selectOrderedDishes(state),
+})
 
-  return restaurants.reduce(
-    (result, restaurant) => {
-      restaurant.menu.forEach(dish => {
-        const amount = cart[dish.id]
-        if (amount) {
-          const totalDishPrice = amount * dish.price
-          result.totalPrice += totalDishPrice
-          result.dishes.push({
-            dish,
-            amount,
-            totalDishPrice,
-          })
-        }
-      })
-      return result
-    },
-    {
-      dishes: [],
-      totalPrice: 0,
-    }
-  )
-})(Cart)
+export default connect(mapStateToProps)(Cart)

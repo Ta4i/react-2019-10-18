@@ -20,7 +20,7 @@ export const cartReducer = (cartState = {}, action) => {
       const newCartState = {
         ...cartState,
       }
-      if (cartState[dishId] <= 1) {
+      if (currentAmount <= 1) {
         delete newCartState[dishId]
       } else {
         newCartState[dishId] -= 1
