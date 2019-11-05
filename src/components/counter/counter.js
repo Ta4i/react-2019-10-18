@@ -5,7 +5,6 @@ import {decrement, increment} from '../../store/ac'
 
 class Counter extends Component {
   render() {
-    console.log('Counter render')
     return (
       <div>
         <span>{this.props.countFromStore}</span>

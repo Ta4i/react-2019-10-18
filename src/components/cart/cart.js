@@ -11,7 +11,6 @@ import './cart.css'
 import {selectOrderedDishes} from '../../store/selectors'
 
 function Cart({className, orderedDishes}) {
-  console.log('Render cart', JSON.stringify(orderedDishes))
   const {dishes, totalPrice} = orderedDishes
   if (dishes.length === 0) {
     return null
