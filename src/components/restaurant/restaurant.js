@@ -5,7 +5,10 @@ import Reviews from '../reviews'
 import Order from '../order'
 import AverageRating from '../average-rating'
 import PropTypes from 'prop-types'
+
 import {connect} from 'react-redux'
+
+import styles from './restaurant.module.css'
 
 class Restaurant extends Component {
   state = {
@@ -33,8 +36,11 @@ class Restaurant extends Component {
       <div>
         <Typography.Title level={2}>{name}</Typography.Title>
         <AverageRating reviews={reviews} />
-        <Order />
-        <Menu menu={menu} />
+
+        <div className={styles.col}>
+          <Menu menu={menu} />
+        </div>
+
         <Reviews reviews={reviews} />
       </div>
     )
