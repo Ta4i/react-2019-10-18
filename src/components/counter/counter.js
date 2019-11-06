@@ -23,9 +23,11 @@ class Counter extends Component {
   }
 }
 
-const mapStateToProps = (state, ownProps) => ({
-  countFromStore: state.count,
-})
+const mapStateToProps = (state, ownProps) => {
+  return {
+    countFromStore: state.count,
+  }
+}
 
 const mapDispatchToProps = {
   increment: increment,
