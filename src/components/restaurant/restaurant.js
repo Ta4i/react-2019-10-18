@@ -2,8 +2,10 @@ import React, {Component} from 'react'
 import {Typography} from 'antd'
 import Menu from '../menu'
 import Reviews from '../reviews'
+import Order from '../order'
 import AverageRating from '../average-rating'
 import PropTypes from 'prop-types'
+import {connect} from 'react-redux'
 
 class Restaurant extends Component {
   state = {
@@ -31,6 +33,7 @@ class Restaurant extends Component {
       <div>
         <Typography.Title level={2}>{name}</Typography.Title>
         <AverageRating reviews={reviews} />
+        <Order />
         <Menu menu={menu} />
         <Reviews reviews={reviews} />
       </div>
@@ -52,4 +55,12 @@ Restaurant.propTypes = {
   }),
 }
 
-export default Restaurant
+const mapStateToProps = (store, ownProps) => {
+  return {
+    carts: store.cart,
+  }
+}
+
+export default connect(mapStateToProps)(Restaurant)
+
+//export default Restaurant
