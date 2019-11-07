@@ -1,0 +1,13 @@
+.item {
+  margin-bottom: 10px;
+  line-height: 1;
+}
+.itemRight {
+  text-align: right;
+}
+.orderCard {
+}
+.totalPrice {
+  font-size: 1.2em;
+  font-weight: bold;
+}

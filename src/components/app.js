@@ -1,10 +1,10 @@
 import React, {Component} from 'react'
-import {Layout} from 'antd'
+import {Layout, Row, Col} from 'antd'
 import Restaurant from './restaurant'
 import PropTypes from 'prop-types'
 import Header from './header'
-import Counter from './counter'
 import {connect} from 'react-redux'
+import Order from './order'
 
 class App extends Component {
   static defaultProps = {
@@ -39,9 +39,15 @@ class App extends Component {
     return (
       <Layout>
         <Header />
-        <Counter />
-        <Layout.Content>
-          <Restaurant restaurant={restaurants[0]} />
+        <Layout.Content style={{padding: 20}}>
+          <Row gutter={16}>
+            <Col span={18}>
+              <Restaurant restaurant={restaurants[0]} />
+            </Col>
+            <Col span={6}>
+              <Order />
+            </Col>
+          </Row>
         </Layout.Content>
       </Layout>
     )
