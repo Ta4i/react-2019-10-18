@@ -31,7 +31,7 @@ class Restaurant extends Component {
     return (
       <div>
         <Typography.Title level={2}>{name}</Typography.Title>
-        <AverageRating reviews={reviews} />
+        <AverageRating reviewsId={reviews} />
         <div className={styles.col}>
           <Menu menu={menu} />
         </div>
@@ -54,5 +54,4 @@ Restaurant.propTypes = {
     reviews: Reviews.propTypes.reviews,
   }),
 }
-
 export default Restaurant

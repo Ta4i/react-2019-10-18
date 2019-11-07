@@ -14,7 +14,8 @@ function Reviews({reviews, fetchReviews} /*props*/) {
       <Col xs={24} md={16}>
         {reviews.map(review => (
           <Review
-            review={review}
+            reviewId={review}
+            userId={review.userId}
             key={review.id}
             data-automation-id={`REVIEW_${review.id}`}
           />
@@ -33,5 +34,4 @@ Reviews.propTypes = {
   reviews: PropTypes.arrayOf(PropTypes.string).isRequired,
   fetchReviews: PropTypes.func,
 }
-
 export default Reviews
