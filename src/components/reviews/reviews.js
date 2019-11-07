@@ -3,11 +3,15 @@ import ReviewForm from '../review-form'
 import Review from './review'
 import {Col, Row} from 'antd'
 import PropTypes from 'prop-types'
+import {connect} from 'react-redux'
+import {selectReviews} from '../../store/selectors'
 
-function Reviews({reviews, fetchReviews} /*props*/) {
+function Reviews(props) {
+  const {fetchReviews, reviews} = props
   const foo = () => {
     fetchReviews && fetchReviews()
   }
+  console.log(reviews)
   useEffect(foo, [])
   return (
     <Row type="flex" justify="center" gutter={{xs: 8, sm: 16, md: 24}}>
@@ -30,8 +34,12 @@ Reviews.defaultProps = {
 }
 
 Reviews.propTypes = {
-  reviews: PropTypes.arrayOf(PropTypes.string).isRequired,
+  reviews: PropTypes.arrayOf(PropTypes.object).isRequired,
   fetchReviews: PropTypes.func,
 }
 
-export default Reviews
+const mapStateToProps = (store, ownProps) => {
+  return {reviews: selectReviews(store, ownProps)}
+}
+
+export default connect(mapStateToProps)(Reviews)

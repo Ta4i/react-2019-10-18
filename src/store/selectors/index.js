@@ -39,6 +39,36 @@ export const selectOrderedDishes = createSelector(
 export const selectDishAmount = (store, ownProps) => {
   return store.cart[ownProps.dishId] || 0
 }
+
 export const selectDish = (store, ownProps) => {
   return store.dishes[ownProps.dishId]
 }
+
+export const selectUsers = store => store.users
+
+export const selectReviews = (store, {reviewsIdArr}) => {
+  let arr = []
+  for (let i = 0; i < reviewsIdArr.length; i++) {
+    for (let foo = 0; foo < store.reviews.length; foo++) {
+      if (reviewsIdArr[i] == store.reviews[foo].id) {
+        arr.push({
+          ...store.reviews[foo],
+          user: store.users[store.reviews[foo].userId].name,
+        })
+      }
+    }
+  }
+  return arr
+}
+
+export const selectAverageRating = createSelector(
+  selectReviews,
+  arr => {
+    const rawRating =
+      arr.reduce((acc, {rating}) => {
+        return acc + rating
+      }, 0) / arr.length
+    const normalizedRating = Math.floor(rawRating * 2) / 2
+    return normalizedRating
+  }
+)

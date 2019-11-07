@@ -3,6 +3,7 @@ import {Card, Typography, Button, Row, Col} from 'antd'
 import styles from './dish.module.css'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
+
 import {addToCart, removeFromCart} from '../../store/ac'
 import {selectDish, selectDishAmount} from '../../store/selectors'
 
@@ -47,7 +48,7 @@ function Dish(props) {
               <Button
                 className={styles.button}
                 icon="plus"
-                onClick={() => increase(dish.id)}
+                onClick={() => increase(dish.id, dish.name, dish.price)}
                 data-automation-id="INCREASE"
               />
             </Button.Group>
