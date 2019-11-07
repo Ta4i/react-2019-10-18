@@ -30,7 +30,7 @@ Reviews.defaultProps = {
 }
 
 Reviews.propTypes = {
-  reviews: PropTypes.arrayOf(Review.propTypes.review).isRequired,
+  reviews: PropTypes.arrayOf(PropTypes.string).isRequired,
   fetchReviews: PropTypes.func,
 }
 
