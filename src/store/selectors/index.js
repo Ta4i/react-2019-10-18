@@ -50,17 +50,3 @@ export const selectReview = (store, ownProps) => {
 export const selectUser = (store, ownProps) => {
   return store.users[ownProps.userId]
 }
-
-export const selectAverageRating = createSelector(
-  selectReviews,
-  selectRestaurants,
-  (reviews, restaurants) => {
-    console.log(restaurants)
-    const rawRating =
-      reviews.reduce((acc, {rating}) => {
-        return acc + rating
-      }, 0) / reviews.length
-    const normalizedRating = Math.floor(rawRating * 2) / 2
-    return normalizedRating
-  }
-)
