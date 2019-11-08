@@ -3,8 +3,10 @@ import ReviewForm from '../review-form'
 import Review from './review'
 import {Col, Row} from 'antd'
 import PropTypes from 'prop-types'
+import {connect} from 'react-redux'
+import {selectReviews} from '../../store/selectors'
 
-function Reviews({reviews, fetchReviews} /*props*/) {
+function Reviews({reviews, fetchReviews, onReviewSubmit} /*props*/) {
   const foo = () => {
     fetchReviews && fetchReviews()
   }
@@ -19,7 +21,7 @@ function Reviews({reviews, fetchReviews} /*props*/) {
             data-automation-id={`REVIEW_${review.id}`}
           />
         ))}
-        <ReviewForm />
+        <ReviewForm onReviewSubmit={onReviewSubmit} />
       </Col>
     </Row>
   )
@@ -30,8 +32,13 @@ Reviews.defaultProps = {
 }
 
 Reviews.propTypes = {
-  reviews: PropTypes.arrayOf(PropTypes.string).isRequired,
-  fetchReviews: PropTypes.func,
+  reviews: PropTypes.arrayOf(PropTypes.object).isRequired,
 }
 
-export default Reviews
+const mapStateToProps = (store, ownProps) => {
+  return {
+    reviews: selectReviews(store, ownProps),
+  }
+}
+
+export default connect(mapStateToProps)(Reviews)

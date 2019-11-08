@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 
 function Menu(props) {
   const {menu} = props
+
   return (
     <div>
       {menu.map(dishId => (
