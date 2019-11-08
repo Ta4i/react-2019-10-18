@@ -9,10 +9,11 @@ function Menu(props) {
   const {menu} = props
   const dispatch = useDispatch()
   const dishes = useSelector(store => selectDishesMap(store))
-  // const
+
   useEffect(() => {
     dispatch(fetchDishes())
   }, [dispatch])
+
   if (dishes.loading || !dishes.loaded) {
     return <h2>Loading...</h2>
   }
