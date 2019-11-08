@@ -7,5 +7,5 @@ export default (initialValue = '', validate = nonEmpty) => {
 
   const handleChange = ev => setState(ev.target.value)
 
-  return [state, handleChange, validate(state)]
+  return [state, handleChange, validate(state), () => setState('')]
 }

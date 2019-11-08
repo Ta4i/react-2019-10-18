@@ -1,5 +1,5 @@
 import React from 'react'
-import Dish, {DishComponent} from '../dish'
+import Dish from '../dish'
 import PropTypes from 'prop-types'
 
 function Menu(props) {
