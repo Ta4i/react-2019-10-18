@@ -73,15 +73,3 @@ export const selectReview = (store, ownProps) => {
 export const selectUser = (store, ownProps) => {
   return store.users[selectReview(store, ownProps).userId]
 }
-
-export const selectReviewFormUserName = (store, ownProps) => {
-  return store.reviewForms[ownProps.restaurantId].userName
-}
-
-export const selectReviewFormText = (store, ownProps) => {
-  return store.reviewForms[ownProps.restaurantId].text
-}
-
-export const selectReviewFormRate = (store, ownProps) => {
-  return store.reviewForms[ownProps.restaurantId].rate
-}

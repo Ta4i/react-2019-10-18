@@ -1,26 +1,27 @@
 import {Button, Card, Col, Form, Input, Row, Typography, Rate} from 'antd'
 import React, {useState} from 'react'
 import useInput from '../../hooks/use-input'
+import useRate from '../../hooks/use-rate'
 import styles from './review-form.module.css'
-import {
-  addReviewItem,
-  addToCart,
-  removeFromCart,
-  setReviewFormData,
-} from '../../store/ac'
+import {addReviewItem, setReviewFormData} from '../../store/ac'
 import {connect} from 'react-redux'
-import {
-  selectReviewFormRate,
-  selectReviewFormText,
-  selectReviewFormUserName,
-} from '../../store/selectors'
 
 function ReviewForm(props) {
-  const [rate, setRate] = useState()
-  const [text, setText, isValidText] = useInput()
-  const [userName, setUserNameText, isValidUserNameText] = useInput()
-  //const {userName, text, rate, setFormData, createReview, restaurantId} = props
+  const [rate, setRate, clearRateField] = useRate()
+  const [text, setText, isValidText, clearTextField] = useInput()
+  const [
+    userName,
+    setUserNameText,
+    isValidUserNameText,
+    clearUserNameField,
+  ] = useInput()
   const {createReview, restaurantId} = props
+
+  const clearFields = () => {
+    clearUserNameField()
+    clearTextField()
+    clearRateField()
+  }
 
   const handleSubmit = ev => {
     ev.preventDefault()
@@ -36,14 +37,12 @@ function ReviewForm(props) {
           <Input
             value={userName}
             addonBefore="Name: "
-            //onChange={(ev) => setFormData(userName, ev.target.value, rate, restaurantId)}
             onChange={setUserNameText}
           />
           <Form onSubmit={handleSubmit}>
             <Input.TextArea
               rows={3}
               value={text}
-              //onChange={(ev) => setFormData(userName, ev.target.value, rate, restaurantId)}
               onChange={setText}
               size="large"
               className={{
@@ -51,17 +50,14 @@ function ReviewForm(props) {
               }}
             />
             <div>
-              Rating:{' '}
-              <Rate
-                value={rate}
-                //onChange={(ev) => setFormData(userName, text, ev.target.value, restaurantId)}
-                onChange={setRate}
-              />
+              Rating: <Rate value={rate} onChange={setRate} />
             </div>
             <Button
               htmlType="submit"
               className={styles.submitButton}
-              onClick={() => createReview(userName, text, rate, restaurantId)}
+              onClick={() =>
+                createReview(userName, text, rate, restaurantId, clearFields)
+              }
             >
               PUBLISH REVIEW
             </Button>
@@ -73,19 +69,13 @@ function ReviewForm(props) {
 }
 
 const mapStateToProps = (store, ownProps) => {
-  return {
-    // userName: selectReviewFormUserName(store, ownProps),
-    // text: selectReviewFormText(store, ownProps),
-    // rate: selectReviewFormRate(store, ownProps)
-  }
+  return {}
 }
 
 const mapDispatchToProps = dispatch => ({
-  createReview: (userName, text, rate, restaurantId) => {
-    dispatch(addReviewItem(userName, text, rate, restaurantId))
-  },
-  setFormData: (userName, text, rate, restaurantId) => {
-    dispatch(setReviewFormData(userName, text, rate, restaurantId))
+  createReview: (userName, text, rate, restaurantId, clearFields) => {
+    dispatch(addReviewItem(userName, text, rate, restaurantId, clearFields))
+    clearFields()
   },
 })
 

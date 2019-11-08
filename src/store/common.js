@@ -7,5 +7,3 @@ export const INCREMENT = 'INCREMENT'
 export const DECREMENT = 'DECREMENT'
 
 export const ADD_REVIEW_ITEM = 'ADD_REVIEW_ITEM'
-
-export const SET_REVIEWFORM_DATA = 'SET_REVIEWFORM_DATA'

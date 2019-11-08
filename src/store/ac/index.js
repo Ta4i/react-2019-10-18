@@ -38,13 +38,3 @@ export const addReviewItem = (userName, text, rate, restaurantId) => ({
     restaurantId,
   },
 })
-
-export const setReviewFormData = (userName, text, rate, restaurantId) => ({
-  type: SET_REVIEWFORM_DATA,
-  payload: {
-    userName,
-    text,
-    rate,
-    restaurantId,
-  },
-})
