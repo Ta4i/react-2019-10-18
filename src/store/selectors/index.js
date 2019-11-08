@@ -6,7 +6,7 @@ export const selectDishesMap = store => store.dishes
 
 export const selectReviewsMap = store => store.reviews
 
-export const selectUsersMap = store => store.users
+export const selectUsersMap = store => store.users.toJS()
 
 export const selectUserList = createSelector(
   selectUsersMap,

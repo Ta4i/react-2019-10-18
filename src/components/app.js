@@ -5,7 +5,6 @@ import PropTypes from 'prop-types'
 import Header from './header'
 import {connect} from 'react-redux'
 import Cart from './cart'
-import Counter from './counter'
 
 class App extends Component {
   static defaultProps = {
@@ -40,13 +39,11 @@ class App extends Component {
     return (
       <Layout>
         <Header />
-        <Counter />
+        {/*<Counter />*/}
         <Layout.Content>
           <Row>
             <Col span={18}>
-              {restaurants.map(restaurant => (
-                <Restaurant restaurant={restaurant} key={restaurant.id} />
-              ))}
+              <Restaurant restaurant={restaurants[0]} key={restaurants[0].id} />
             </Col>
             <Col span={6}>
               <Cart />
