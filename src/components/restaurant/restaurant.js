@@ -51,7 +51,7 @@ Restaurant.propTypes = {
     }),
     image: PropTypes.string.isRequired,
     menu: Menu.propTypes.menu,
-    reviews: Reviews.propTypes.reviews,
+    reviews: PropTypes.arrayOf(PropTypes.string).isRequired,
   }),
 }
 
