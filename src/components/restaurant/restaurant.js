@@ -5,6 +5,8 @@ import Reviews from '../reviews'
 import AverageRating from '../average-rating'
 import PropTypes from 'prop-types'
 import styles from './restaurant.module.css'
+import {connect} from 'react-redux'
+import {addReview} from '../../store/ac'
 
 class Restaurant extends Component {
   state = {
@@ -15,6 +17,12 @@ class Restaurant extends Component {
     this.setState({
       error,
     })
+  }
+
+  onReviewSubmit(review) {
+    console.log('works here')
+
+    this.props.submitReview(review, this.props.restaurant.id)
   }
 
   render() {
@@ -35,7 +43,10 @@ class Restaurant extends Component {
         <div className={styles.col}>
           <Menu menu={menu} />
         </div>
-        <Reviews reviews={reviews} />
+        <Reviews
+          onReviewSubmit={this.onReviewSubmit.bind(this)}
+          reviews={reviews}
+        />
       </div>
     )
   }
@@ -55,4 +66,19 @@ Restaurant.propTypes = {
   }),
 }
 
-export default Restaurant
+// const mapStateToProps = (state, ownProps) => {
+//   return {
+
+//   }
+// }
+
+const mapDispatchToProps = dispatch => ({
+  submitReview: (review, restaurantId) => {
+    dispatch(addReview(review, restaurantId))
+  },
+})
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(Restaurant)
