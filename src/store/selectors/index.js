@@ -6,6 +6,8 @@ export const selectDishes = store => store.dishes
 
 export const selectRestaurants = store => store.restaurants
 
+export const selectReviews = store => store.reviews
+
 export const selectOrderedDishes = createSelector(
   selectCart,
   selectRestaurants,
@@ -42,3 +44,23 @@ export const selectDishAmount = (store, ownProps) => {
 export const selectDish = (store, ownProps) => {
   return store.dishes[ownProps.dishId]
 }
+export const selectReview = (store, ownProps) => {
+  return store.reviews[ownProps.reviewId]
+}
+export const selectUser = (store, ownProps) => {
+  return store.users[ownProps.userId]
+}
+
+export const selectAverageRating = createSelector(
+  selectReviews,
+  selectRestaurants,
+  (reviews, restaurants) => {
+    console.log(restaurants)
+    const rawRating =
+      reviews.reduce((acc, {rating}) => {
+        return acc + rating
+      }, 0) / reviews.length
+    const normalizedRating = Math.floor(rawRating * 2) / 2
+    return normalizedRating
+  }
+)
