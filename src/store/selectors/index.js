@@ -42,3 +42,9 @@ export const selectDishAmount = (store, ownProps) => {
 export const selectDish = (store, ownProps) => {
   return store.dishes[ownProps.dishId]
 }
+export const selectReviews = (store, ownProps) => {
+  return ownProps.reviews.map(reviewId => ({
+    ...store.reviews[reviewId],
+    user: store.users[store.reviews[reviewId].userId].name,
+  }))
+}
