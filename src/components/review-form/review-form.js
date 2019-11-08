@@ -1,18 +1,22 @@
 import {Button, Card, Col, Form, Input, Row, Typography, Rate} from 'antd'
 import React, {useState} from 'react'
 import useInput from '../../hooks/use-input'
+import {connect} from 'react-redux'
+import {submit} from '../../store/ac'
 
 import styles from './review-form.module.css'
 
-const ReviewForm = () => {
+const ReviewForm = props => {
   const [rate, setRate] = useState()
   const [text, setText, isValidText] = useInput()
+  const [name, setName] = useInput()
+  const {submitForm} = props
 
   const handleSubmit = ev => {
     ev.preventDefault()
-    console.log('submitted: ', rate, text)
+    console.log('submitted: ', rate, text, name)
+    submitForm(name, rate, text)
   }
-
   return (
     <Card className={styles.reviewForm}>
       <Row type="flex" align="middle">
@@ -21,6 +25,15 @@ const ReviewForm = () => {
             Leave your review
           </Typography.Title>
           <Form onSubmit={handleSubmit}>
+            <Input.TextArea
+              rows={1}
+              value={name}
+              onChange={setName}
+              size="large"
+              className={{
+                [styles.invalid]: !isValidText,
+              }}
+            />
             <Input.TextArea
               rows={3}
               value={text}
@@ -43,4 +56,11 @@ const ReviewForm = () => {
   )
 }
 
-export default ReviewForm
+const mapDispatchToProps = dispatch => ({
+  submitForm: (name, rate, text) => dispatch(submit(name, rate, text)),
+})
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(ReviewForm)

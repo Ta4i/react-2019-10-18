@@ -5,6 +5,7 @@ import {cartReducer} from './cart'
 import {dishesReducer} from './dishes'
 import {reviewsReducer} from './reviews'
 import {usersReducer} from './users'
+import {submitReducer} from './submit'
 
 const reducer = combineReducers({
   count: countReducer,
@@ -13,6 +14,7 @@ const reducer = combineReducers({
   dishes: dishesReducer,
   reviews: reviewsReducer,
   users: usersReducer,
+  submit: submitReducer,
 })
 
 export {reducer}
