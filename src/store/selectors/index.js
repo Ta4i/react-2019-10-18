@@ -1,4 +1,5 @@
 import {createSelector} from 'reselect'
+import {func} from 'prop-types'
 
 export const selectCart = store => store.cart
 
@@ -41,4 +42,34 @@ export const selectDishAmount = (store, ownProps) => {
 }
 export const selectDish = (store, ownProps) => {
   return store.dishes[ownProps.dishId]
+}
+
+export const selectReviews = store => store.reviews
+
+export const selectReviewsByRestaurantId = (store, ownProps) => {
+  return store.restaurants
+    .find(item => item.id === ownProps.restaurantId)
+    .reviews.slice()
+}
+
+export const selectAvgRating = (store, ownProps) => {
+  const reviews = selectReviewsByRestaurantId(store, ownProps)
+  const revsExtentions = selectReviews(store)
+
+  let acc = 0
+
+  reviews.forEach(revId => {
+    const revExt = revsExtentions[revId]
+    acc = acc + revExt.rating
+  })
+
+  return Math.floor((acc / reviews.length) * 2) / 2
+}
+
+export const selectReview = (store, ownProps) => {
+  return store.reviews[ownProps.reviewId]
+}
+
+export const selectUser = (store, ownProps) => {
+  return store.users[selectReview(store, ownProps).userId]
 }

@@ -1,16 +1,30 @@
 import {Button, Card, Col, Form, Input, Row, Typography, Rate} from 'antd'
 import React, {useState} from 'react'
 import useInput from '../../hooks/use-input'
-
+import useRate from '../../hooks/use-rate'
 import styles from './review-form.module.css'
+import {addReviewItem, setReviewFormData} from '../../store/ac'
+import {connect} from 'react-redux'
 
-const ReviewForm = () => {
-  const [rate, setRate] = useState()
-  const [text, setText, isValidText] = useInput()
+function ReviewForm(props) {
+  const [rate, setRate, clearRateField] = useRate()
+  const [text, setText, isValidText, clearTextField] = useInput()
+  const [
+    userName,
+    setUserNameText,
+    isValidUserNameText,
+    clearUserNameField,
+  ] = useInput()
+  const {createReview, restaurantId} = props
+
+  const clearFields = () => {
+    clearUserNameField()
+    clearTextField()
+    clearRateField()
+  }
 
   const handleSubmit = ev => {
     ev.preventDefault()
-    console.log('submitted: ', rate, text)
   }
 
   return (
@@ -20,6 +34,11 @@ const ReviewForm = () => {
           <Typography.Title className={styles.addReviewTitle} level={4}>
             Leave your review
           </Typography.Title>
+          <Input
+            value={userName}
+            addonBefore="Name: "
+            onChange={setUserNameText}
+          />
           <Form onSubmit={handleSubmit}>
             <Input.TextArea
               rows={3}
@@ -33,7 +52,13 @@ const ReviewForm = () => {
             <div>
               Rating: <Rate value={rate} onChange={setRate} />
             </div>
-            <Button htmlType="submit" className={styles.submitButton}>
+            <Button
+              htmlType="submit"
+              className={styles.submitButton}
+              onClick={() =>
+                createReview(userName, text, rate, restaurantId, clearFields)
+              }
+            >
               PUBLISH REVIEW
             </Button>
           </Form>
@@ -43,4 +68,18 @@ const ReviewForm = () => {
   )
 }
 
-export default ReviewForm
+const mapStateToProps = (store, ownProps) => {
+  return {}
+}
+
+const mapDispatchToProps = dispatch => ({
+  createReview: (userName, text, rate, restaurantId, clearFields) => {
+    dispatch(addReviewItem(userName, text, rate, restaurantId, clearFields))
+    clearFields()
+  },
+})
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ReviewForm)
