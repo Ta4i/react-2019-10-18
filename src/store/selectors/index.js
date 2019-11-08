@@ -10,7 +10,11 @@ export const selectOrderedDishes = createSelector(
   selectCart,
   selectRestaurants,
   selectDishes,
-  (cart, restaurants, dishes) => {
+  (cart, restaurants, dishes, ownProps) => {
+    // ownProps  - undefined. можно ли как-то пробросить сюда ownProps ?
+    // store же для selectCart, selectRestaurants, selectDishes береться тут https://monosnap.com/file/TcHkfAkGKsX3TKkB3FZ7eS0uhxwtq1
+    //  не ясно почему нет доступа к ownProps
+    // хотел сделать selectReviewsData чеоез createSelector, но не понял как закинуть ownProps
     return restaurants.reduce(
       (result, restaurant) => {
         restaurant.menu.forEach(dishId => {
@@ -41,4 +45,19 @@ export const selectDishAmount = (store, ownProps) => {
 }
 export const selectDish = (store, ownProps) => {
   return store.dishes[ownProps.dishId]
+}
+
+export const selectUsers = store => store.users
+
+export const selectReviews = store => store.reviews
+
+export const selectReviewsData = (store, ownProps) => {
+  const reviews = selectReviews(store)
+  const users = selectUsers(store)
+
+  return ownProps.reviews.reduce((reviewsArr, reviewId) => {
+    const review = reviews[reviewId]
+    reviewsArr.push({...review, ...users[review.userId]})
+    return reviewsArr
+  }, [])
 }

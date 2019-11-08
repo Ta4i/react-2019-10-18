@@ -45,8 +45,8 @@ function Cart({className, orderedDishes}) {
   )
 }
 
-const mapStateToProps = state => ({
-  orderedDishes: selectOrderedDishes(state),
+const mapStateToProps = (state, ownProps) => ({
+  orderedDishes: selectOrderedDishes(state, ownProps),
 })
 
 export default connect(mapStateToProps)(Cart)
