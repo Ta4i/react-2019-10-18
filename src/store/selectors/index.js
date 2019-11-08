@@ -55,7 +55,6 @@ export const selectDishAmount = (store, ownProps) => {
   return store.cart[ownProps.dishId] || 0
 }
 export const selectDish = (store, ownProps) => {
-  console.log(store.dishes.entities, ownProps.dishId)
   return store.dishes.entities[ownProps.dishId]
 }
 
