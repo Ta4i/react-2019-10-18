@@ -55,7 +55,8 @@ export const selectDishAmount = (store, ownProps) => {
   return store.cart[ownProps.dishId] || 0
 }
 export const selectDish = (store, ownProps) => {
-  return store.dishes[ownProps.dishId]
+  console.log(store.dishes.entities, ownProps.dishId)
+  return store.dishes.entities[ownProps.dishId]
 }
 
 export const selectUser = createSelector(
