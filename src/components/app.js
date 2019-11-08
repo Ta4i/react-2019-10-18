@@ -5,6 +5,12 @@ import PropTypes from 'prop-types'
 import Header from './header'
 import {connect} from 'react-redux'
 import Cart from './cart'
+import {fetchRestaurants} from '../store/ac'
+import {
+  selectRestaurants,
+  selectRestaurantsLoaded,
+  selectRestaurantsLoading,
+} from '../store/selectors'
 
 class App extends Component {
   static defaultProps = {
@@ -23,9 +29,12 @@ class App extends Component {
   //   }
   // }
   //
-  // componentDidMount() {
-  //   // fetch data
-  // }
+  componentDidMount() {
+    this.props.fetchRestaurants &&
+      !this.props.restaurantsLoading &&
+      !this.props.restaurantsLoaded &&
+      this.props.fetchRestaurants()
+  }
   // componentDidUpdate(prevProps) {
   //   // subscribe on some events
   // }
@@ -35,7 +44,10 @@ class App extends Component {
   // }
 
   render() {
-    const {restaurants} = this.props
+    const {restaurants, restaurantsLoading, restaurantsLoaded} = this.props
+    if (restaurantsLoading || !restaurantsLoaded) {
+      return <h1>Loading...</h1>
+    }
     return (
       <Layout>
         <Header />
@@ -62,7 +74,16 @@ App.propTypes = {
 }
 
 const mapStateToProps = store => ({
-  restaurants: store.restaurants,
+  restaurants: selectRestaurants(store),
+  restaurantsLoading: selectRestaurantsLoading(store),
+  restaurantsLoaded: selectRestaurantsLoaded(store),
 })
 
-export default connect(mapStateToProps)(App)
+const mapDispatchToProps = {
+  fetchRestaurants,
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App)

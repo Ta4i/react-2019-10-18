@@ -2,9 +2,16 @@ import {
   ADD_REVIEW,
   ADD_TO_CART,
   DECREMENT,
+  FETCH_RESTAURANTS,
   INCREMENT,
   REMOVE_FROM_CART,
 } from '../common'
+
+export const START = '_START'
+
+export const SUCCESS = '_SUCCESS'
+
+export const FAIL = '_FAIL'
 
 export const increment = () => ({
   type: INCREMENT,
@@ -38,4 +45,9 @@ export const addReview = (userName, rating, text, restaurantId) => ({
   },
   generateId: true,
   provideUserId: true,
+})
+
+export const fetchRestaurants = () => ({
+  type: FETCH_RESTAURANTS,
+  callAPI: '/api/restaurants',
 })

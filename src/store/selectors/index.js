@@ -13,7 +13,11 @@ export const selectUserList = createSelector(
   usersMap => Object.values(usersMap)
 )
 
-export const selectRestaurants = store => store.restaurants
+export const selectRestaurants = store => store.restaurants.entities
+
+export const selectRestaurantsLoading = store => store.restaurants.loading
+
+export const selectRestaurantsLoaded = store => store.restaurants.loaded
 
 export const selectId = (_, ownProps) => ownProps.id
 
