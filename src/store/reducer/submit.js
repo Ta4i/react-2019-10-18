@@ -1,19 +1,14 @@
 import {SUBMIT} from '../common'
 
-const initialState = {
-  currentUser: {},
-}
-
 export const submitReducer = (formState = {}, action) => {
-  console.log()
   switch (action.type) {
     case SUBMIT: {
+      const {userId} = action.payload
       return {
         ...formState,
-        currentUser: action.payload,
+        [userId]: action.payload,
       }
     }
-
     default:
       return formState
   }
