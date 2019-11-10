@@ -2,20 +2,32 @@
   "name": "react-2019-10-18",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://localhost:3001/",
   "dependencies": {
     "antd": "^3.24.2",
+    "classnames": "^2.2.6",
+    "immer": "^5.0.0",
+    "immutable": "^4.0.0-rc.12",
     "normalize.css": "^8.0.1",
     "prop-types": "^15.7.2",
     "react": "^16.10.2",
     "react-dom": "^16.10.2",
-    "react-scripts": "3.2.0"
+    "react-redux": "^7.1.1",
+    "react-scripts": "3.2.0",
+    "react-transition-group": "^4.3.0",
+    "redux": "^4.0.4",
+    "redux-thunk": "^2.3.0",
+    "reselect": "^4.0.0",
+    "uuid": "^3.3.3"
   },
   "devDependencies": {
+    "concurrently": "^4.1.1",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.15.1",
     "husky": "^2.3.0",
     "prettier": "1.17.1",
-    "pretty-quick": "^1.10.0"
+    "pretty-quick": "^1.10.0",
+    "redux-devtools-extension": "^2.13.8"
   },
   "husky": {
     "hooks": {
@@ -23,7 +35,8 @@
     }
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "concurrently \"react-scripts start\" \"npm run api\"",
+    "api": "node simple_api/server.js",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

@@ -1,7 +1,10 @@
 import React from 'react'
 import {Card, Typography, Button, Row, Col} from 'antd'
-import amount from '../../decorators/amount'
 import styles from './dish.module.css'
+import PropTypes from 'prop-types'
+import {connect} from 'react-redux'
+import {addToCart, removeFromCart} from '../../store/ac'
+import {selectDish, selectDishAmount} from '../../store/selectors'
 
 function Dish(props) {
   const {
@@ -38,12 +41,13 @@ function Dish(props) {
               <Button
                 className={styles.button}
                 icon="minus"
-                onClick={decrease}
+                onClick={() => decrease(dish.id)}
+                data-automation-id="DECREASE"
               />
               <Button
                 className={styles.button}
                 icon="plus"
-                onClick={increase}
+                onClick={() => increase(dish.id)}
                 data-automation-id="INCREASE"
               />
             </Button.Group>
@@ -54,4 +58,29 @@ function Dish(props) {
   )
 }
 
-export default amount(Dish)
+Dish.propTypes = {
+  dish: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+    ingredients: PropTypes.arrayOf(PropTypes.string).isRequired,
+  }),
+}
+
+const mapStateToProps = (store, ownProps) => {
+  return {
+    amount: selectDishAmount(store, ownProps),
+    dish: selectDish(store, ownProps),
+  }
+}
+
+const mapDispatchToProps = dispatch => ({
+  increase: id => dispatch(addToCart(id)),
+  decrease: id => dispatch(removeFromCart(id)),
+})
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Dish)
+export {Dish as DishComponent}
