@@ -14,7 +14,13 @@ export const selectReviewsLoaded = store => store.reviews.loaded
 
 export const selectReviewsMap = store => store.reviews.entities
 
-export const selectUsersMap = store => store.users.toJS()
+export const selectUsersLoading = store => store.users.loading
+
+export const selectUsersLoaded = store => store.users.loaded
+
+export const selectUsersMap = store => {
+  return store.users.entities.toObject()
+}
 
 export const selectUserList = createSelector(
   selectUsersMap,

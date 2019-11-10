@@ -5,11 +5,14 @@ import PropTypes from 'prop-types'
 import Header from './header'
 import {connect} from 'react-redux'
 import Cart from './cart'
-import {fetchRestaurants} from '../store/ac'
+import {fetchRestaurants, fetchUsers} from '../store/ac'
 import {
   selectRestaurants,
   selectRestaurantsLoaded,
   selectRestaurantsLoading,
+  selectUsersMap,
+  selectUsersLoading,
+  selectUsersLoaded,
 } from '../store/selectors'
 
 class App extends Component {
@@ -34,6 +37,11 @@ class App extends Component {
       !this.props.restaurantsLoading &&
       !this.props.restaurantsLoaded &&
       this.props.fetchRestaurants()
+
+    this.props.fetchUsers &&
+      !this.props.usersLoading &&
+      !this.props.usersLoaded &&
+      this.props.fetchUsers()
   }
   // componentDidUpdate(prevProps) {
   //   // subscribe on some events
@@ -44,8 +52,19 @@ class App extends Component {
   // }
 
   render() {
-    const {restaurants, restaurantsLoading, restaurantsLoaded} = this.props
-    if (restaurantsLoading || !restaurantsLoaded) {
+    const {
+      restaurants,
+      restaurantsLoading,
+      restaurantsLoaded,
+      usersLoaded,
+      usersLoading,
+    } = this.props
+    if (
+      restaurantsLoading ||
+      !restaurantsLoaded ||
+      usersLoading ||
+      !usersLoaded
+    ) {
       return <h1>Loading...</h1>
     }
     return (
@@ -77,10 +96,15 @@ const mapStateToProps = store => ({
   restaurants: selectRestaurants(store),
   restaurantsLoading: selectRestaurantsLoading(store),
   restaurantsLoaded: selectRestaurantsLoaded(store),
+
+  users: selectUsersMap(store),
+  usersLoading: selectUsersLoading(store),
+  usersLoaded: selectUsersLoaded(store),
 })
 
 const mapDispatchToProps = {
   fetchRestaurants,
+  fetchUsers,
 }
 
 export default connect(
