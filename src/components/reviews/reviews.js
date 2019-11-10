@@ -4,11 +4,7 @@ import Review from './review'
 import {Col, Row} from 'antd'
 import PropTypes from 'prop-types'
 
-function Reviews({reviews, fetchReviews} /*props*/) {
-  const foo = () => {
-    fetchReviews && fetchReviews()
-  }
-  useEffect(foo, [])
+function Reviews({reviews, restaurantId} /*props*/) {
   return (
     <Row type="flex" justify="center" gutter={{xs: 8, sm: 16, md: 24}}>
       <Col xs={24} md={16}>
@@ -19,7 +15,7 @@ function Reviews({reviews, fetchReviews} /*props*/) {
             data-automation-id={`REVIEW_${review.id}`}
           />
         ))}
-        <ReviewForm />
+        <ReviewForm restaurantId={restaurantId} />
       </Col>
     </Row>
   )
@@ -30,8 +26,7 @@ Reviews.defaultProps = {
 }
 
 Reviews.propTypes = {
-  reviews: PropTypes.arrayOf(PropTypes.string).isRequired,
-  fetchReviews: PropTypes.func,
+  reviews: PropTypes.arrayOf(Review.propTypes.review).isRequired,
 }
 
 export default Reviews

@@ -1,16 +1,25 @@
 import {Button, Card, Col, Form, Input, Row, Typography, Rate} from 'antd'
 import React, {useState} from 'react'
 import useInput from '../../hooks/use-input'
-
+import classNames from 'classnames'
 import styles from './review-form.module.css'
+import {connect} from 'react-redux'
+import {addReview, addToCart, removeFromCart} from '../../store/ac'
 
-const ReviewForm = () => {
+const ReviewForm = props => {
   const [rate, setRate] = useState()
+  const [userName, setUserName, isValidUserName] = useInput()
   const [text, setText, isValidText] = useInput()
 
   const handleSubmit = ev => {
     ev.preventDefault()
-    console.log('submitted: ', rate, text)
+    const reviewData = {
+      restaurantId: props.restaurantId,
+      userName: userName,
+      text: text,
+      rate: rate,
+    }
+    props.addReview(reviewData)
   }
 
   return (
@@ -21,8 +30,18 @@ const ReviewForm = () => {
             Leave your review
           </Typography.Title>
           <Form onSubmit={handleSubmit}>
+            <Input
+              placeholder="username"
+              className={classNames({
+                [styles.inputField]: true,
+                [styles.invalid]: !isValidUserName,
+              })}
+              value={userName}
+              onChange={setUserName}
+            />
             <Input.TextArea
               rows={3}
+              placeholder="review"
               value={text}
               onChange={setText}
               size="large"
@@ -43,4 +62,11 @@ const ReviewForm = () => {
   )
 }
 
-export default ReviewForm
+const mapDispatchToProps = dispatch => ({
+  addReview: reviewData => dispatch(addReview(reviewData)),
+})
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(ReviewForm)

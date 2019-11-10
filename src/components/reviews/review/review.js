@@ -11,7 +11,7 @@ const Review = props => (
     <Row type="flex" align="middle">
       <Col xs={24} md={18} align="left">
         <Typography.Title className={styles.name} level={4}>
-          {props.review.user}
+          {props.review.userName}
         </Typography.Title>
         <Typography.Text className={styles.comment}>
           {props.review.text}
@@ -27,9 +27,10 @@ const Review = props => (
 Review.propTypes = {
   review: PropTypes.shape({
     id: PropTypes.string.isRequired,
-    user: PropTypes.string.isRequired,
-    text: PropTypes.string.isRequired,
     rating: PropTypes.number.isRequired,
+    text: PropTypes.string.isRequired,
+    userId: PropTypes.string.isRequired,
+    userName: PropTypes.string.isRequired,
   }),
 }
 
