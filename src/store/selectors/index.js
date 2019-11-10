@@ -64,11 +64,13 @@ export const selectReviews = (store, {reviewsIdArr}) => {
 export const selectAverageRating = createSelector(
   selectReviews,
   arr => {
+    console.log('selectAverageRating')
     const rawRating =
       arr.reduce((acc, {rating}) => {
         return acc + rating
       }, 0) / arr.length
     const normalizedRating = Math.floor(rawRating * 2) / 2
+    console.log(normalizedRating)
     return normalizedRating
   }
 )

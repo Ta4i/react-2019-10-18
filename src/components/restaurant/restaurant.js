@@ -41,7 +41,7 @@ class Restaurant extends Component {
           <Menu menu={menu} />
         </div>
 
-        <Reviews reviewsIdArr={reviews} />
+        <Reviews restId={id} reviewsIdArr={reviews} />
       </div>
     )
   }

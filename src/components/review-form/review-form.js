@@ -10,7 +10,7 @@ const ReviewForm = props => {
   const [rate, setRate] = useState()
   const [text, setText, isValidText] = useInput()
   const [name, setName, isValidName] = useInput()
-  const {publicReview, users} = props
+  const {publicReview, users, restId} = props
   const handleSubmit = ev => {
     ev.preventDefault()
     console.log('submitted: ', rate, text)
@@ -49,7 +49,7 @@ const ReviewForm = props => {
             <Button
               htmlType="submit"
               className={styles.submitButton}
-              onClick={() => publicReview(text, name, rate, users)}
+              onClick={() => publicReview(text, name, rate, users, restId)}
             >
               PUBLISH REVIEW
             </Button>
@@ -61,8 +61,8 @@ const ReviewForm = props => {
 }
 
 const mapDispatchToProps = dispatch => ({
-  publicReview: (text, user, rating, users) =>
-    dispatch(addReview(text, user, rating, users)),
+  publicReview: (text, user, rating, users, restId) =>
+    dispatch(addReview(text, user, rating, users, restId)),
 })
 
 const mapStateToProps = (store, ownProps) => {

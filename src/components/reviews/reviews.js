@@ -7,11 +7,10 @@ import {connect} from 'react-redux'
 import {selectReviews} from '../../store/selectors'
 
 function Reviews(props) {
-  const {fetchReviews, reviews} = props
+  const {fetchReviews, reviews, restId} = props
   const foo = () => {
     fetchReviews && fetchReviews()
   }
-  console.log(reviews)
   useEffect(foo, [])
   return (
     <Row type="flex" justify="center" gutter={{xs: 8, sm: 16, md: 24}}>
@@ -23,7 +22,7 @@ function Reviews(props) {
             data-automation-id={`REVIEW_${review.id}`}
           />
         ))}
-        <ReviewForm />
+        <ReviewForm restId={restId} />
       </Col>
     </Row>
   )

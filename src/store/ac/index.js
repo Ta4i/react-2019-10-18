@@ -28,12 +28,13 @@ export const removeFromCart = id => ({
   },
 })
 
-export const addReview = (text, user, rating, users) => ({
+export const addReview = (text, user, rating, users, restId) => ({
   type: ADD_NEW_REVIEW,
   payload: {
     text: text,
     user: user,
     rating: rating,
     users: users,
+    restId: restId,
   },
 })

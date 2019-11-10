@@ -11,6 +11,8 @@ function AverageRating({rating}) {
       return acc + rating
     }, 0) / reviews.length
   const normalizedRating = Math.floor(rawRating * 2) / 2*/
+  console.log('rating')
+  console.log(rating)
   return (
     <div>
       <Rate defaultValue={rating} disabled allowHalf />
