@@ -6,6 +6,7 @@ import {
   FETCH_RESTAURANTS,
   INCREMENT,
   REMOVE_FROM_CART,
+  FETCH_REVIEWS,
 } from '../common'
 
 export const START = '_START'
@@ -72,3 +73,8 @@ export const fetchDishes = () => (dispatch, getState) => {
       })
     )
 }
+
+export const fetchReviews = () => ({
+  type: FETCH_REVIEWS,
+  callAPI: '/api/reviews',
+})

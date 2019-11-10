@@ -4,7 +4,7 @@ export const selectCart = store => store.cart
 
 export const selectDishesMap = store => store.dishes
 
-export const selectReviewsMap = store => store.reviews
+export const selectReviewsMap = store => store.reviews.entities
 
 export const selectUsersMap = store => store.users.toJS()
 
@@ -72,15 +72,23 @@ export const selectReviews = createSelector(
   selectId,
   (reviews, restaurants, id) => {
     const restaurant = restaurants.find(item => item.id === id)
-    return restaurant
+    let arr = []
+    if (restaurant) {
+      restaurant.reviews.forEach(item => {
+        if (reviews[item]) arr.push(reviews[item])
+      })
+    }
+    return arr
+    /*return restaurant
       ? restaurant.reviews.map(reviewId => reviews[reviewId])
-      : []
+      : []*/
   }
 )
 
 export const selectAverageRating = createSelector(
   selectReviews,
   reviews => {
+    console.log(reviews)
     const rawRating =
       reviews.reduce((acc, {rating}) => {
         return acc + rating

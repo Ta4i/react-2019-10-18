@@ -4,27 +4,35 @@ import Review from './review'
 import {Col, Row} from 'antd'
 import PropTypes from 'prop-types'
 import {selectReviews} from '../../store/selectors'
-import {useSelector} from 'react-redux'
+import {useSelector, connect} from 'react-redux'
+import {fetchReviews} from '../../store/ac'
 
 function Reviews({id, fetchReviews}) {
-  const reviews = useSelector(state => selectReviews(state, {id}))
   useEffect(() => {
     fetchReviews && fetchReviews()
   }, [fetchReviews])
-  return (
-    <Row type="flex" justify="center" gutter={{xs: 8, sm: 16, md: 24}}>
-      <Col xs={24} md={16}>
-        {reviews.map(review => (
-          <Review
-            review={review}
-            key={review.id}
-            data-automation-id={`REVIEW_${review.id}`}
-          />
-        ))}
-        <ReviewForm id={id} />
-      </Col>
-    </Row>
-  )
+
+  const reviews = useSelector(state => selectReviews(state, {id}))
+  console.log(reviews)
+
+  if (!reviews.length) {
+    return <h1>Loading...</h1>
+  } else {
+    return (
+      <Row type="flex" justify="center" gutter={{xs: 8, sm: 16, md: 24}}>
+        <Col xs={24} md={16}>
+          {reviews.map(review => (
+            <Review
+              review={review}
+              key={review.id}
+              data-automation-id={`REVIEW_${review.id}`}
+            />
+          ))}
+          <ReviewForm id={id} />
+        </Col>
+      </Row>
+    )
+  }
 }
 
 Reviews.defaultProps = {
@@ -37,4 +45,13 @@ Reviews.propTypes = {
   fetchReviews: PropTypes.func,
 }
 
-export default Reviews
+const mapStateToProps = () => ({})
+
+const mapDispatchActionToProps = {
+  fetchReviews,
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchActionToProps
+)(Reviews)
