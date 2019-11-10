@@ -36,7 +36,7 @@ class App extends Component {
     this.props.fetchRestaurants &&
       !this.props.restaurantsLoading &&
       !this.props.restaurantsLoaded &&
-      this.props.fetchRestaurants()
+      this.props.fetchRestaurants('a757a0e9-03c1-4a2a-b384-8ac21dbe2fb2')
 
     this.props.fetchUsers &&
       !this.props.usersLoading &&

@@ -50,9 +50,11 @@ export const addReview = (userName, rating, text, restaurantId) => ({
   provideUserId: true,
 })
 
-export const fetchRestaurants = () => ({
+// У меня с параметром id все равно возвращаются все рестораны
+// Возможно я понял что-то не так в последнем задании
+export const fetchRestaurants = id => ({
   type: FETCH_RESTAURANTS,
-  callAPI: '/api/restaurants',
+  callAPI: id ? `/api/restaurants?id=${id}` : '/api/restaurants',
 })
 
 export const fetchReviews = id => ({
