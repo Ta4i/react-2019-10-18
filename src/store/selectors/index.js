@@ -2,11 +2,25 @@ import {createSelector} from 'reselect'
 
 export const selectCart = store => store.cart
 
-export const selectDishesMap = store => store.dishes
+export const selectDishesMapLoading = store => store.dishes.loading
 
-export const selectReviewsMap = store => store.reviews
+export const selectDishesMapLoaded = store => store.dishes.loaded
 
-export const selectUsersMap = store => store.users.toJS()
+export const selectDishesMap = store => store.dishes.entities
+
+export const selectReviewsLoading = store => store.reviews.loading
+
+export const selectReviewsLoaded = store => store.reviews.loaded
+
+export const selectReviewsMap = store => store.reviews.entities
+
+export const selectUsersLoading = store => store.users.loading
+
+export const selectUsersLoaded = store => store.users.loaded
+
+export const selectUsersMap = store => {
+  return store.users.entities.toObject()
+}
 
 export const selectUserList = createSelector(
   selectUsersMap,

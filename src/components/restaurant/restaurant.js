@@ -5,6 +5,9 @@ import Reviews from '../reviews'
 import AverageRating from '../average-rating'
 import PropTypes from 'prop-types'
 import styles from './restaurant.module.css'
+import {connect} from 'react-redux'
+import {fetchReviews} from '../../store/ac'
+import {selectReviewsLoading, selectReviewsLoaded} from '../../store/selectors'
 
 class Restaurant extends Component {
   state = {
@@ -15,6 +18,13 @@ class Restaurant extends Component {
     this.setState({
       error,
     })
+  }
+
+  componentDidMount() {
+    this.props.fetchReviews &&
+      !this.props.restaurantsLoading &&
+      !this.props.restaurantsLoaded &&
+      this.props.fetchReviews(this.props.restaurant.id)
   }
 
   render() {
@@ -28,14 +38,16 @@ class Restaurant extends Component {
       )
     }
 
+    const reviewsLoader = this.props.reviewsLoading || !this.props.reviewsLoaded
+
     return (
       <div>
         <Typography.Title level={2}>{name}</Typography.Title>
-        <AverageRating id={id} />
+        {reviewsLoader ? <h2>Loading...</h2> : <AverageRating id={id} />}
         <div className={styles.col}>
           <Menu menu={menu} />
         </div>
-        <Reviews id={id} />
+        {reviewsLoader ? <h2>Loading...</h2> : <Reviews id={id} />}
       </div>
     )
   }
@@ -55,4 +67,16 @@ Restaurant.propTypes = {
   }),
 }
 
-export default Restaurant
+const mapStateToProps = (state, ownProps) => ({
+  reviewsLoading: selectReviewsLoading(state, ownProps),
+  reviewsLoaded: selectReviewsLoaded(state, ownProps),
+})
+
+const mapDispatchToProps = {
+  fetchReviews,
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Restaurant)

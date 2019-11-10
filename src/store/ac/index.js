@@ -6,6 +6,8 @@ import {
   FETCH_RESTAURANTS,
   INCREMENT,
   REMOVE_FROM_CART,
+  FETCH_REVIEWS,
+  FETCH_USERS,
 } from '../common'
 
 export const START = '_START'
@@ -48,9 +50,16 @@ export const addReview = (userName, rating, text, restaurantId) => ({
   provideUserId: true,
 })
 
-export const fetchRestaurants = () => ({
+// У меня с параметром id все равно возвращаются все рестораны
+// Возможно я понял что-то не так в последнем задании
+export const fetchRestaurants = id => ({
   type: FETCH_RESTAURANTS,
-  callAPI: '/api/restaurants',
+  callAPI: id ? `/api/restaurants?id=${id}` : '/api/restaurants',
+})
+
+export const fetchReviews = id => ({
+  type: FETCH_REVIEWS,
+  callAPI: id ? `/api/reviews?id=${id}` : '/api/reviews',
 })
 
 export const fetchDishes = () => (dispatch, getState) => {
@@ -68,6 +77,26 @@ export const fetchDishes = () => (dispatch, getState) => {
     .catch(e =>
       dispatch({
         type: FETCH_DISHES + FAIL,
+        error: e,
+      })
+    )
+}
+
+export const fetchUsers = () => dispatch => {
+  dispatch({
+    type: FETCH_USERS + START,
+  })
+  fetch('/api/users')
+    .then(res => res.json())
+    .then(response => {
+      dispatch({
+        type: FETCH_USERS + SUCCESS,
+        response: response,
+      })
+    })
+    .catch(e =>
+      dispatch({
+        type: FETCH_USERS + FAIL,
         error: e,
       })
     )
