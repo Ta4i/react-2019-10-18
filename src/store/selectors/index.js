@@ -2,7 +2,11 @@ import {createSelector} from 'reselect'
 
 export const selectCart = store => store.cart
 
-export const selectDishesMap = store => store.dishes
+export const selectDishesMapLoading = store => store.dishes.loading
+
+export const selectDishesMapLoaded = store => store.dishes.loaded
+
+export const selectDishesMap = store => store.dishes.entities
 
 export const selectReviewsLoading = store => store.reviews.loading
 
