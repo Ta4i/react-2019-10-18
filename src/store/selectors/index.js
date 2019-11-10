@@ -4,7 +4,11 @@ export const selectCart = store => store.cart
 
 export const selectDishesMap = store => store.dishes
 
-export const selectReviewsMap = store => store.reviews
+export const selectReviewsLoading = store => store.reviews.loading
+
+export const selectReviewsLoaded = store => store.reviews.loaded
+
+export const selectReviewsMap = store => store.reviews.entities
 
 export const selectUsersMap = store => store.users.toJS()
 
