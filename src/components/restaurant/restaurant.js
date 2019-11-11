@@ -19,9 +19,9 @@ class Restaurant extends Component {
 
   render() {
     const {
-      restaurant: {name, menu, id},
+      restaurant: {name, menu, reviews},
     } = this.props
-
+    console.log({reviews})
     if (this.state.error) {
       return (
         <Typography.Title type="danger">Something went wrong</Typography.Title>
@@ -31,11 +31,10 @@ class Restaurant extends Component {
     return (
       <div>
         <Typography.Title level={2}>{name}</Typography.Title>
-        <AverageRating id={id} />
         <div className={styles.col}>
           <Menu menu={menu} />
         </div>
-        <Reviews id={id} />
+        <Reviews reviews={reviews} />
       </div>
     )
   }
@@ -51,7 +50,7 @@ Restaurant.propTypes = {
     }),
     image: PropTypes.string.isRequired,
     menu: Menu.propTypes.menu,
-    reviews: Reviews.propTypes.reviews,
+    //reviews: Reviews.propTypes.reviews,
   }),
 }
 
