@@ -4,9 +4,9 @@ export const selectCart = store => store.cart
 
 export const selectDishesMap = store => store.dishes
 
-export const selectReviewsMap = store => store.reviews
+export const selectReviewsMap = store => store.reviews.entities
 
-export const selectUsersMap = store => store.users.toJS()
+export const selectUsersMap = store => store.users.entities
 
 export const selectUserList = createSelector(
   selectUsersMap,
@@ -18,6 +18,14 @@ export const selectRestaurants = store => store.restaurants.entities
 export const selectRestaurantsLoading = store => store.restaurants.loading
 
 export const selectRestaurantsLoaded = store => store.restaurants.loaded
+
+export const selectReviewsLoading = store => store.reviews.loading
+
+export const selectReviewsLoaded = store => store.reviews.loaded
+
+export const selectUsersLoading = store => store.users.loading
+
+export const selectUsersLoaded = store => store.users.loaded
 
 export const selectId = (_, ownProps) => ownProps.id
 
@@ -55,7 +63,6 @@ export const selectDishAmount = (store, ownProps) => {
   return store.cart[ownProps.dishId] || 0
 }
 export const selectDish = (store, ownProps) => {
-  console.log(store.dishes.entities, ownProps.dishId)
   return store.dishes.entities[ownProps.dishId]
 }
 
@@ -82,8 +89,15 @@ export const selectReviews = createSelector(
 export const selectAverageRating = createSelector(
   selectReviews,
   reviews => {
+    if (reviews.length === 0) {
+      return 0
+    }
     const rawRating =
-      reviews.reduce((acc, {rating}) => {
+      reviews.reduce((acc, review) => {
+        if (!review) {
+          return acc
+        }
+        let rating = review.rating
         return acc + rating
       }, 0) / reviews.length
     return Math.floor(rawRating * 2) / 2

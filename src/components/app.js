@@ -70,7 +70,7 @@ class App extends Component {
 // App.defaultProps = {}
 
 App.propTypes = {
-  restaurants: PropTypes.arrayOf(Restaurant.propTypes.restaurant).isRequired,
+  restaurants: PropTypes.array.isRequired,
 }
 
 const mapStateToProps = store => ({

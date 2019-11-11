@@ -3,14 +3,34 @@ import ReviewForm from '../review-form'
 import Review from './review'
 import {Col, Row} from 'antd'
 import PropTypes from 'prop-types'
-import {selectReviews} from '../../store/selectors'
-import {useSelector} from 'react-redux'
+import {
+  selectReviews,
+  selectReviewsLoaded,
+  selectReviewsLoading,
+  selectUsersLoaded,
+  selectUsersLoading,
+  selectUsersMap,
+} from '../../store/selectors'
+import {connect} from 'react-redux'
+import {fetchReviews, fetchUsers} from '../../store/ac'
 
-function Reviews({id, fetchReviews}) {
-  const reviews = useSelector(state => selectReviews(state, {id}))
+function Reviews({
+  id,
+  fetchReviews,
+  fetchUsers,
+  reviews,
+  reviewsLoading,
+  reviewsLoaded,
+  usersLoading,
+  usersLoaded,
+}) {
   useEffect(() => {
-    fetchReviews && fetchReviews()
-  }, [fetchReviews])
+    fetchReviews && fetchReviews() && fetchUsers && fetchUsers()
+  }, [fetchReviews, fetchUsers])
+
+  if (reviewsLoading || !reviewsLoaded || (usersLoading || !usersLoaded)) {
+    return <h1>Loading...</h1>
+  }
   return (
     <Row type="flex" justify="center" gutter={{xs: 8, sm: 16, md: 24}}>
       <Col xs={24} md={16}>
@@ -33,8 +53,24 @@ Reviews.defaultProps = {
 
 Reviews.propTypes = {
   id: PropTypes.string.isRequired,
-  reviews: PropTypes.arrayOf(PropTypes.string).isRequired,
+  reviews: PropTypes.array.isRequired,
   fetchReviews: PropTypes.func,
 }
 
-export default Reviews
+const mapStateToProps = (store, ownProps) => ({
+  reviews: selectReviews(store, {id: ownProps.id}),
+  reviewsLoading: selectReviewsLoading(store),
+  reviewsLoaded: selectReviewsLoaded(store),
+  usersLoading: selectUsersLoading(store),
+  usersLoaded: selectUsersLoaded(store),
+})
+
+const mapDispatchToProps = {
+  fetchReviews,
+  fetchUsers,
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Reviews)
