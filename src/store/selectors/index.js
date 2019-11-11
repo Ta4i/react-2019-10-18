@@ -89,9 +89,6 @@ export const selectReviews = createSelector(
 export const selectAverageRating = createSelector(
   selectReviews,
   reviews => {
-    if (reviews.length === 0) {
-      return 0
-    }
     const rawRating =
       reviews.reduce((acc, review) => {
         if (!review) {
