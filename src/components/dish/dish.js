@@ -15,7 +15,6 @@ function Dish(props) {
     increase,
     decrease,
   } = props
-
   return (
     <Card className={styles.productDetailedOrderCard}>
       <Row type="flex" justify="space-between">

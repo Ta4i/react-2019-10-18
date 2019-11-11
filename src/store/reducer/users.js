@@ -1,31 +1,43 @@
 import {normalizedUsers} from '../../fixtures'
 import {arrayToMap} from '../utils'
-import {ADD_REVIEW} from '../common'
-import {Map} from 'immutable'
+import {ADD_REVIEW, FETCH_USERS} from '../common'
+import {produce} from 'immer'
+import {FAIL, START, SUCCESS} from '../ac'
 
-export const usersReducer = (
-  usersState = new Map(arrayToMap(normalizedUsers)),
-  action
-) => {
-  switch (action.type) {
-    case ADD_REVIEW: {
-      if (!usersState.get(action.userId)) {
-        return usersState.set(action.userId, {
+const initialState = {
+  loading: false,
+  loaded: false,
+  error: null,
+  entities: [],
+}
+export const usersReducer = (userState = initialState, action) =>
+  produce(userState, draft => {
+    switch (action.type) {
+      case FETCH_USERS + START: {
+        draft.loading = true
+        break
+      }
+      case FETCH_USERS + SUCCESS: {
+        draft.loading = false
+        draft.loaded = true
+        draft.error = null
+        draft.entities = arrayToMap(action.response)
+        break
+      }
+      case FETCH_USERS + FAIL: {
+        draft.loading = false
+        draft.loaded = false
+        draft.error = action.error
+        break
+      }
+      case ADD_REVIEW: {
+        draft.entities[action.generatedId] = {
           id: action.userId,
           name: action.payload.userName,
-        })
-        // return {
-        //   ...usersState,
-        //   [action.userId]: {
-        //     id: action.userId,
-        //     name: action.payload.userName,
-        //   },
-        // }
-      } else {
-        return usersState
+        }
+        break
       }
+      default:
+        return userState
     }
-    default:
-      return usersState
-  }
-}
+  })

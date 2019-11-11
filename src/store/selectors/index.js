@@ -4,9 +4,17 @@ export const selectCart = store => store.cart
 
 export const selectDishesMap = store => store.dishes
 
-export const selectReviewsMap = store => store.reviews
+export const selectReviewsMap = store => store.reviews.entities
 
-export const selectUsersMap = store => store.users.toJS()
+export const selectReviewsLoading = store => store.reviews.loading
+
+export const selectReviewsLoaded = store => store.reviews.loaded
+
+export const selectUsersMap = store => store.users.entities
+
+export const selectUsersLoading = store => store.users.loading
+
+export const selectUsersLoaded = store => store.users.loaded
 
 export const selectUserList = createSelector(
   selectUsersMap,
@@ -58,15 +66,15 @@ export const selectDish = (store, ownProps) => {
   return store.dishes.entities[ownProps.dishId]
 }
 
-export const selectUser = createSelector(
-  selectUsersMap,
-  selectId,
-  (users, id) => {
-    return users[id]
-  }
-)
+export const selectReviews = (store, ownProps) => {
+  return store.reviews.entities[ownProps.reviewId]
+}
 
-export const selectReviews = createSelector(
+export const selectUser = (store, ownProps) => {
+  return store.users.entities[ownProps.userId]
+}
+
+/*export const selectReviews = createSelector(
   selectReviewsMap,
   selectRestaurants,
   selectId,
@@ -76,7 +84,7 @@ export const selectReviews = createSelector(
       ? restaurant.reviews.map(reviewId => reviews[reviewId])
       : []
   }
-)
+)*/
 
 export const selectAverageRating = createSelector(
   selectReviews,

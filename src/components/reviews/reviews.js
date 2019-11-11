@@ -3,25 +3,46 @@ import ReviewForm from '../review-form'
 import Review from './review'
 import {Col, Row} from 'antd'
 import PropTypes from 'prop-types'
-import {selectReviews} from '../../store/selectors'
-import {useSelector} from 'react-redux'
+import {
+  selectReviewsMap,
+  selectReviewsLoaded,
+  selectReviewsLoading,
+  selectUsersLoaded,
+  selectUsersLoading,
+} from '../../store/selectors'
+import {useDispatch, connect} from 'react-redux'
+import {fetchReviews, fetchUsers} from '../../store/ac'
 
-function Reviews({id, fetchReviews}) {
-  const reviews = useSelector(state => selectReviews(state, {id}))
+function Reviews(props) {
+  const {
+    reviews,
+    reviewloading,
+    reviewloaded,
+    review,
+    userloaded,
+    userloading,
+  } = props
+  const dispatch = useDispatch()
+
   useEffect(() => {
-    fetchReviews && fetchReviews()
-  }, [fetchReviews])
+    dispatch(fetchReviews())
+    dispatch(fetchUsers())
+  }, [dispatch])
+
+  if (reviewloading || !reviewloaded || !userloaded || userloading) {
+    return <h2>Loading...</h2>
+  }
   return (
     <Row type="flex" justify="center" gutter={{xs: 8, sm: 16, md: 24}}>
       <Col xs={24} md={16}>
-        {reviews.map(review => (
+        {reviews.map(reviewId => (
           <Review
-            review={review}
-            key={review.id}
-            data-automation-id={`REVIEW_${review.id}`}
+            reviewId={reviewId}
+            key={reviewId}
+            data-automation-id={`REVIEW_${reviewId}`}
           />
         ))}
-        <ReviewForm id={id} />
+        <ReviewForm id={review.id} />
       </Col>
     </Row>
   )
@@ -30,6 +51,14 @@ function Reviews({id, fetchReviews}) {
 Reviews.defaultProps = {
   reviews: [],
 }
+const mapStateToProps = store => ({
+  review: selectReviewsMap(store),
+  reviewloaded: selectReviewsLoaded(store),
+  reviewloading: selectReviewsLoading(store),
+
+  userloaded: selectUsersLoaded(store),
+  userloading: selectUsersLoading(store),
+})
 
 Reviews.propTypes = {
   id: PropTypes.string.isRequired,
@@ -37,4 +66,4 @@ Reviews.propTypes = {
   fetchReviews: PropTypes.func,
 }
 
-export default Reviews
+export default connect(mapStateToProps)(Reviews)
