@@ -5,6 +5,7 @@ import {
   FETCH_DISHES,
   FETCH_RESTAURANTS,
   FETCH_REVIEWS,
+  FETCH_USERS,
   INCREMENT,
   REMOVE_FROM_CART,
 } from '../common'
@@ -75,7 +76,7 @@ export const fetchDishes = () => (dispatch, getState) => {
 }
 
 export const fetchUsers = () => ({
-  type: FETCH_RESTAURANTS,
+  type: FETCH_USERS,
   callAPI: '/api/users',
 })
 

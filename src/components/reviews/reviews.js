@@ -25,7 +25,8 @@ function Reviews({
   usersLoaded,
 }) {
   useEffect(() => {
-    fetchReviews && fetchReviews() && fetchUsers && fetchUsers()
+    fetchReviews && fetchReviews()
+    fetchUsers && fetchUsers()
   }, [fetchReviews, fetchUsers])
 
   if (reviewsLoading || !reviewsLoaded || (usersLoading || !usersLoaded)) {
