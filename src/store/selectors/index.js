@@ -61,3 +61,10 @@ export const selectReviewsData = (store, ownProps) => {
     return reviewsArr
   }, [])
 }
+
+export const selectUsersMap = store => store.users
+
+export const selectUserList = createSelector(
+  selectUsersMap,
+  usersMap => Object.values(usersMap)
+)

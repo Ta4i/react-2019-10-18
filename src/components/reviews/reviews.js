@@ -6,7 +6,7 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {selectReviewsData} from '../../store/selectors'
 
-function Reviews({fetchReviews, reviewsArr} /*props*/) {
+function Reviews({fetchReviews, reviewsArr, id} /*props*/) {
   const foo = () => {
     fetchReviews && fetchReviews()
   }
@@ -21,7 +21,7 @@ function Reviews({fetchReviews, reviewsArr} /*props*/) {
             data-automation-id={`REVIEW_${review.id}`}
           />
         ))}
-        <ReviewForm />
+        <ReviewForm id={id} />
       </Col>
     </Row>
   )

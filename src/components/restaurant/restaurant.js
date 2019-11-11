@@ -19,7 +19,7 @@ class Restaurant extends Component {
 
   render() {
     const {
-      restaurant: {name, reviews, menu},
+      restaurant: {name, reviews, menu, id},
     } = this.props
 
     if (this.state.error) {
@@ -31,11 +31,11 @@ class Restaurant extends Component {
     return (
       <div>
         <Typography.Title level={2}>{name}</Typography.Title>
-        <AverageRating reviews={reviews} />
+        {/* <AverageRating reviews={reviews} /> */}
         <div className={styles.col}>
           <Menu menu={menu} />
         </div>
-        <Reviews reviews={reviews} />
+        <Reviews reviews={reviews} id={id} />
       </div>
     )
   }
