@@ -2,7 +2,12 @@ import React from 'react'
 import {Row, Col, Typography, Rate, Card} from 'antd'
 import styles from './review.module.css'
 import PropTypes from 'prop-types'
-import {selectUser} from '../../../store/selectors'
+import {
+  selectRestaurants,
+  selectRestaurantsLoaded,
+  selectRestaurantsLoading,
+  selectUser,
+} from '../../../store/selectors'
 import {connect} from 'react-redux'
 
 const Review = props => (
