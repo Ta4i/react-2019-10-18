@@ -2,7 +2,7 @@ import React from 'react'
 import {Row, Col, Typography, Rate, Card} from 'antd'
 import styles from './review.module.css'
 import PropTypes from 'prop-types'
-import {selectUser, selectReviews} from '../../../store/selectors'
+import {selectReviews, selectUser} from '../../../store/selectors'
 import {connect} from 'react-redux'
 
 const Review = props => (
@@ -12,7 +12,9 @@ const Review = props => (
   >
     <Row type="flex" align="middle">
       <Col xs={24} md={18} align="left">
-        <Typography.Title className={styles.name} level={4} />
+        <Typography.Title className={styles.name} level={4}>
+          {props.users.name}
+        </Typography.Title>
         <Typography.Text className={styles.comment}>
           {props.reviews.text}
         </Typography.Text>
@@ -27,7 +29,7 @@ const Review = props => (
 const mapStatetoProps = (store, ownProps) => {
   return {
     reviews: selectReviews(store, ownProps),
-    //user: selectUser(store, {id : ownProps.review.userId })
+    users: selectUser(store, {userId: selectReviews(store, ownProps).userId}),
   }
 }
 Review.propTypes = {

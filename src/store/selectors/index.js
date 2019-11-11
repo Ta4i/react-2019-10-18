@@ -10,7 +10,11 @@ export const selectReviewsLoading = store => store.reviews.loading
 
 export const selectReviewsLoaded = store => store.reviews.loaded
 
-export const selectUsersMap = store => store.users.toJS()
+export const selectUsersMap = store => store.users.entities
+
+export const selectUsersLoading = store => store.users.loading
+
+export const selectUsersLoaded = store => store.users.loaded
 
 export const selectUserList = createSelector(
   selectUsersMap,
@@ -66,13 +70,9 @@ export const selectReviews = (store, ownProps) => {
   return store.reviews.entities[ownProps.reviewId]
 }
 
-export const selectUser = createSelector(
-  selectUsersMap,
-  selectId,
-  (users, id) => {
-    return users[id]
-  }
-)
+export const selectUser = (store, ownProps) => {
+  return store.users.entities[ownProps.userId]
+}
 
 /*export const selectReviews = createSelector(
   selectReviewsMap,

@@ -7,19 +7,29 @@ import {
   selectReviewsMap,
   selectReviewsLoaded,
   selectReviewsLoading,
+  selectUsersLoaded,
+  selectUsersLoading,
 } from '../../store/selectors'
 import {useDispatch, connect} from 'react-redux'
-import {fetchReviews} from '../../store/ac'
+import {fetchReviews, fetchUsers} from '../../store/ac'
 
 function Reviews(props) {
-  const {reviews, reviewloading, reviewloaded, review} = props
+  const {
+    reviews,
+    reviewloading,
+    reviewloaded,
+    review,
+    userloaded,
+    userloading,
+  } = props
   const dispatch = useDispatch()
 
   useEffect(() => {
     dispatch(fetchReviews())
+    dispatch(fetchUsers())
   }, [dispatch])
 
-  if (reviewloading || !reviewloaded) {
+  if (reviewloading || !reviewloaded || !userloaded || userloading) {
     return <h2>Loading...</h2>
   }
   return (
@@ -32,7 +42,7 @@ function Reviews(props) {
             data-automation-id={`REVIEW_${reviewId}`}
           />
         ))}
-        <ReviewForm id={review} />
+        <ReviewForm id={review.id} />
       </Col>
     </Row>
   )
@@ -45,6 +55,9 @@ const mapStateToProps = store => ({
   review: selectReviewsMap(store),
   reviewloaded: selectReviewsLoaded(store),
   reviewloading: selectReviewsLoading(store),
+
+  userloaded: selectUsersLoaded(store),
+  userloading: selectUsersLoading(store),
 })
 
 Reviews.propTypes = {
@@ -53,4 +66,4 @@ Reviews.propTypes = {
   fetchReviews: PropTypes.func,
 }
 
-export default connect((M = mapStateToProps))(Reviews)
+export default connect(mapStateToProps)(Reviews)
