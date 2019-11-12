@@ -12,7 +12,7 @@ import {
 } from '../store/selectors'
 import Loader from './loader'
 import {restaurants} from '../fixtures'
-import {Link, Route} from 'react-router-dom'
+import {NavLink, Route} from 'react-router-dom'
 import RestaurantPage from './routes/restaurant-page'
 
 class App extends Component {
@@ -72,9 +72,12 @@ class App extends Component {
           <ul>
             {restaurants.map(restaurant => (
               <li key={restaurant.id}>
-                <Link to={'/restaurant/' + restaurant.id}>
+                <NavLink
+                  to={'/restaurant/' + restaurant.id}
+                  activeStyle={{color: 'red'}}
+                >
                   {restaurant.name}
-                </Link>
+                </NavLink>
               </li>
             ))}
           </ul>
@@ -86,7 +89,12 @@ class App extends Component {
           {/*/>*/}
           <Route
             path={'/restaurant/:restaurantId'}
-            render={props => <RestaurantPage {...props} />}
+            component={RestaurantPage}
+            // render={props => <RestaurantPage {...props} />}
+          />
+          <Route
+            path={'/foo'}
+            children={props => console.log('Route children', props)}
           />
           <Row>
             <Col span={18} />
