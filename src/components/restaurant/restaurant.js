@@ -1,10 +1,12 @@
 import React, {Component} from 'react'
 import {Typography} from 'antd'
-import Menu from '../menu'
 import Reviews from '../reviews'
 import AverageRating from '../average-rating'
+import Menu from '../menu'
 import PropTypes from 'prop-types'
 import styles from './restaurant.module.css'
+import {fetchUsers} from '../../store/ac'
+import {connect} from 'react-redux'
 
 class Restaurant extends Component {
   state = {
@@ -15,6 +17,10 @@ class Restaurant extends Component {
     this.setState({
       error,
     })
+  }
+
+  componentDidMount() {
+    this.props.fetchUsers()
   }
 
   render() {
@@ -55,4 +61,11 @@ Restaurant.propTypes = {
   }),
 }
 
-export default Restaurant
+const mapDispatchToProps = {
+  fetchUsers,
+}
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(Restaurant)

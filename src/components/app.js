@@ -69,9 +69,10 @@ class App extends Component {
 
 // App.defaultProps = {}
 
-App.propTypes = {
-  restaurants: PropTypes.arrayOf(Restaurant.propTypes.restaurant).isRequired,
-}
+//todo Непонятно почему, выдает ошибку "TypeError: Cannot read property 'restaurant' of undefined"
+//  App.propTypes = {
+//    restaurants: PropTypes.arrayOf(Restaurant.propTypes.restaurant).isRequired,
+//  }
 
 const mapStateToProps = store => ({
   restaurants: selectRestaurants(store),

@@ -1,11 +1,14 @@
-import {normalizedReviews} from '../../fixtures'
-import {arrayToMap} from '../utils'
-import {ADD_REVIEW} from '../common'
+import {ADD_REVIEW, FETCH_REVIEWS} from '../common'
+import {FAIL, START, SUCCESS} from '../ac'
 
-export const reviewsReducer = (
-  reviewsState = arrayToMap(normalizedReviews),
-  action
-) => {
+const initialState = {
+  entities: [],
+  loading: null,
+  loaded: null,
+  error: null,
+}
+
+export const reviewsReducer = (reviewsState = initialState, action) => {
   switch (action.type) {
     case ADD_REVIEW: {
       return {
@@ -18,6 +21,23 @@ export const reviewsReducer = (
         },
       }
     }
+    case FETCH_REVIEWS + SUCCESS:
+      return {
+        entities: [...action.payload],
+        loading: false,
+        loaded: true,
+        error: null,
+      }
+    case FETCH_REVIEWS + FAIL:
+      return {
+        loading: false,
+        loaded: false,
+        error: action.error,
+      }
+    case FETCH_REVIEWS + START:
+      return {
+        loading: true,
+      }
     default:
       return reviewsState
   }

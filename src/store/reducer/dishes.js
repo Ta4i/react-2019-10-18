@@ -7,7 +7,7 @@ const initialState = {
   loading: false,
   loaded: false,
   error: null,
-  entities: {},
+  entities: [],
 }
 
 export const dishesReducer = (dishesState = initialState, action) =>
