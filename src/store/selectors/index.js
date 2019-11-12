@@ -4,9 +4,36 @@ export const selectCart = store => store.cart
 
 export const selectDishesMap = store => store.dishes
 
-export const selectReviewsMap = store => store.reviews
+export const selectReviewsImmutableMap = store => store.reviews.entities
 
-export const selectUsersMap = store => store.users.toJS()
+export const selectReviewsIsLoading = store => store.reviews.loading
+
+export const selectReviewsIsLoaded = store => store.reviews.loaded
+
+export const selectReviewsMap = createSelector(
+  selectReviewsImmutableMap,
+  reviewsRecord => {
+    return reviewsRecord ? reviewsRecord.toJS() : []
+  }
+)
+
+export const selectUsersRecord = store => store.users
+
+export const selectUsersIsLoading = store => store.users.loading
+
+export const selectUsersIsLoaded = store => store.users.loaded
+
+export const selectUsersImmutableMap = createSelector(
+  selectUsersRecord,
+  usersRecord => usersRecord.entities
+)
+
+export const selectUsersMap = createSelector(
+  selectUsersImmutableMap,
+  entities => {
+    return entities ? entities.toJS() : {}
+  }
+)
 
 export const selectUserList = createSelector(
   selectUsersMap,
@@ -73,7 +100,9 @@ export const selectReviews = createSelector(
   (reviews, restaurants, id) => {
     const restaurant = restaurants.find(item => item.id === id)
     return restaurant
-      ? restaurant.reviews.map(reviewId => reviews[reviewId])
+      ? restaurant.reviews
+          .map(reviewId => reviews[reviewId])
+          .filter(review => review)
       : []
   }
 )
@@ -81,6 +110,9 @@ export const selectReviews = createSelector(
 export const selectAverageRating = createSelector(
   selectReviews,
   reviews => {
+    if (reviews.length === 0) {
+      return 0
+    }
     const rawRating =
       reviews.reduce((acc, {rating}) => {
         return acc + rating

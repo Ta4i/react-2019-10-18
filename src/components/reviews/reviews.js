@@ -3,14 +3,39 @@ import ReviewForm from '../review-form'
 import Review from './review'
 import {Col, Row} from 'antd'
 import PropTypes from 'prop-types'
-import {selectReviews} from '../../store/selectors'
-import {useSelector} from 'react-redux'
+import {
+  selectReviews,
+  selectReviewsIsLoaded,
+  selectReviewsIsLoading,
+  selectUsersIsLoaded,
+  selectUsersIsLoading,
+} from '../../store/selectors'
+import {useDispatch, useSelector} from 'react-redux'
+import {fetchReviews, fetchUsers} from '../../store/ac'
+import Loader from '../loader'
 
-function Reviews({id, fetchReviews}) {
+function Reviews({id}) {
   const reviews = useSelector(state => selectReviews(state, {id}))
+  const dispatch = useDispatch()
+  const isUsersLoaded = useSelector(selectUsersIsLoaded)
+  const isUsersLoading = useSelector(selectUsersIsLoading)
+  const isReviewsLoaded = useSelector(selectReviewsIsLoaded)
+  const isReviewsLoading = useSelector(selectReviewsIsLoading)
   useEffect(() => {
-    fetchReviews && fetchReviews()
-  }, [fetchReviews])
+    !isUsersLoading && !isUsersLoaded && dispatch(fetchReviews())
+    !isReviewsLoading && !isReviewsLoaded && dispatch(fetchUsers())
+  }, [
+    dispatch,
+    isUsersLoading,
+    isUsersLoaded,
+    isReviewsLoading,
+    isReviewsLoaded,
+  ])
+
+  if (!isUsersLoaded || !isReviewsLoaded) {
+    return <Loader />
+  }
+
   return (
     <Row type="flex" justify="center" gutter={{xs: 8, sm: 16, md: 24}}>
       <Col xs={24} md={16}>

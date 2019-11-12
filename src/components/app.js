@@ -11,6 +11,7 @@ import {
   selectRestaurantsLoaded,
   selectRestaurantsLoading,
 } from '../store/selectors'
+import Loader from './loader'
 
 class App extends Component {
   static defaultProps = {
@@ -46,7 +47,7 @@ class App extends Component {
   render() {
     const {restaurants, restaurantsLoading, restaurantsLoaded} = this.props
     if (restaurantsLoading || !restaurantsLoaded) {
-      return <h1>Loading...</h1>
+      return <Loader />
     }
     return (
       <Layout>

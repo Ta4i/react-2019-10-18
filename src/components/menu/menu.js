@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import {useDispatch, useSelector} from 'react-redux'
 import {fetchDishes} from '../../store/ac'
 import {selectDishesMap} from '../../store/selectors'
+import Loader from '../loader'
 
 function Menu(props) {
   const {menu} = props
@@ -15,7 +16,7 @@ function Menu(props) {
   }, [dispatch])
 
   if (dishes.loading || !dishes.loaded) {
-    return <h2>Loading...</h2>
+    return <Loader />
   }
   return (
     <div>
