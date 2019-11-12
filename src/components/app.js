@@ -6,6 +6,7 @@ import Header from './header'
 import {connect} from 'react-redux'
 import Cart from './cart'
 import {fetchRestaurants} from '../store/ac'
+
 import {
   selectRestaurants,
   selectRestaurantsLoaded,
