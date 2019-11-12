@@ -15,6 +15,7 @@ export const dishesReducer = (dishesState = initialState, action) =>
     switch (action.type) {
       case FETCH_DISHES + START: {
         draft.loading = true
+        draft.loaded = false
         break
       }
       case FETCH_DISHES + SUCCESS: {

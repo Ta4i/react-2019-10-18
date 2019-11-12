@@ -14,22 +14,29 @@ import {useDispatch, useSelector} from 'react-redux'
 import {fetchReviews, fetchUsers} from '../../store/ac'
 import Loader from '../loader'
 
-function Reviews({id}) {
-  const reviews = useSelector(state => selectReviews(state, {id}))
+function Reviews(props) {
+  const reviews = useSelector(state => selectReviews(state, props))
   const dispatch = useDispatch()
-  const isUsersLoaded = useSelector(selectUsersIsLoaded)
-  const isUsersLoading = useSelector(selectUsersIsLoading)
-  const isReviewsLoaded = useSelector(selectReviewsIsLoaded)
-  const isReviewsLoading = useSelector(selectReviewsIsLoading)
+  const isUsersLoaded = useSelector(store => selectUsersIsLoaded(store, props))
+  const isUsersLoading = useSelector(store =>
+    selectUsersIsLoading(store, props)
+  )
+  const isReviewsLoaded = useSelector(store =>
+    selectReviewsIsLoaded(store, props)
+  )
+  const isReviewsLoading = useSelector(store =>
+    selectReviewsIsLoading(store, props)
+  )
   useEffect(() => {
-    !isUsersLoading && !isUsersLoaded && dispatch(fetchReviews())
-    !isReviewsLoading && !isReviewsLoaded && dispatch(fetchUsers())
+    !isUsersLoading && !isUsersLoaded && dispatch(fetchUsers(props.id))
+    !isReviewsLoading && !isReviewsLoaded && dispatch(fetchReviews(props.id))
   }, [
     dispatch,
     isUsersLoading,
     isUsersLoaded,
     isReviewsLoading,
     isReviewsLoaded,
+    props.id,
   ])
 
   if (!isUsersLoaded || !isReviewsLoaded) {
@@ -46,7 +53,7 @@ function Reviews({id}) {
             data-automation-id={`REVIEW_${review.id}`}
           />
         ))}
-        <ReviewForm id={id} />
+        <ReviewForm id={props.id} />
       </Col>
     </Row>
   )

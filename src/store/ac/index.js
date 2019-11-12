@@ -55,9 +55,12 @@ export const fetchRestaurants = () => ({
   callAPI: '/api/restaurants',
 })
 
-export const fetchReviews = () => ({
+export const fetchReviews = id => ({
   type: FETCH_REVIEWS,
-  callAPI: '/api/reviews',
+  payload: {
+    id,
+  },
+  callAPI: id ? `/api/reviews?id=${id}` : '/api/reviews',
 })
 
 export const fetchDishes = () => async (dispatch, getState) => {
@@ -80,22 +83,31 @@ export const fetchDishes = () => async (dispatch, getState) => {
     )
 }
 
-export const fetchUsers = () => async (dispatch, getState) => {
+export const fetchUsers = id => async (dispatch, getState) => {
   dispatch({
     type: FETCH_USERS + START,
+    payload: {
+      id,
+    },
   })
-  return fetch('/api/users')
+  return fetch(id ? `/api/users?id=${id}` : '/api/users')
     .then(res => res.json())
     .then(response => {
       dispatch({
         type: FETCH_USERS + SUCCESS,
         response: response,
+        payload: {
+          id,
+        },
       })
     })
     .catch(e =>
       dispatch({
         type: FETCH_USERS + FAIL,
         error: e,
+        payload: {
+          id,
+        },
       })
     )
 }

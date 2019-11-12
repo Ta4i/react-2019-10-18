@@ -1,11 +1,11 @@
 import {arrayToMap} from '../utils'
 import {ADD_REVIEW, FETCH_REVIEWS} from '../common'
-import {Map, Record} from 'immutable'
+import {Map, Record, Set} from 'immutable'
 import {FAIL, START, SUCCESS} from '../ac'
 
 const InitialState = Record({
-  loading: false,
-  loaded: false,
+  loading: Set(),
+  loaded: Set(),
   error: null,
   entities: new Map(),
 })
@@ -13,18 +13,20 @@ const InitialState = Record({
 export const reviewsReducer = (reviewsState = InitialState(), action) => {
   switch (action.type) {
     case FETCH_REVIEWS + START: {
-      return reviewsState.set('loading', true).set('loaded', false)
+      return reviewsState
+        .set('loading', reviewsState.loading.add(action.payload.id))
+        .set('loaded', reviewsState.loaded.remove(action.payload.id))
     }
     case FETCH_REVIEWS + SUCCESS: {
       return reviewsState
-        .set('loading', false)
-        .set('loaded', true)
+        .set('loading', reviewsState.loading.remove(action.payload.id))
+        .set('loaded', reviewsState.loaded.add(action.payload.id))
         .set('entities', new Map(arrayToMap(action.response)))
     }
     case FETCH_REVIEWS + FAIL: {
       return reviewsState
-        .set('loading', false)
-        .set('loaded', false)
+        .set('loading', reviewsState.loading.remove(action.payload.id))
+        .set('loaded', reviewsState.loaded.remove(action.payload.id))
         .set('error', action.error)
     }
     case ADD_REVIEW: {
