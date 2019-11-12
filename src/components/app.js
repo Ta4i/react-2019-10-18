@@ -12,7 +12,7 @@ import {
 } from '../store/selectors'
 import Loader from './loader'
 import {restaurants} from '../fixtures'
-import {NavLink, Route} from 'react-router-dom'
+import {NavLink, Route, Switch} from 'react-router-dom'
 import RestaurantPage from './routes/restaurant-page'
 
 class App extends Component {
@@ -87,21 +87,22 @@ class App extends Component {
           {/*  exact*/}
           {/*  strict*/}
           {/*/>*/}
-          <Route
-            path={'/restaurant/:restaurantId'}
-            component={RestaurantPage}
-            // render={props => <RestaurantPage {...props} />}
-          />
-          <Route
-            path={'/foo'}
-            children={props => console.log('Route children', props)}
-          />
-          <Row>
-            <Col span={18} />
-            <Col span={6}>
-              <Cart />
-            </Col>
-          </Row>
+          <Switch>
+            <Route
+              path={'/restaurant/:restaurantId'}
+              component={RestaurantPage}
+              // render={props => <RestaurantPage {...props} />}
+            />
+            <Route
+              path={'/foo'}
+              children={props => console.log('Route children', props)}
+            />
+            <Route
+              path={'/restaurant'}
+              render={props => <h1>Rendered for restaurant path</h1>}
+            />
+            <Route path="/" render={() => <h1>Page not found</h1>} />
+          </Switch>
         </Layout.Content>
       </Layout>
     )
