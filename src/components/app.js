@@ -21,6 +21,7 @@ class App extends Component {
   state = {
     value: 0,
     otherValue: 'foo bar',
+    currentRestaurantId: null,
   }
 
   // constructor(props) {
@@ -36,17 +37,29 @@ class App extends Component {
       !this.props.restaurantsLoaded &&
       this.props.fetchRestaurants()
   }
-  // componentDidUpdate(prevProps) {
-  //   // subscribe on some events
-  // }
+  componentDidUpdate(prevProps) {
+    if (
+      this.state.currentRestaurantId === null &&
+      this.props.restaurantsLoaded &&
+      this.props.restaurants.length > 0
+    ) {
+      this.setState({
+        currentRestaurantId: this.props.restaurants[0].id,
+      })
+    }
+  }
   // componentWillUnmount() {
   //   console.log('Did unmount')
   //   // unsubscribe from some events
   // }
 
   render() {
-    const {restaurants, restaurantsLoading, restaurantsLoaded} = this.props
-    if (restaurantsLoading || !restaurantsLoaded) {
+    const {restaurantsLoading, restaurantsLoaded} = this.props
+    if (
+      restaurantsLoading ||
+      !restaurantsLoaded ||
+      !this.state.currentRestaurantId
+    ) {
       return <Loader />
     }
     return (
@@ -56,7 +69,7 @@ class App extends Component {
         <Layout.Content>
           <Row>
             <Col span={18}>
-              <Restaurant restaurant={restaurants[0]} key={restaurants[0].id} />
+              <Restaurant id={this.state.currentRestaurantId} />
             </Col>
             <Col span={6}>
               <Cart />
@@ -71,7 +84,7 @@ class App extends Component {
 // App.defaultProps = {}
 
 App.propTypes = {
-  restaurants: PropTypes.arrayOf(Restaurant.propTypes.restaurant).isRequired,
+  restaurants: PropTypes.arrayOf(PropTypes.object).isRequired,
 }
 
 const mapStateToProps = store => ({

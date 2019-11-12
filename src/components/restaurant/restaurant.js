@@ -5,6 +5,8 @@ import Reviews from '../reviews'
 import AverageRating from '../average-rating'
 import PropTypes from 'prop-types'
 import styles from './restaurant.module.css'
+import {connect} from 'react-redux'
+import {selectRestaurant} from '../../store/selectors'
 
 class Restaurant extends Component {
   state = {
@@ -18,8 +20,10 @@ class Restaurant extends Component {
   }
 
   render() {
+    console.log(this.props)
     const {
-      restaurant: {name, menu, id},
+      id,
+      restaurant: {name, menu},
     } = this.props
 
     if (this.state.error) {
@@ -55,4 +59,6 @@ Restaurant.propTypes = {
   }),
 }
 
-export default Restaurant
+export default connect((state, ownProps) => ({
+  restaurant: selectRestaurant(state, ownProps),
+}))(Restaurant)

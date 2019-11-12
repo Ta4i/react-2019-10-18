@@ -33,17 +33,9 @@ export const selectReviewsMap = createSelector(
 
 export const selectUsersRecord = store => store.users
 
-export const selectUsersIsLoading = createSelector(
-  selectUsersRecord,
-  selectId,
-  (usersRecord, id) => usersRecord.loading.has(id)
-)
+export const selectUsersIsLoading = store => store.users.loading
 
-export const selectUsersIsLoaded = createSelector(
-  selectUsersRecord,
-  selectId,
-  (usersRecord, id) => usersRecord.loaded.has(id)
-)
+export const selectUsersIsLoaded = store => store.users.loaded
 
 export const selectUsersImmutableMap = createSelector(
   selectUsersRecord,
@@ -63,6 +55,12 @@ export const selectUserList = createSelector(
 )
 
 export const selectRestaurants = store => store.restaurants.entities
+
+export const selectRestaurant = createSelector(
+  selectRestaurants,
+  selectId,
+  (restaurants, id) => restaurants.find(restaurant => restaurant.id === id)
+)
 
 export const selectRestaurantsLoading = store => store.restaurants.loading
 

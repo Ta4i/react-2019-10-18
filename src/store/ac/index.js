@@ -83,31 +83,26 @@ export const fetchDishes = () => async (dispatch, getState) => {
     )
 }
 
-export const fetchUsers = id => async (dispatch, getState) => {
+export const fetchUsers = () => async (dispatch, getState) => {
   dispatch({
     type: FETCH_USERS + START,
-    payload: {
-      id,
-    },
   })
-  return fetch(id ? `/api/users?id=${id}` : '/api/users')
+  return fetch('/api/users')
     .then(res => res.json())
     .then(response => {
       dispatch({
         type: FETCH_USERS + SUCCESS,
         response: response,
-        payload: {
-          id,
-        },
       })
     })
     .catch(e =>
       dispatch({
         type: FETCH_USERS + FAIL,
         error: e,
-        payload: {
-          id,
-        },
       })
     )
+}
+
+export const loadDataForReviews = id => async dispatch => {
+  return Promise.all([dispatch(fetchUsers()), dispatch(fetchReviews(id))])
 }

@@ -21,7 +21,10 @@ export const reviewsReducer = (reviewsState = InitialState(), action) => {
       return reviewsState
         .set('loading', reviewsState.loading.remove(action.payload.id))
         .set('loaded', reviewsState.loaded.add(action.payload.id))
-        .set('entities', new Map(arrayToMap(action.response)))
+        .set(
+          'entities',
+          reviewsState.entities.merge(arrayToMap(action.response))
+        )
     }
     case FETCH_REVIEWS + FAIL: {
       return reviewsState
