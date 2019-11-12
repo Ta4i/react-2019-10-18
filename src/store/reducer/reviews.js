@@ -33,8 +33,10 @@ export const reviewsReducer = (
         break
       }
       case ADD_REVIEW: {
-        return {
-          ...reviewsState,
+        console.log(reviewsState)
+        console.log(action)
+        draft.entities = {
+          ...reviewsState.entities,
           [action.generatedId]: {
             id: action.generatedId,
             userId: action.userId,
@@ -42,6 +44,16 @@ export const reviewsReducer = (
             rating: action.payload.rating,
           },
         }
+        break
+        /*return {
+          ...reviewsState,
+          [action.generatedId]: {
+            id: action.generatedId,
+            userId: action.userId,
+            text: action.payload.text,
+            rating: action.payload.rating,
+          },
+        }*/
       }
       default:
         return reviewsState

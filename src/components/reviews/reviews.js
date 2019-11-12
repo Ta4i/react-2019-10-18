@@ -6,16 +6,30 @@ import PropTypes from 'prop-types'
 import {selectReviews} from '../../store/selectors'
 import {useSelector, connect} from 'react-redux'
 import {fetchReviews} from '../../store/ac'
+import {fetchUsers} from '../../store/ac'
+import {
+  selectReviewsLoading,
+  selectReviewsLoaded,
+  selectUsersLoading,
+  selectUsersLoaded,
+} from '../../store/selectors'
 
-function Reviews({id, fetchReviews}) {
+function Reviews({
+  id,
+  fetchReviews,
+  fetchUsers,
+  reviewsLoading,
+  reviewsLoaded,
+  usersLoading,
+  usersLoaded,
+}) {
   useEffect(() => {
-    fetchReviews && fetchReviews()
-  }, [fetchReviews])
+    fetchUsers()
+    fetchReviews()
+  }, [])
 
   const reviews = useSelector(state => selectReviews(state, {id}))
-  console.log(reviews)
-
-  if (!reviews.length) {
+  if (reviewsLoading || !reviewsLoaded || usersLoading || !usersLoaded) {
     return <h1>Loading...</h1>
   } else {
     return (
@@ -43,15 +57,22 @@ Reviews.propTypes = {
   id: PropTypes.string.isRequired,
   reviews: PropTypes.arrayOf(PropTypes.string).isRequired,
   fetchReviews: PropTypes.func,
+  fetchUsers: PropTypes.func,
 }
 
-const mapStateToProps = () => ({})
+const mapStateToProps = store => ({
+  reviewsLoading: selectReviewsLoading(store),
+  reviewsLoaded: selectReviewsLoaded(store),
+  usersLoading: selectUsersLoading(store),
+  usersLoaded: selectUsersLoaded(store),
+})
 
-const mapDispatchActionToProps = {
-  fetchReviews,
+const mapDispatchToProps = {
+  fetchReviews: fetchReviews,
+  fetchUsers: fetchUsers,
 }
 
 export default connect(
   mapStateToProps,
-  mapDispatchActionToProps
+  mapDispatchToProps
 )(Reviews)

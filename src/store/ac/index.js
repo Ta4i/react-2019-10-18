@@ -7,6 +7,7 @@ import {
   INCREMENT,
   REMOVE_FROM_CART,
   FETCH_REVIEWS,
+  FETCH_USERS,
 } from '../common'
 
 export const START = '_START'
@@ -78,3 +79,24 @@ export const fetchReviews = () => ({
   type: FETCH_REVIEWS,
   callAPI: '/api/reviews',
 })
+
+export const fetchUsers = () => (dispatch, getState) => {
+  console.log(FETCH_USERS)
+  dispatch({
+    type: FETCH_USERS + START,
+  })
+  fetch('/api/users')
+    .then(res => res.json())
+    .then(response => {
+      dispatch({
+        type: FETCH_USERS + SUCCESS,
+        response: response,
+      })
+    })
+    .catch(e =>
+      dispatch({
+        type: FETCH_USERS + FAIL,
+        error: e,
+      })
+    )
+}

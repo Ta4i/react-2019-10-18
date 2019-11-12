@@ -6,7 +6,7 @@ export const selectDishesMap = store => store.dishes
 
 export const selectReviewsMap = store => store.reviews.entities
 
-export const selectUsersMap = store => store.users.toJS()
+export const selectUsersMap = store => store.users.entities
 
 export const selectUserList = createSelector(
   selectUsersMap,
@@ -18,6 +18,14 @@ export const selectRestaurants = store => store.restaurants.entities
 export const selectRestaurantsLoading = store => store.restaurants.loading
 
 export const selectRestaurantsLoaded = store => store.restaurants.loaded
+
+export const selectReviewsLoaded = store => store.reviews.loaded
+
+export const selectReviewsLoading = store => store.reviews.loading
+
+export const selectUsersLoaded = store => store.users.loaded
+
+export const selectUsersLoading = store => store.users.loading
 
 export const selectId = (_, ownProps) => ownProps.id
 
