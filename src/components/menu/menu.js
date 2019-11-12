@@ -15,7 +15,7 @@ function Menu(props) {
   }, [dispatch])
 
   if (dishes.loading || !dishes.loaded) {
-    return <h2>Loading...</h2>
+    return <h2>Loading Dishes...</h2>
   }
   return (
     <div>

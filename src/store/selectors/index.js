@@ -6,7 +6,7 @@ export const selectDishesMap = store => store.dishes
 
 export const selectReviewsMap = store => store.reviews
 
-export const selectUsersMap = store => store.users.toJS()
+export const selectUsersMap = store => store.users.entities
 
 export const selectUserList = createSelector(
   selectUsersMap,
@@ -62,7 +62,7 @@ export const selectUser = createSelector(
   selectUsersMap,
   selectId,
   (users, id) => {
-    return users[id]
+    return users.find(user => user.id === id)
   }
 )
 
@@ -72,19 +72,29 @@ export const selectReviews = createSelector(
   selectId,
   (reviews, restaurants, id) => {
     const restaurant = restaurants.find(item => item.id === id)
-    return restaurant
-      ? restaurant.reviews.map(reviewId => reviews[reviewId])
-      : []
+    if (reviews.entities) {
+      const filteredReviews = {...reviews}
+      filteredReviews.entities = reviews.entities.filter(review =>
+        restaurant.reviews.find(restReview => restReview === review.id)
+      )
+      return filteredReviews
+    } else {
+      return []
+    }
   }
 )
 
 export const selectAverageRating = createSelector(
   selectReviews,
   reviews => {
-    const rawRating =
-      reviews.reduce((acc, {rating}) => {
-        return acc + rating
-      }, 0) / reviews.length
-    return Math.floor(rawRating * 2) / 2
+    if (!reviews.entities || reviews.entities.length === 0) {
+      return 0
+    } else {
+      const rawRating =
+        reviews.entities.reduce((acc, {rating}) => {
+          return acc + rating
+        }, 0) / reviews.entities.length
+      return Math.floor(rawRating * 2) / 2
+    }
   }
 )

@@ -5,12 +5,11 @@ import {useSelector} from 'react-redux'
 import {selectAverageRating} from '../../store/selectors'
 
 function AverageRating(props) {
-  const normalizedRating = useSelector(state =>
-    selectAverageRating(state, props)
-  )
+  const averageRating = useSelector(state => selectAverageRating(state, props))
+
   return (
     <div>
-      <Rate value={normalizedRating} disabled allowHalf />
+      <Rate value={averageRating} disabled allowHalf />
     </div>
   )
 }

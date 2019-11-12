@@ -4,17 +4,26 @@ import Review from './review'
 import {Col, Row} from 'antd'
 import PropTypes from 'prop-types'
 import {selectReviews} from '../../store/selectors'
-import {useSelector} from 'react-redux'
+import {useSelector, useDispatch} from 'react-redux'
+import {fetchReviews} from '../../store/ac'
 
-function Reviews({id, fetchReviews}) {
-  const reviews = useSelector(state => selectReviews(state, {id}))
+function Reviews(props) {
+  const {id} = props
+  const dispatch = useDispatch()
+  const reviews = useSelector(state => selectReviews(state, props))
+
   useEffect(() => {
-    fetchReviews && fetchReviews()
-  }, [fetchReviews])
+    dispatch(fetchReviews())
+  }, [])
+
+  if (reviews.loading || !reviews.loaded) {
+    return <div>Loading Reviews...</div>
+  }
+
   return (
     <Row type="flex" justify="center" gutter={{xs: 8, sm: 16, md: 24}}>
       <Col xs={24} md={16}>
-        {reviews.map(review => (
+        {reviews.entities.map(review => (
           <Review
             review={review}
             key={review.id}
