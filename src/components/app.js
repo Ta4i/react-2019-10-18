@@ -12,7 +12,7 @@ import {
 } from '../store/selectors'
 import Loader from './loader'
 import {restaurants} from '../fixtures'
-import {Route} from 'react-router-dom'
+import {Link, Route} from 'react-router-dom'
 import RestaurantPage from './routes/restaurant-page'
 
 class App extends Component {
@@ -72,10 +72,18 @@ class App extends Component {
           <ul>
             {restaurants.map(restaurant => (
               <li key={restaurant.id}>
-                <a href={'/restaurant/' + restaurant.id}>{restaurant.name}</a>
+                <Link to={'/restaurant/' + restaurant.id}>
+                  {restaurant.name}
+                </Link>
               </li>
             ))}
           </ul>
+          {/*<Route*/}
+          {/*  path={'/restaurant'}*/}
+          {/*  render={props => <h1>Exact header</h1>}*/}
+          {/*  exact*/}
+          {/*  strict*/}
+          {/*/>*/}
           <Route
             path={'/restaurant/:restaurantId'}
             render={props => <RestaurantPage {...props} />}
