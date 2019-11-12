@@ -9,6 +9,7 @@ import {
   INCREMENT,
   REMOVE_FROM_CART,
 } from '../common'
+import {selectUsersIsLoaded} from '../selectors'
 
 export const START = '_START'
 
@@ -103,6 +104,10 @@ export const fetchUsers = () => async (dispatch, getState) => {
     )
 }
 
-export const loadDataForReviews = id => async dispatch => {
-  return Promise.all([dispatch(fetchUsers()), dispatch(fetchReviews(id))])
+export const loadDataForReviews = id => async (dispatch, getState) => {
+  const state = getState()
+  const isUsersLoaded = selectUsersIsLoaded(state)
+  return isUsersLoaded
+    ? await dispatch(fetchReviews(id))
+    : await Promise.all([dispatch(fetchUsers()), dispatch(fetchReviews(id))])
 }

@@ -20,7 +20,6 @@ class Restaurant extends Component {
   }
 
   render() {
-    console.log(this.props)
     const {
       id,
       restaurant: {name, menu},

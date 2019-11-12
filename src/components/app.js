@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
 import {Col, Layout, Row} from 'antd'
-import Restaurant from './restaurant'
 import PropTypes from 'prop-types'
 import Header from './header'
 import {connect} from 'react-redux'
@@ -12,6 +11,9 @@ import {
   selectRestaurantsLoading,
 } from '../store/selectors'
 import Loader from './loader'
+import {restaurants} from '../fixtures'
+import {Route} from 'react-router-dom'
+import RestaurantPage from './routes/restaurant-page'
 
 class App extends Component {
   static defaultProps = {
@@ -67,10 +69,19 @@ class App extends Component {
         <Header />
         {/*<Counter />*/}
         <Layout.Content>
+          <ul>
+            {restaurants.map(restaurant => (
+              <li key={restaurant.id}>
+                <a href={'/restaurant/' + restaurant.id}>{restaurant.name}</a>
+              </li>
+            ))}
+          </ul>
+          <Route
+            path={'/restaurant/:restaurantId'}
+            render={props => <RestaurantPage {...props} />}
+          />
           <Row>
-            <Col span={18}>
-              <Restaurant id={this.state.currentRestaurantId} />
-            </Col>
+            <Col span={18} />
             <Col span={6}>
               <Cart />
             </Col>
