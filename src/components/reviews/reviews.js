@@ -27,10 +27,11 @@ function Reviews(props) {
   )
   useEffect(() => {
     !isUsersLoading &&
-      !isUsersLoaded &&
+      // !isUsersLoaded &&
       !isReviewsLoading &&
       !isReviewsLoaded &&
       dispatch(loadDataForReviews(props.id))
+    // console.log(isUsersLoading, isUsersLoaded, isReviewsLoading, isReviewsLoaded)
   }, [
     dispatch,
     isUsersLoading,
