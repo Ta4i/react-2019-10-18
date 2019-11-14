@@ -70,13 +70,10 @@ class App extends Component {
         <Header />
         {/*<Counter />*/}
         <Layout.Content>
-          <RestaurantsList restaurants={restaurants} />
-          {/*<Route*/}
-          {/*  path={'/restaurant'}*/}
-          {/*  render={props => <h1>Exact header</h1>}*/}
-          {/*  exact*/}
-          {/*  strict*/}
-          {/*/>*/}
+          <Route
+            path={'/restaurant'}
+            render={props => <RestaurantsList restaurants={restaurants} />}
+          />
           <Switch>
             <Route
               path={'/restaurant/:restaurantId'}
