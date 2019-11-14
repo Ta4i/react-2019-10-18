@@ -33,9 +33,23 @@ export const selectReviewsMap = createSelector(
 
 export const selectUsersRecord = store => store.users
 
-export const selectUsersIsLoading = store => store.users.loading
+//export const selectUsersIsLoading = store => store.users.loading
 
-export const selectUsersIsLoaded = store => store.users.loaded
+//export const selectUsersIsLoaded = store => store.users.loaded
+
+export const selectUsersIsLoaded = createSelector(
+  selectUsersRecord,
+  selectId,
+  (usersRecord, id) => {
+    return usersRecord.loaded.has(id)
+  }
+)
+
+export const selectUsersIsLoading = createSelector(
+  selectUsersRecord,
+  selectId,
+  (usersRecord, id) => usersRecord.loading.has(id)
+)
 
 export const selectUsersImmutableMap = createSelector(
   selectUsersRecord,

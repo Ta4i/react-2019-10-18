@@ -17,8 +17,10 @@ import Loader from '../loader'
 function Reviews(props) {
   const reviews = useSelector(state => selectReviews(state, props))
   const dispatch = useDispatch()
-  const isUsersLoaded = useSelector(selectUsersIsLoaded)
-  const isUsersLoading = useSelector(selectUsersIsLoading)
+  const isUsersLoaded = useSelector(store => selectUsersIsLoaded(store, props))
+  const isUsersLoading = useSelector(store =>
+    selectUsersIsLoading(store, props)
+  )
   const isReviewsLoaded = useSelector(store =>
     selectReviewsIsLoaded(store, props)
   )
