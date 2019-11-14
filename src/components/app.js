@@ -1,9 +1,8 @@
 import React, {Component} from 'react'
-import {Col, Layout, Row} from 'antd'
+import {Layout} from 'antd'
 import PropTypes from 'prop-types'
 import Header from './header'
 import {connect} from 'react-redux'
-import Cart from './cart'
 import {fetchRestaurants} from '../store/ac'
 import {
   selectRestaurants,
@@ -14,6 +13,8 @@ import Loader from './loader'
 import {restaurants} from '../fixtures'
 import {NavLink, Route, Switch} from 'react-router-dom'
 import RestaurantPage from './routes/restaurant-page'
+import OrderPage from './routes/order-page'
+import OrderCompletePage from './routes/order-complete-page'
 
 class App extends Component {
   static defaultProps = {
@@ -93,15 +94,13 @@ class App extends Component {
               component={RestaurantPage}
               // render={props => <RestaurantPage {...props} />}
             />
+            <Route path={'/order'} exact component={OrderPage} />
             <Route
-              path={'/foo'}
-              children={props => console.log('Route children', props)}
+              path={'/order/complete'}
+              exact
+              component={OrderCompletePage}
             />
-            <Route
-              path={'/restaurant'}
-              render={props => <h1>Rendered for restaurant path</h1>}
-            />
-            <Route path="/" render={() => <h1>Page not found</h1>} />
+            <Route path="/" render={() => <h1>Home Page</h1>} />
           </Switch>
         </Layout.Content>
       </Layout>

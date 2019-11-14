@@ -1,4 +1,4 @@
-import {ADD_TO_CART, REMOVE_FROM_CART} from '../common'
+import {ADD_TO_CART, REMOVE_FROM_CART, CLEAR_CART} from '../common'
 
 export const cartReducer = (cartState = {}, action) => {
   //removeFromCart
@@ -11,6 +11,7 @@ export const cartReducer = (cartState = {}, action) => {
         [dishId]: currentAmount + 1,
       }
     }
+
     case REMOVE_FROM_CART: {
       const {dishId} = action.payload
       const currentAmount = cartState[dishId]
@@ -27,6 +28,12 @@ export const cartReducer = (cartState = {}, action) => {
       }
       return newCartState
     }
+
+    case CLEAR_CART: {
+      console.log('cart has been cleared')
+      return {}
+    }
+
     default:
       return cartState
   }

@@ -8,6 +8,7 @@ import {
   FETCH_USERS,
   INCREMENT,
   REMOVE_FROM_CART,
+  CLEAR_CART,
 } from '../common'
 import {selectUsersIsLoaded} from '../selectors'
 
@@ -37,6 +38,10 @@ export const removeFromCart = id => ({
   payload: {
     dishId: id,
   },
+})
+
+export const clearCart = () => ({
+  type: CLEAR_CART,
 })
 
 export const addReview = (userName, rating, text, restaurantId) => ({
@@ -84,21 +89,30 @@ export const fetchDishes = () => async (dispatch, getState) => {
     )
 }
 
-export const fetchUsers = () => async (dispatch, getState) => {
+export const fetchUsers = id => async (dispatch, getState) => {
   dispatch({
     type: FETCH_USERS + START,
+    payload: {
+      id,
+    },
   })
-  return fetch('/api/users')
+  return fetch(`/api/users?id=${id}`)
     .then(res => res.json())
     .then(response => {
       dispatch({
         type: FETCH_USERS + SUCCESS,
+        payload: {
+          id,
+        },
         response: response,
       })
     })
     .catch(e =>
       dispatch({
         type: FETCH_USERS + FAIL,
+        payload: {
+          id,
+        },
         error: e,
       })
     )
@@ -106,8 +120,5 @@ export const fetchUsers = () => async (dispatch, getState) => {
 
 export const loadDataForReviews = id => async (dispatch, getState) => {
   const state = getState()
-  const isUsersLoaded = selectUsersIsLoaded(state)
-  return isUsersLoaded
-    ? await dispatch(fetchReviews(id))
-    : await Promise.all([dispatch(fetchUsers()), dispatch(fetchReviews(id))])
+  Promise.all([dispatch(fetchUsers(id)), dispatch(fetchReviews(id))])
 }

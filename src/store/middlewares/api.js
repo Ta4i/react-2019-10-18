@@ -18,12 +18,12 @@ export default store => next => action => {
           response: response,
         })
       })
-      .catch(e =>
+      .catch(e => {
         next({
           ...rest,
           type: action.type + FAIL,
           error: e,
         })
-      )
+      })
   }
 }

@@ -3,6 +3,7 @@ import cx from 'classnames'
 import React from 'react'
 import {TransitionGroup, CSSTransition} from 'react-transition-group'
 
+import {Link} from 'react-router-dom'
 import styles from './cart.module.css'
 import CartRow from './cart-row'
 import CartItem from './cart-item'
@@ -10,7 +11,7 @@ import {connect} from 'react-redux'
 import './cart.css'
 import {selectOrderedDishes} from '../../store/selectors'
 
-function Cart({className, orderedDishes}) {
+function Cart({className, orderedDishes, buttonIsHidden}) {
   const {dishes, totalPrice} = orderedDishes
   if (dishes.length === 0) {
     return null
@@ -38,9 +39,14 @@ function Cart({className, orderedDishes}) {
       <CartRow leftContent="Sub-total" rightContent={`${totalPrice} $`} />
       <CartRow leftContent="Delivery costs" rightContent="FREE" />
       <CartRow leftContent="Total" rightContent={`${totalPrice} $`} />
-      <Button type="primary" size="large" block>
-        Order
-      </Button>
+
+      {!buttonIsHidden && (
+        <Link to="/order/">
+          <Button type="primary" size="large" block>
+            Order
+          </Button>
+        </Link>
+      )}
     </div>
   )
 }
