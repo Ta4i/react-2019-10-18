@@ -17,30 +17,15 @@ import Loader from '../loader'
 function Reviews(props) {
   const reviews = useSelector(state => selectReviews(state, props))
   const dispatch = useDispatch()
-  const isUsersLoaded = useSelector(selectUsersIsLoaded)
   const isUsersLoading = useSelector(selectUsersIsLoading)
-  const isReviewsLoaded = useSelector(store =>
-    selectReviewsIsLoaded(store, props)
-  )
   const isReviewsLoading = useSelector(store =>
     selectReviewsIsLoading(store, props)
   )
   useEffect(() => {
-    !isUsersLoading &&
-      !isUsersLoaded &&
-      !isReviewsLoading &&
-      !isReviewsLoaded &&
-      dispatch(loadDataForReviews(props.id))
-  }, [
-    dispatch,
-    isUsersLoading,
-    isUsersLoaded,
-    isReviewsLoading,
-    isReviewsLoaded,
-    props.id,
-  ])
+    dispatch(loadDataForReviews(props.id))
+  }, [dispatch, props.id])
 
-  if (!isUsersLoaded || !isReviewsLoaded) {
+  if (isUsersLoading || isReviewsLoading) {
     return <Loader />
   }
 
