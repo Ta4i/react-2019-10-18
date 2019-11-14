@@ -1,16 +1,28 @@
 import {Button, Card, Col, Form, Input, Row, Typography, Rate} from 'antd'
 import React, {useState} from 'react'
+import cx from 'classnames'
 import useInput from '../../hooks/use-input'
 
 import styles from './review-form.module.css'
+import {useDispatch} from 'react-redux'
+import {addReview} from '../../store/ac'
 
-const ReviewForm = () => {
+const ReviewForm = ({id}) => {
   const [rate, setRate] = useState()
-  const [text, setText, isValidText] = useInput()
+  const [name, setName, isValidName, resetName] = useInput()
+  const [text, setText, isValidText, resetText] = useInput()
+  const dispatch = useDispatch()
+
+  const resetForm = () => {
+    resetName()
+    resetText()
+    setRate(null)
+  }
 
   const handleSubmit = ev => {
     ev.preventDefault()
-    console.log('submitted: ', rate, text)
+    dispatch(addReview(name, +rate, text, id))
+    resetForm()
   }
 
   return (
@@ -21,14 +33,25 @@ const ReviewForm = () => {
             Leave your review
           </Typography.Title>
           <Form onSubmit={handleSubmit}>
+            <Input
+              placeholder="Your name"
+              value={name}
+              onChange={setName}
+              className={cx(
+                {
+                  [styles.invalid]: !isValidName,
+                },
+                styles.inputName
+              )}
+            />
             <Input.TextArea
               rows={3}
               value={text}
               onChange={setText}
               size="large"
-              className={{
+              className={cx({
                 [styles.invalid]: !isValidText,
-              }}
+              })}
             />
             <div>
               Rating: <Rate value={rate} onChange={setRate} />

@@ -2,9 +2,15 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import './index.css'
 import App from './components/app'
-import {restaurants} from './fixtures'
+import {store} from './store'
+import {Provider} from 'react-redux'
+import {BrowserRouter} from 'react-router-dom'
 
 ReactDOM.render(
-  <App restaurants={restaurants} />,
+  <BrowserRouter>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </BrowserRouter>,
   document.getElementById('root')
 )

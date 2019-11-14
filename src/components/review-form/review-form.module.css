@@ -7,6 +7,10 @@
   margin-bottom: 16px;
 }
 
+.inputName {
+  margin-bottom: 12px;
+}
+
 .submitButton {
   height: 40px;
   border: 1px solid #f0ad4e !important;
