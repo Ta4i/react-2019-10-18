@@ -19,7 +19,7 @@ function Reviews({reviews, fetchReviews, restaurantId} /*props*/) {
             data-automation-id={`REVIEW_${review}`}
           />
         ))}
-        <ReviewForm />
+        <ReviewForm restaurantId={restaurantId} />
       </Col>
     </Row>
   )

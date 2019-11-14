@@ -1,16 +1,29 @@
 import {Button, Card, Col, Form, Input, Row, Typography, Rate} from 'antd'
 import React, {useState} from 'react'
+import {useDispatch} from 'react-redux'
 import useInput from '../../hooks/use-input'
+import {addReview} from '../../store/ac'
 
 import styles from './review-form.module.css'
 
-const ReviewForm = () => {
-  const [rate, setRate] = useState()
-  const [text, setText, isValidText] = useInput()
+const ReviewForm = props => {
+  const {restaurantId} = props
+  let [rating, setRate] = useState()
+  let [userName, setName] = useState('')
+  let [text, setText, isValidText, resetText] = useInput()
+
+  const dispatch = useDispatch()
+
+  let changeName = e => {
+    setName(e.target.value)
+  }
 
   const handleSubmit = ev => {
     ev.preventDefault()
-    console.log('submitted: ', rate, text)
+    dispatch(addReview({rating, text, restaurantId, userName}))
+    setName('')
+    setRate(null)
+    resetText()
   }
 
   return (
@@ -21,6 +34,7 @@ const ReviewForm = () => {
             Leave your review
           </Typography.Title>
           <Form onSubmit={handleSubmit}>
+            <Input value={userName} onChange={changeName} />
             <Input.TextArea
               rows={3}
               value={text}
@@ -31,7 +45,7 @@ const ReviewForm = () => {
               }}
             />
             <div>
-              Rating: <Rate value={rate} onChange={setRate} />
+              Rating: <Rate value={rating} onChange={setRate} />
             </div>
             <Button htmlType="submit" className={styles.submitButton}>
               PUBLISH REVIEW
