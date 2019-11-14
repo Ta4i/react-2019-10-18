@@ -14,6 +14,8 @@ import Loader from './loader'
 import {restaurants} from '../fixtures'
 import {NavLink, Route, Switch} from 'react-router-dom'
 import RestaurantPage from './routes/restaurant-page'
+import Order from './order'
+import OrderComplete from './order-complete'
 
 class App extends Component {
   static defaultProps = {
@@ -93,6 +95,8 @@ class App extends Component {
               component={RestaurantPage}
               // render={props => <RestaurantPage {...props} />}
             />
+            <Route path={'/order'} component={Order} exact />
+            <Route path={'/order/:orderId'} component={OrderComplete} exact />
             <Route
               path={'/foo'}
               children={props => console.log('Route children', props)}

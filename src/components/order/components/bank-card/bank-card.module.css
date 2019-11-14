@@ -1,0 +1,45 @@
+.wrapper {
+  margin-bottom: 70px;
+}
+
+.card {
+  width: 390px;
+  height: 246px;
+  border-radius: 10px;
+  position: absolute;
+  z-index: 1;
+  background-color: rgb(249, 211, 113);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.card-back {
+  position: relative;
+  left: 120px;
+  top: 30px;
+  z-index: 0;
+  background-color: gray;
+  display: block;
+  /* padding-top: 20px; */
+}
+
+.magnet-line {
+  width: 100%;
+  height: 55px;
+  background-color: black;
+  margin-bottom: 15px;
+  position: relative;
+  right: -26px;
+}
+
+.cvv {
+  width: 60px;
+  /* position: relative;
+  right: 0; */
+  float: right;
+}
+
+.input {
+  margin-bottom: 25px;
+}
