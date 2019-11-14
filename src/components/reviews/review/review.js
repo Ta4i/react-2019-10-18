@@ -35,8 +35,8 @@ Review.propTypes = {
     id: PropTypes.string.isRequired,
     text: PropTypes.string.isRequired,
     rating: PropTypes.number.isRequired,
+    user: PropTypes.object.isRequired,
   }),
-  user: PropTypes.object.isRequired,
 }
 
 function mapStateToProps(store, ownProps) {

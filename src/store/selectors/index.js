@@ -71,7 +71,6 @@ export const selectRestaurantReviews = (store, ownProps) => {
   ownProps.reviews.forEach(reviewId => {
     reviews.push({...store.reviews[reviewId]})
   })
-  console.log('reviews in selector', reviews)
   return reviews
 }
 
