@@ -4,6 +4,8 @@ export const selectId = (_, ownProps) => ownProps.id
 
 export const selectCart = store => store.cart
 
+export const selectCartDishesCount = store => Object.keys(store.cart).length
+
 export const selectDishes = store => store.dishes
 
 export const selectDishesMap = store => store.dishes.entities
@@ -33,9 +35,23 @@ export const selectReviewsMap = createSelector(
 
 export const selectUsersRecord = store => store.users
 
-export const selectUsersIsLoading = store => store.users.loading
+//export const selectUsersIsLoading = store => store.users.loading
+//export const selectUsersIsLoaded = store => store.users.loaded
 
-export const selectUsersIsLoaded = store => store.users.loaded
+export const selectUsersIsLoading = createSelector(
+  selectUsersRecord,
+  selectId,
+  (usersRecord, id) => usersRecord.loading.has(id)
+)
+
+export const selectUsersIsLoaded = createSelector(
+  selectUsersRecord,
+  selectId,
+  (usersRecord, id) => {
+    console.log(5, id)
+    return usersRecord.loaded.has(id)
+  }
+)
 
 export const selectUsersImmutableMap = createSelector(
   selectUsersRecord,
@@ -117,6 +133,7 @@ export const selectReviews = createSelector(
   selectId,
   (reviews, restaurants, id) => {
     const restaurant = restaurants.find(item => item.id === id)
+
     return restaurant
       ? restaurant.reviews
           .map(reviewId => reviews[reviewId])

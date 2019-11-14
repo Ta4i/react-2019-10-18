@@ -1,10 +1,10 @@
 import React from 'react'
 import Restaurant from '../restaurant/restaurant'
-import {Col, Layout, Row} from 'antd'
+import {Col, Row} from 'antd'
 import Cart from '../cart/cart'
 
 function RestaurantPage(props) {
-  console.log('RestaurantPage props', props)
+  //console.log('RestaurantPage props', props)
   return (
     <Row>
       <Col span={18}>
