@@ -4,7 +4,7 @@ import Review from './review'
 import {Col, Row} from 'antd'
 import PropTypes from 'prop-types'
 
-function Reviews({reviews, fetchReviews} /*props*/) {
+function Reviews({reviews, fetchReviews, restaurantId} /*props*/) {
   const foo = () => {
     fetchReviews && fetchReviews()
   }
@@ -14,9 +14,9 @@ function Reviews({reviews, fetchReviews} /*props*/) {
       <Col xs={24} md={16}>
         {reviews.map(review => (
           <Review
-            review={review}
-            key={review.id}
-            data-automation-id={`REVIEW_${review.id}`}
+            reviewId={review}
+            key={review}
+            data-automation-id={`REVIEW_${review}`}
           />
         ))}
         <ReviewForm />
@@ -31,7 +31,7 @@ Reviews.defaultProps = {
 
 Reviews.propTypes = {
   reviews: PropTypes.arrayOf(PropTypes.string).isRequired,
-  fetchReviews: PropTypes.func,
+  // fetchReviews: PropTypes.func,
 }
 
 export default Reviews
