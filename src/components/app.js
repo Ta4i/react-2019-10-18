@@ -14,6 +14,7 @@ import Loader from './loader'
 import {restaurants} from '../fixtures'
 import {NavLink, Route, Switch} from 'react-router-dom'
 import RestaurantPage from './routes/restaurant-page'
+import RestaurantsList from './restaurant-list'
 
 class App extends Component {
   static defaultProps = {
@@ -69,18 +70,7 @@ class App extends Component {
         <Header />
         {/*<Counter />*/}
         <Layout.Content>
-          <ul>
-            {restaurants.map(restaurant => (
-              <li key={restaurant.id}>
-                <NavLink
-                  to={'/restaurant/' + restaurant.id}
-                  activeStyle={{color: 'red'}}
-                >
-                  {restaurant.name}
-                </NavLink>
-              </li>
-            ))}
-          </ul>
+          <RestaurantsList restaurants={restaurants} />
           {/*<Route*/}
           {/*  path={'/restaurant'}*/}
           {/*  render={props => <h1>Exact header</h1>}*/}
