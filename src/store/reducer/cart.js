@@ -1,8 +1,10 @@
-import {ADD_TO_CART, REMOVE_FROM_CART} from '../common'
+import {ADD_TO_CART, COMPLETE_ORDER, REMOVE_FROM_CART} from '../common'
 
 export const cartReducer = (cartState = {}, action) => {
-  //removeFromCart
   switch (action.type) {
+    case COMPLETE_ORDER: {
+      return {}
+    }
     case ADD_TO_CART: {
       const {dishId} = action.payload
       const currentAmount = cartState[dishId] || 0

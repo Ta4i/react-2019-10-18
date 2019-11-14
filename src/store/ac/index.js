@@ -8,6 +8,7 @@ import {
   FETCH_USERS,
   INCREMENT,
   REMOVE_FROM_CART,
+  COMPLETE_ORDER,
 } from '../common'
 import {selectUsersIsLoaded} from '../selectors'
 
@@ -84,9 +85,12 @@ export const fetchDishes = () => async (dispatch, getState) => {
     )
 }
 
-export const fetchUsers = () => async (dispatch, getState) => {
+export const fetchUsers = id => async (dispatch, getState) => {
   dispatch({
     type: FETCH_USERS + START,
+    payload: {
+      id,
+    },
   })
   return fetch('/api/users')
     .then(res => res.json())
@@ -94,20 +98,31 @@ export const fetchUsers = () => async (dispatch, getState) => {
       dispatch({
         type: FETCH_USERS + SUCCESS,
         response: response,
+        payload: {
+          id,
+        },
       })
     })
     .catch(e =>
       dispatch({
         type: FETCH_USERS + FAIL,
         error: e,
+        payload: {
+          id,
+        },
       })
     )
 }
 
 export const loadDataForReviews = id => async (dispatch, getState) => {
   const state = getState()
-  const isUsersLoaded = selectUsersIsLoaded(state)
+  const isUsersLoaded = selectUsersIsLoaded(state, {id})
+
   return isUsersLoaded
     ? await dispatch(fetchReviews(id))
-    : await Promise.all([dispatch(fetchUsers()), dispatch(fetchReviews(id))])
+    : await Promise.all([dispatch(fetchUsers(id)), dispatch(fetchReviews(id))])
 }
+
+export const completeOrder = () => ({
+  type: COMPLETE_ORDER,
+})
