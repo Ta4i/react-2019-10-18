@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {Fragment} from 'react'
 import Restaurant from '../restaurant/restaurant'
 import {Col, Row} from 'antd'
 import Cart from '../cart/cart'

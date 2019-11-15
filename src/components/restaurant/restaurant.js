@@ -8,6 +8,7 @@ import styles from './restaurant.module.css'
 import {connect} from 'react-redux'
 import {selectRestaurant} from '../../store/selectors'
 import {NavLink, Route, Redirect} from 'react-router-dom'
+import SubMenu from '../submenu/submenu'
 
 class Restaurant extends Component {
   state = {
@@ -39,20 +40,8 @@ class Restaurant extends Component {
         <Typography.Title level={2}>{name}</Typography.Title>
         <AverageRating id={id} />
         <div style={{textAlign: 'center', padding: '6px'}}>
-          <NavLink
-            to={`/restaurant/${id}/menu`}
-            activeStyle={{color: 'red'}}
-            className={styles.submenu}
-          >
-            Menu
-          </NavLink>
-          <NavLink
-            to={`/restaurant/${id}/reviews`}
-            activeStyle={{color: 'red'}}
-            className={styles.submenu}
-          >
-            Reviews
-          </NavLink>
+          <SubMenu to={`/restaurant/${id}/menu`}>Menu</SubMenu>
+          <SubMenu to={`/restaurant/${id}/reviews`}>Reviews</SubMenu>
         </div>
         <Route
           path={'/restaurant/:id/:tab'}
