@@ -21,10 +21,7 @@ class Restaurant extends Component {
   }
 
   render() {
-    const {
-      id,
-      restaurant: {name, menu},
-    } = this.props
+    const {id, restaurant: {name, menu} = {}} = this.props
 
     if (this.state.error) {
       return (

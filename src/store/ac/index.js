@@ -11,6 +11,7 @@ import {
   SEND_ORDER,
 } from '../common'
 import {selectCart} from '../selectors'
+import {replace, push} from 'connected-react-router'
 
 export const START = '_START'
 
@@ -57,13 +58,35 @@ export const fetchRestaurants = () => ({
   callAPI: '/api/restaurants',
 })
 
-export const fetchReviews = id => ({
-  type: FETCH_REVIEWS,
-  payload: {
-    id,
-  },
-  callAPI: id ? `/api/reviews?id=${id}` : '/api/reviews',
-})
+export const fetchReviews = id => (dispatch, getState) => {
+  dispatch({
+    type: FETCH_REVIEWS + START,
+    payload: {
+      id,
+    },
+  })
+  return fetch(id ? `/api/reviews?id=${id}` : '/api/reviews')
+    .then(res => res.json())
+    .then(response => {
+      dispatch({
+        type: FETCH_REVIEWS + SUCCESS,
+        payload: {
+          id,
+        },
+        response: response,
+      })
+    })
+    .catch(e => {
+      dispatch({
+        type: FETCH_REVIEWS + FAIL,
+        payload: {
+          id,
+        },
+        error: e,
+      })
+      dispatch(replace('/404'))
+    })
+}
 
 export const fetchDishes = () => async (dispatch, getState) => {
   dispatch({
@@ -77,12 +100,12 @@ export const fetchDishes = () => async (dispatch, getState) => {
         response: response,
       })
     })
-    .catch(e =>
+    .catch(e => {
       dispatch({
         type: FETCH_DISHES + FAIL,
         error: e,
       })
-    )
+    })
 }
 
 export const fetchUsers = () => async (dispatch, getState) => {
@@ -111,9 +134,9 @@ export const sendOrder = details => (dispatch, getState) => {
   dispatch({
     type: SEND_ORDER,
     payload: {
-      ...dishes,
+      cart: dishes,
       ...details,
     },
   })
-  window.location.href = '/order-complete'
+  dispatch(push('/order-complete'))
 }
