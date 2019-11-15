@@ -7,7 +7,7 @@ import PropTypes from 'prop-types'
 import styles from './restaurant.module.css'
 import {connect} from 'react-redux'
 import {selectRestaurant} from '../../store/selectors'
-import {NavLink, Route} from 'react-router-dom'
+import {NavLink, Route, Redirect} from 'react-router-dom'
 
 class Restaurant extends Component {
   state = {
@@ -34,6 +34,11 @@ class Restaurant extends Component {
 
     return (
       <div>
+        <Route
+          path={'/restaurant/:id'}
+          exact
+          render={() => <Redirect to={`/restaurant/${id}/menu`} />}
+        />
         <Typography.Title level={2}>{name}</Typography.Title>
         <AverageRating id={id} />
         <div style={{textAlign: 'center', padding: '6px'}}>

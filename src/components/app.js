@@ -10,7 +10,7 @@ import {
   selectRestaurantsLoading,
 } from '../store/selectors'
 import Loader from './loader'
-import {Route, Switch} from 'react-router-dom'
+import {Route, Switch, Redirect} from 'react-router-dom'
 import RestaurantPage from './routes/restaurant-page'
 import OrderPage from './routes/order-page'
 import OrderComplete from './routes/order-complete'
@@ -72,6 +72,11 @@ class App extends Component {
             <Route path={'/order'} component={OrderPage} />
             <Route path={'/order-complete'} component={OrderComplete} />
             <Route path={'/restaurant'} component={RestaurantPage} />
+            <Route
+              path="/"
+              exact
+              render={() => <Redirect to={'/restaurant'} />}
+            />
             <Route path="/" render={() => <h1>Page not found</h1>} />
           </Switch>
         </Layout.Content>
