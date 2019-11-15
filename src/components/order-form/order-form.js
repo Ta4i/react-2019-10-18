@@ -15,6 +15,7 @@ class OrderForm extends Component {
         style={{padding: '24px'}}
         onSubmit={this.handleSubmit}
       >
+        <h1 ref={this.setRefForSomeHTMLElement}>Form</h1>
         <Form.Item>
           <Input
             ref={this.setInput}
@@ -37,6 +38,10 @@ class OrderForm extends Component {
     this.setState({
       userName: value,
     })
+  }
+
+  setRefForSomeHTMLElement = ref => {
+    this.someHTMLElement = ref
   }
 
   setInput = ref => {

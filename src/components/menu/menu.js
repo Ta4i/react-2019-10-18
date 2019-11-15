@@ -12,14 +12,14 @@ function Menu(props) {
   const dishes = useSelector(store => selectDishes(store))
 
   useEffect(() => {
-    dispatch(fetchDishes())
-  }, [dispatch])
+    !dishes.loaded && dispatch(fetchDishes())
+  }, [dispatch, dishes.loaded])
 
   if (dishes.loading || !dishes.loaded) {
     return <Loader />
   }
   return (
-    <div>
+    <div className={props.className}>
       {menu.map(dishId => (
         <Dish dishId={dishId} key={dishId} />
       ))}

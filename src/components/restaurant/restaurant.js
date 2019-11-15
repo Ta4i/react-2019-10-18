@@ -7,6 +7,7 @@ import PropTypes from 'prop-types'
 import styles from './restaurant.module.css'
 import {connect} from 'react-redux'
 import {selectRestaurant} from '../../store/selectors'
+import {NavLink, Route} from 'react-router-dom'
 
 class Restaurant extends Component {
   state = {
@@ -35,10 +36,37 @@ class Restaurant extends Component {
       <div>
         <Typography.Title level={2}>{name}</Typography.Title>
         <AverageRating id={id} />
-        <div className={styles.col}>
-          <Menu menu={menu} />
+        <div style={{textAlign: 'center', padding: '6px'}}>
+          <NavLink
+            to={`/restaurant/${id}/menu`}
+            activeStyle={{color: 'red'}}
+            className={styles.submenu}
+          >
+            Menu
+          </NavLink>
+          <NavLink
+            to={`/restaurant/${id}/reviews`}
+            activeStyle={{color: 'red'}}
+            className={styles.submenu}
+          >
+            Reviews
+          </NavLink>
         </div>
-        <Reviews id={id} />
+        <Route
+          path={'/restaurant/:id/:tab'}
+          children={props => {
+            if (!props.match) {
+              return null
+            }
+            switch (props.match.params.tab) {
+              case 'reviews':
+                return <Reviews id={id} />
+              case 'menu':
+              default:
+                return <Menu menu={menu} className={styles.col} />
+            }
+          }}
+        />
       </div>
     )
   }
