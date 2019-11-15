@@ -8,8 +8,9 @@ import {
   FETCH_USERS,
   INCREMENT,
   REMOVE_FROM_CART,
+  SEND_ORDER,
 } from '../common'
-import {selectUsersIsLoaded} from '../selectors'
+import {selectCart} from '../selectors'
 
 export const START = '_START'
 
@@ -104,10 +105,15 @@ export const fetchUsers = () => async (dispatch, getState) => {
     )
 }
 
-export const loadDataForReviews = id => async (dispatch, getState) => {
+export const sendOrder = details => (dispatch, getState) => {
   const state = getState()
-  const isUsersLoaded = selectUsersIsLoaded(state)
-  return isUsersLoaded
-    ? await dispatch(fetchReviews(id))
-    : await Promise.all([dispatch(fetchUsers()), dispatch(fetchReviews(id))])
+  const dishes = selectCart(state)
+  dispatch({
+    type: SEND_ORDER,
+    payload: {
+      ...dishes,
+      ...details,
+    },
+  })
+  window.location.href = '/order-complete'
 }

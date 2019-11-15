@@ -1,9 +1,8 @@
 import React, {Component} from 'react'
-import {Col, Layout, Row} from 'antd'
+import {Layout} from 'antd'
 import PropTypes from 'prop-types'
 import Header from './header'
 import {connect} from 'react-redux'
-import Cart from './cart'
 import {fetchRestaurants} from '../store/ac'
 import {
   selectRestaurants,
@@ -11,9 +10,10 @@ import {
   selectRestaurantsLoading,
 } from '../store/selectors'
 import Loader from './loader'
-import {restaurants} from '../fixtures'
-import {NavLink, Route, Switch} from 'react-router-dom'
+import {Route, Switch} from 'react-router-dom'
 import RestaurantPage from './routes/restaurant-page'
+import OrderPage from './routes/order-page'
+import OrderComplete from './routes/order-complete'
 
 class App extends Component {
   static defaultProps = {
@@ -67,40 +67,11 @@ class App extends Component {
     return (
       <Layout>
         <Header />
-        {/*<Counter />*/}
         <Layout.Content>
-          <ul>
-            {restaurants.map(restaurant => (
-              <li key={restaurant.id}>
-                <NavLink
-                  to={'/restaurant/' + restaurant.id}
-                  activeStyle={{color: 'red'}}
-                >
-                  {restaurant.name}
-                </NavLink>
-              </li>
-            ))}
-          </ul>
-          {/*<Route*/}
-          {/*  path={'/restaurant'}*/}
-          {/*  render={props => <h1>Exact header</h1>}*/}
-          {/*  exact*/}
-          {/*  strict*/}
-          {/*/>*/}
           <Switch>
-            <Route
-              path={'/restaurant/:restaurantId'}
-              component={RestaurantPage}
-              // render={props => <RestaurantPage {...props} />}
-            />
-            <Route
-              path={'/foo'}
-              children={props => console.log('Route children', props)}
-            />
-            <Route
-              path={'/restaurant'}
-              render={props => <h1>Rendered for restaurant path</h1>}
-            />
+            <Route path={'/order'} component={OrderPage} />
+            <Route path={'/order-complete'} component={OrderComplete} />
+            <Route path={'/restaurant'} component={RestaurantPage} />
             <Route path="/" render={() => <h1>Page not found</h1>} />
           </Switch>
         </Layout.Content>
