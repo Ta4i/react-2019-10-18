@@ -31,10 +31,10 @@ class Restaurant extends Component {
 
     return (
       <div>
-        <Route
-          path={'/restaurant/:id'}
+        <Redirect
+          from={'/restaurant/:id'}
           exact
-          render={() => <Redirect to={`/restaurant/${id}/menu`} />}
+          to={`/restaurant/${id}/menu`}
         />
         <Typography.Title level={2}>{name}</Typography.Title>
         <AverageRating id={id} />
