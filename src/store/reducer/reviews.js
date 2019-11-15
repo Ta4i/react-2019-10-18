@@ -1,5 +1,10 @@
 import {arrayToMap} from '../utils'
-import {ADD_REVIEW, FETCH_REVIEWS} from '../common'
+import {
+  ADD_REVIEW,
+  FETCH_REVIEWS,
+  CLEAR_ORDER_CARD,
+  RESET_LOADING_STATE,
+} from '../common'
 import {Map, Record, Set} from 'immutable'
 import {FAIL, START, SUCCESS} from '../ac'
 
@@ -48,6 +53,9 @@ export const reviewsReducer = (reviewsState = InitialState(), action) => {
       //     rating: action.payload.rating,
       //   },
       // }
+    }
+    case RESET_LOADING_STATE: {
+      return InitialState
     }
     default:
       return reviewsState

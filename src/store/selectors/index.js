@@ -10,7 +10,9 @@ export const selectDishesMap = store => store.dishes.entities
 
 export const selectReviewsRecord = store => store.reviews
 
-export const selectReviewsImmutableMap = store => store.reviews.entities
+export const selectReviewsImmutableMap = store => {
+  return store.reviews.entities
+}
 
 export const selectReviewsIsLoading = createSelector(
   selectReviewsRecord,
@@ -27,6 +29,8 @@ export const selectReviewsIsLoaded = createSelector(
 export const selectReviewsMap = createSelector(
   selectReviewsImmutableMap,
   reviewsRecord => {
+    console.log('reviewsRecord')
+    console.log(reviewsRecord)
     return reviewsRecord ? reviewsRecord.toJS() : []
   }
 )
@@ -116,6 +120,13 @@ export const selectReviews = createSelector(
   selectRestaurants,
   selectId,
   (reviews, restaurants, id) => {
+    console.log('selector')
+    console.log('reviews')
+    console.log(reviews)
+    console.log('restaurants')
+    console.log(restaurants)
+    console.log('id')
+    console.log(id)
     const restaurant = restaurants.find(item => item.id === id)
     return restaurant
       ? restaurant.reviews

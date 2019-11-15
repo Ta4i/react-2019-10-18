@@ -8,6 +8,8 @@ import {
   FETCH_USERS,
   INCREMENT,
   REMOVE_FROM_CART,
+  CLEAR_ORDER_CARD,
+  RESET_LOADING_STATE,
 } from '../common'
 import {selectUsersIsLoaded} from '../selectors'
 
@@ -71,6 +73,7 @@ export const fetchDishes = () => async (dispatch, getState) => {
   return fetch('/api/dishes')
     .then(res => res.json())
     .then(response => {
+      console.log(response)
       dispatch({
         type: FETCH_DISHES + SUCCESS,
         response: response,
@@ -91,6 +94,7 @@ export const fetchUsers = () => async (dispatch, getState) => {
   return fetch('/api/users')
     .then(res => res.json())
     .then(response => {
+      console.log(response)
       dispatch({
         type: FETCH_USERS + SUCCESS,
         response: response,
@@ -111,3 +115,11 @@ export const loadDataForReviews = id => async (dispatch, getState) => {
     ? await dispatch(fetchReviews(id))
     : await Promise.all([dispatch(fetchUsers()), dispatch(fetchReviews(id))])
 }
+
+export const clearOrderCard = () => ({
+  type: CLEAR_ORDER_CARD,
+})
+
+export const resetStateForReviews = () => ({
+  type: RESET_LOADING_STATE,
+})

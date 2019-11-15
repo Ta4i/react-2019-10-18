@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import Header from './header'
 import {connect} from 'react-redux'
 import Cart from './cart'
-import {fetchRestaurants} from '../store/ac'
+import {fetchRestaurants, resetStateForReviews} from '../store/ac'
 import {
   selectRestaurants,
   selectRestaurantsLoaded,
@@ -14,6 +14,7 @@ import Loader from './loader'
 import {restaurants} from '../fixtures'
 import {NavLink, Route, Switch} from 'react-router-dom'
 import RestaurantPage from './routes/restaurant-page'
+import OrderList from './routes/order-page'
 
 class App extends Component {
   static defaultProps = {
@@ -76,7 +77,7 @@ class App extends Component {
                   to={'/restaurant/' + restaurant.id}
                   activeStyle={{color: 'red'}}
                 >
-                  {restaurant.name}
+                  <div>{restaurant.name}</div>
                 </NavLink>
               </li>
             ))}
@@ -101,7 +102,12 @@ class App extends Component {
               path={'/restaurant'}
               render={props => <h1>Rendered for restaurant path</h1>}
             />
-            <Route path="/" render={() => <h1>Page not found</h1>} />
+            <Route path={'/order'} render={() => <OrderList />} />
+            <Route
+              path={'/approveOrder'}
+              render={props => <h1>Order has approved </h1>}
+            />
+            {/* <Route path="/" render={() => <h1>Page not found</h1>} />*/}
           </Switch>
         </Layout.Content>
       </Layout>
@@ -123,6 +129,7 @@ const mapStateToProps = store => ({
 
 const mapDispatchToProps = {
   fetchRestaurants,
+  resetStateForReviews,
 }
 
 export default connect(
