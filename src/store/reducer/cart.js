@@ -1,4 +1,4 @@
-import {ADD_TO_CART, REMOVE_FROM_CART} from '../common'
+import {ADD_TO_CART, REMOVE_FROM_CART, CLEAR_ORDER_CARD} from '../common'
 
 export const cartReducer = (cartState = {}, action) => {
   //removeFromCart
@@ -26,6 +26,9 @@ export const cartReducer = (cartState = {}, action) => {
         newCartState[dishId] -= 1
       }
       return newCartState
+    }
+    case CLEAR_ORDER_CARD: {
+      return {}
     }
     default:
       return cartState

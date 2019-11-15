@@ -1,5 +1,5 @@
 import {arrayToMap} from '../utils'
-import {ADD_REVIEW, FETCH_USERS} from '../common'
+import {ADD_REVIEW, FETCH_USERS, CLEAR_ORDER_CARD} from '../common'
 import {Map, Record} from 'immutable'
 import {FAIL, START, SUCCESS} from '../ac'
 

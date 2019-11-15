@@ -16,6 +16,8 @@ import Loader from '../loader'
 
 function Reviews(props) {
   const reviews = useSelector(state => selectReviews(state, props))
+  console.log('reviews')
+  console.log(reviews)
   const dispatch = useDispatch()
   const isUsersLoaded = useSelector(selectUsersIsLoaded)
   const isUsersLoading = useSelector(selectUsersIsLoading)
@@ -39,7 +41,11 @@ function Reviews(props) {
     isReviewsLoaded,
     props.id,
   ])
-
+  console.log('isUsersLoaded')
+  console.log(isUsersLoaded)
+  console.log('isReviewsLoaded')
+  console.log(isReviewsLoaded)
+  console.log(reviews)
   if (!isUsersLoaded || !isReviewsLoaded) {
     return <Loader />
   }
