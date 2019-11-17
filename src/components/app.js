@@ -45,25 +45,28 @@ class App extends Component {
 
   render() {
     const {restaurants, restaurantsLoading, restaurantsLoaded} = this.props
-    if (restaurantsLoading || !restaurantsLoaded) {
-      return <h1>Loading...</h1>
+    if (restaurantsLoaded) {
+      return (
+        <Layout>
+          <Header />
+          {/*<Counter />*/}
+          <Layout.Content>
+            <Row>
+              <Col span={18}>
+                <Restaurant
+                  restaurant={restaurants[0]}
+                  key={restaurants[0].id}
+                />
+              </Col>
+              <Col span={6}>
+                <Cart />
+              </Col>
+            </Row>
+          </Layout.Content>
+        </Layout>
+      )
     }
-    return (
-      <Layout>
-        <Header />
-        {/*<Counter />*/}
-        <Layout.Content>
-          <Row>
-            <Col span={18}>
-              <Restaurant restaurant={restaurants[0]} key={restaurants[0].id} />
-            </Col>
-            <Col span={6}>
-              <Cart />
-            </Col>
-          </Row>
-        </Layout.Content>
-      </Layout>
-    )
+    return <h1>Loading...</h1>
   }
 }
 

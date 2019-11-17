@@ -3,7 +3,9 @@ import {length} from '../utils'
 
 export const selectCart = store => store.cart
 
-export const selectDishesMap = store => store.dishes
+export const selectDishes = store => store.dishes
+
+export const selectDishesMap = store => store.dishes.entities
 
 export const selectReviewsMap = store => store.reviews.entities
 
@@ -21,6 +23,8 @@ export const selectRestaurantsLoading = store => store.restaurants.loading
 export const selectRestaurantsLoaded = store => store.restaurants.loaded
 
 export const selectReviewsLoaded = store => store.reviews.loaded
+
+export const selectReviewsLoading = store => store.reviews.loading
 
 export const selectId = (_, ownProps) => ownProps.id
 

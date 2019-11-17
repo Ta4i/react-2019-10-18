@@ -3,12 +3,12 @@ import Dish from '../dish'
 import PropTypes from 'prop-types'
 import {useDispatch, useSelector} from 'react-redux'
 import {fetchDishes} from '../../store/ac'
-import {selectDishesMap} from '../../store/selectors'
+import {selectDishes} from '../../store/selectors'
 
 function Menu(props) {
   const {menu} = props
   const dispatch = useDispatch()
-  const dishes = useSelector(store => selectDishesMap(store))
+  const dishes = useSelector(store => selectDishes(store))
 
   useEffect(() => {
     dispatch(fetchDishes())
