@@ -31,11 +31,11 @@ export const usersReducer = (usersState = initialState, action) =>
         break
       }
       case ADD_REVIEW: {
-        if (!usersState[action.userId]) {
-          return (draft[action.userId] = {
+        if (!draft[action.userId]) {
+          draft.entities[action.userId] = {
             id: action.userId,
             name: action.payload.userName,
-          })
+          }
           // return {
           //   ...usersState,
           //   [action.userId]: {
@@ -43,11 +43,9 @@ export const usersReducer = (usersState = initialState, action) =>
           //     name: action.payload.userName,
           //   },
           // }
-        } else {
-          return usersState
-        }
+        } else return
       }
       default:
-        return usersState
+        return
     }
   })
