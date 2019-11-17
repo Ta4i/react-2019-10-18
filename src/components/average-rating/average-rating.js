@@ -8,6 +8,7 @@ function AverageRating(props) {
   const normalizedRating = useSelector(state =>
     selectAverageRating(state, props)
   )
+  // return <p>Disabled</p>
   return (
     <div>
       <Rate value={normalizedRating} disabled allowHalf />

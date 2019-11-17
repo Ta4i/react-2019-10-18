@@ -1,10 +1,11 @@
 import {createSelector} from 'reselect'
+import {length} from '../utils'
 
 export const selectCart = store => store.cart
 
 export const selectDishesMap = store => store.dishes
 
-export const selectReviewsMap = store => store.reviews
+export const selectReviewsMap = store => store.reviews.entities
 
 export const selectUsersMap = store => store.users.toJS()
 
@@ -18,6 +19,8 @@ export const selectRestaurants = store => store.restaurants.entities
 export const selectRestaurantsLoading = store => store.restaurants.loading
 
 export const selectRestaurantsLoaded = store => store.restaurants.loaded
+
+export const selectReviewsLoaded = store => store.reviews.loaded
 
 export const selectId = (_, ownProps) => ownProps.id
 
@@ -72,19 +75,27 @@ export const selectReviews = createSelector(
   selectId,
   (reviews, restaurants, id) => {
     const restaurant = restaurants.find(item => item.id === id)
-    return restaurant
-      ? restaurant.reviews.map(reviewId => reviews[reviewId])
-      : []
+
+    if (!restaurant || !length(reviews)) {
+      return []
+    }
+
+    return restaurant.reviews.map(reviewId => reviews[reviewId])
   }
 )
 
 export const selectAverageRating = createSelector(
   selectReviews,
   reviews => {
+    if (reviews.length === 0) {
+      return 0
+    }
+
     const rawRating =
       reviews.reduce((acc, {rating}) => {
         return acc + rating
       }, 0) / reviews.length
+    console.log('rating', rawRating)
     return Math.floor(rawRating * 2) / 2
   }
 )
