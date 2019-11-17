@@ -5,10 +5,12 @@ import {Col, Row} from 'antd'
 import PropTypes from 'prop-types'
 import {selectReviews} from '../../store/selectors'
 import {connect} from 'react-redux'
-import {fetchReviews} from '../../store/ac/index'
+import {fetchReviews, fetchUsers} from '../../store/ac/index'
 import {
   selectReviewsLoaded,
   selectReviewsLoading,
+  selectUsersLoaded,
+  selectUsersLoading,
 } from '../../store/selectors/index'
 
 class Reviews extends Component {
@@ -18,13 +20,20 @@ class Reviews extends Component {
 
   componentDidMount() {
     this.props.fetchReviews()
-    console.log('component mounnted')
+    this.props.fetchUsers()
   }
 
   render() {
-    const {reviews, id, reviewsLoaded, reviewsLoading} = this.props
+    const {
+      reviews,
+      id,
+      reviewsLoaded,
+      reviewsLoading,
+      usersLoading,
+      usersLoaded,
+    } = this.props
 
-    if (reviewsLoading || !reviewsLoaded) {
+    if (reviewsLoading || usersLoading || !reviewsLoaded || !usersLoaded) {
       return <h2>Loading...</h2>
     }
     return (
@@ -54,9 +63,12 @@ const mapStateToProps = (state, ownProps) => ({
   reviews: selectReviews(state, ownProps),
   reviewsLoaded: selectReviewsLoaded(state),
   reviewsLoading: selectReviewsLoading(state),
+  usersLoaded: selectUsersLoaded(state),
+  usersLoading: selectUsersLoading(state),
 })
 const mapDispatchToProps = {
   fetchReviews,
+  fetchUsers,
 }
 
 export default connect(

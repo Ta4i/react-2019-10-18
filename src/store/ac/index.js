@@ -5,6 +5,7 @@ import {
   FETCH_DISHES,
   FETCH_RESTAURANTS,
   FETCH_REVIEWS,
+  FETCH_USERS,
   INCREMENT,
   REMOVE_FROM_CART,
 } from '../common'
@@ -75,6 +76,26 @@ export const fetchDishes = () => (dispatch, getState) => {
       dispatch({
         type: FETCH_DISHES + FAIL,
         error: e,
+      })
+    )
+}
+
+export const fetchUsers = () => (dispatch, getState) => {
+  dispatch({
+    type: FETCH_USERS + START,
+  })
+  fetch('/api/users')
+    .then(res => res.json())
+    .then(response => {
+      dispatch({
+        type: FETCH_USERS + SUCCESS,
+        response,
+      })
+    })
+    .catch(error =>
+      dispatch({
+        type: FETCH_USERS + FAIL,
+        error,
       })
     )
 }

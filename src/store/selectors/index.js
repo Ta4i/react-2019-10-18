@@ -9,7 +9,11 @@ export const selectDishesMap = store => store.dishes.entities
 
 export const selectReviewsMap = store => store.reviews.entities
 
-export const selectUsersMap = store => store.users.toJS()
+export const selectUsersMap = store => store.users.entities
+
+export const selectUsersLoaded = store => store.users.loaded
+
+export const selectUsersLoading = store => store.users.loading
 
 export const selectUserList = createSelector(
   selectUsersMap,
@@ -69,7 +73,7 @@ export const selectUser = createSelector(
   selectUsersMap,
   selectId,
   (users, id) => {
-    return users[id]
+    return users[id] || {}
   }
 )
 
