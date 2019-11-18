@@ -1,7 +1,8 @@
 import {Button, Card, Col, Form, Input, Row, Typography, Rate} from 'antd'
-import React, {useState} from 'react'
+import React, {useState, useContext} from 'react'
 import cx from 'classnames'
 import useInput from '../../hooks/use-input'
+import {AppLocaleContext} from '../../contexts'
 
 import styles from './review-form.module.css'
 import {useDispatch} from 'react-redux'
@@ -12,6 +13,7 @@ const ReviewForm = ({id}) => {
   const [name, setName, isValidName, resetName] = useInput()
   const [text, setText, isValidText, resetText] = useInput()
   const dispatch = useDispatch()
+  const lang = useContext(AppLocaleContext)
 
   const resetForm = () => {
     resetName()
@@ -30,11 +32,11 @@ const ReviewForm = ({id}) => {
       <Row type="flex" align="middle">
         <Col xs={24} md={18} align="left">
           <Typography.Title className={styles.addReviewTitle} level={4}>
-            Leave your review
+            {lang.leaveReview}
           </Typography.Title>
           <Form onSubmit={handleSubmit}>
             <Input
-              placeholder="Your name"
+              placeholder={lang.name}
               value={name}
               onChange={setName}
               className={cx(
@@ -54,10 +56,10 @@ const ReviewForm = ({id}) => {
               })}
             />
             <div>
-              Rating: <Rate value={rate} onChange={setRate} />
+              {lang.rating}: <Rate value={rate} onChange={setRate} />
             </div>
             <Button htmlType="submit" className={styles.submitButton}>
-              PUBLISH REVIEW
+              {lang.publishReview}
             </Button>
           </Form>
         </Col>

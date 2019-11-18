@@ -1,3 +1,5 @@
 import {createContext} from 'react'
 
-export const {Provider, Consumer} = createContext('')
+export const userName = ''
+
+export const UserNameContext = createContext(userName)
