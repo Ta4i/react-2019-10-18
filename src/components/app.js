@@ -15,6 +15,10 @@ import RestaurantPage from './routes/restaurant-page'
 import OrderPage from './routes/order-page'
 import OrderComplete from './routes/order-complete'
 import {Provider as AuthProvider} from '../contexts/auth'
+import {
+  Provider as LocaleProvider,
+  translations,
+} from '../contexts/localisations'
 
 class App extends Component {
   static defaultProps = {
@@ -26,6 +30,8 @@ class App extends Component {
     otherValue: 'foo bar',
     currentRestaurantId: null,
     userName: '',
+    translations: translations.en,
+    locale: 'en',
   }
 
   // constructor(props) {
@@ -63,6 +69,14 @@ class App extends Component {
     })
   }
 
+  handleLocale = e => {
+    const lang = e.target.value
+    this.setState({
+      locale: lang,
+      translations: translations[lang],
+    })
+  }
+
   render() {
     const {restaurantsLoading, restaurantsLoaded} = this.props
     if (
@@ -73,29 +87,41 @@ class App extends Component {
       return <Loader />
     }
     return (
-      <AuthProvider value={this.state.userName}>
-        <Layout>
-          <Header />
-          <Layout.Content>
-            <Switch>
-              <Route
-                path={'/order'}
-                render={props => (
-                  <OrderPage {...props} handleUserName={this.handleUserName} />
-                )}
-              />
-              <Route path={'/order-complete'} component={OrderComplete} />
-              <Route path={'/restaurant'} component={RestaurantPage} />
-              <Route
-                path="/"
-                exact
-                render={() => <Redirect to={'/restaurant'} />}
-              />
-              <Route path="/" render={() => <h1>Page not found</h1>} />
-            </Switch>
-          </Layout.Content>
-        </Layout>
-      </AuthProvider>
+      <LocaleProvider value={this.state.translations}>
+        <AuthProvider value={this.state.userName}>
+          <Layout>
+            <Header />
+            <select onChange={this.handleLocale} style={{width: 200}}>
+              <option value="en">en</option>
+              <option value="ru">ru</option>
+            </select>
+            <Layout.Content>
+              <Switch>
+                <Route
+                  path={'/order'}
+                  render={props => (
+                    <OrderPage
+                      {...props}
+                      handleUserName={this.handleUserName}
+                    />
+                  )}
+                />
+                <Route path={'/order-complete'} component={OrderComplete} />
+                <Route path={'/restaurant'} component={RestaurantPage} />
+                <Route
+                  path="/"
+                  exact
+                  render={() => <Redirect to={'/restaurant'} />}
+                />
+                <Route
+                  path="/"
+                  render={() => <h1>{this.state.translations.pageNotFound}</h1>}
+                />
+              </Switch>
+            </Layout.Content>
+          </Layout>
+        </AuthProvider>
+      </LocaleProvider>
     )
   }
 }
