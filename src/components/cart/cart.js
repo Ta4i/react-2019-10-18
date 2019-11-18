@@ -1,6 +1,6 @@
 import Button from 'antd/es/button'
 import cx from 'classnames'
-import React from 'react'
+import React, {useContext} from 'react'
 import {TransitionGroup, CSSTransition} from 'react-transition-group'
 
 import styles from './cart.module.css'
@@ -10,8 +10,10 @@ import {connect} from 'react-redux'
 import './cart.css'
 import {selectOrderedDishes} from '../../store/selectors'
 import {NavLink} from 'react-router-dom'
+import {AppLocaleContext} from '../../contexts'
 
 function Cart({className, orderedDishes}) {
+  const lang = useContext(AppLocaleContext)
   const {dishes, totalPrice} = orderedDishes
   if (dishes.length === 0) {
     return null
@@ -36,12 +38,12 @@ function Cart({className, orderedDishes}) {
       </TransitionGroup>
       <hr />
 
-      <CartRow leftContent="Sub-total" rightContent={`${totalPrice} $`} />
-      <CartRow leftContent="Delivery costs" rightContent="FREE" />
-      <CartRow leftContent="Total" rightContent={`${totalPrice} $`} />
+      <CartRow leftContent={lang.subTotal} rightContent={`${totalPrice} $`} />
+      <CartRow leftContent={lang.deliveryCosts} rightContent={lang.free} />
+      <CartRow leftContent={lang.total} rightContent={`${totalPrice} $`} />
       <NavLink to={'/order'} activeStyle={{display: 'none'}}>
         <Button type="primary" size="large" block>
-          Order
+          {lang.order}
         </Button>
       </NavLink>
     </div>

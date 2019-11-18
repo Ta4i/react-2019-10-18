@@ -9,6 +9,7 @@ import {connect} from 'react-redux'
 import {selectRestaurant} from '../../store/selectors'
 import {NavLink, Route, Redirect} from 'react-router-dom'
 import SubMenu from '../submenu/submenu'
+import {AppLocaleContext} from '../../contexts'
 
 class Restaurant extends Component {
   state = {
@@ -23,6 +24,7 @@ class Restaurant extends Component {
 
   render() {
     const {id, restaurant: {name, menu} = {}} = this.props
+    const lang = this.context
 
     if (this.state.error) {
       return (
@@ -40,8 +42,8 @@ class Restaurant extends Component {
         <Typography.Title level={2}>{name}</Typography.Title>
         <AverageRating id={id} />
         <div style={{textAlign: 'center', padding: '6px'}}>
-          <SubMenu to={`/restaurant/${id}/menu`}>Menu</SubMenu>
-          <SubMenu to={`/restaurant/${id}/reviews`}>Reviews</SubMenu>
+          <SubMenu to={`/restaurant/${id}/menu`}>{lang.menu}</SubMenu>
+          <SubMenu to={`/restaurant/${id}/reviews`}>{lang.reviews}</SubMenu>
         </div>
         <Route
           path={'/restaurant/:id/:tab'}
@@ -76,6 +78,8 @@ Restaurant.propTypes = {
     reviews: Reviews.propTypes.reviews,
   }),
 }
+
+Restaurant.contextType = AppLocaleContext
 
 export default connect((state, ownProps) => ({
   restaurant: selectRestaurant(state, ownProps),

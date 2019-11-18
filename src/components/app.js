@@ -14,8 +14,7 @@ import {Route, Switch, Redirect} from 'react-router-dom'
 import RestaurantPage from './routes/restaurant-page'
 import OrderPage from './routes/order-page'
 import OrderComplete from './routes/order-complete'
-import {Provider as AuthProvider} from '../contexts/auth'
-
+import {locale, userName, AppLocaleContext, UserNameContext} from '../contexts'
 class App extends Component {
   static defaultProps = {
     restaurants: [],
@@ -25,7 +24,8 @@ class App extends Component {
     value: 0,
     otherValue: 'foo bar',
     currentRestaurantId: null,
-    userName: '',
+    userName,
+    lang: locale.ru,
   }
 
   // constructor(props) {
@@ -63,8 +63,15 @@ class App extends Component {
     })
   }
 
+  switchLang = val => {
+    this.setState({
+      lang: locale[val],
+    })
+  }
+
   render() {
     const {restaurantsLoading, restaurantsLoaded} = this.props
+    const {lang, userName} = this.state
     if (
       restaurantsLoading ||
       !restaurantsLoaded ||
@@ -73,29 +80,34 @@ class App extends Component {
       return <Loader />
     }
     return (
-      <AuthProvider value={this.state.userName}>
-        <Layout>
-          <Header />
-          <Layout.Content>
-            <Switch>
-              <Route
-                path={'/order'}
-                render={props => (
-                  <OrderPage {...props} handleUserName={this.handleUserName} />
-                )}
-              />
-              <Route path={'/order-complete'} component={OrderComplete} />
-              <Route path={'/restaurant'} component={RestaurantPage} />
-              <Route
-                path="/"
-                exact
-                render={() => <Redirect to={'/restaurant'} />}
-              />
-              <Route path="/" render={() => <h1>Page not found</h1>} />
-            </Switch>
-          </Layout.Content>
-        </Layout>
-      </AuthProvider>
+      <AppLocaleContext.Provider value={lang}>
+        <UserNameContext.Provider value={userName}>
+          <Layout>
+            <Header switchLang={this.switchLang} />
+            <Layout.Content>
+              <Switch>
+                <Route
+                  path={'/order'}
+                  render={props => (
+                    <OrderPage
+                      {...props}
+                      handleUserName={this.handleUserName}
+                    />
+                  )}
+                />
+                <Route path={'/order-complete'} component={OrderComplete} />
+                <Route path={'/restaurant'} component={RestaurantPage} />
+                <Route
+                  path="/"
+                  exact
+                  render={() => <Redirect to={'/restaurant'} />}
+                />
+                <Route path="/" render={() => <h1>{lang.notFound}</h1>} />
+              </Switch>
+            </Layout.Content>
+          </Layout>
+        </UserNameContext.Provider>
+      </AppLocaleContext.Provider>
     )
   }
 }
