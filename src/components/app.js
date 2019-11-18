@@ -14,6 +14,7 @@ import {Route, Switch, Redirect} from 'react-router-dom'
 import RestaurantPage from './routes/restaurant-page'
 import OrderPage from './routes/order-page'
 import OrderComplete from './routes/order-complete'
+import {Provider as DictProvider, dict} from '../contexts/dict'
 
 class App extends Component {
   static defaultProps = {
@@ -24,6 +25,7 @@ class App extends Component {
     value: 0,
     otherValue: 'foo bar',
     currentRestaurantId: null,
+    dict: dict.ru,
   }
 
   // constructor(props) {
@@ -55,6 +57,12 @@ class App extends Component {
   //   // unsubscribe from some events
   // }
 
+  handleLang = value => {
+    this.setState({
+      dict: value === 'ru' ? dict.ru : dict.en,
+    })
+  }
+
   render() {
     const {restaurantsLoading, restaurantsLoaded} = this.props
     if (
@@ -65,22 +73,24 @@ class App extends Component {
       return <Loader />
     }
     return (
-      <Layout>
-        <Header />
-        <Layout.Content>
-          <Switch>
-            <Route path={'/order'} component={OrderPage} />
-            <Route path={'/order-complete'} component={OrderComplete} />
-            <Route path={'/restaurant'} component={RestaurantPage} />
-            <Route
-              path="/"
-              exact
-              render={() => <Redirect to={'/restaurant'} />}
-            />
-            <Route path="/" render={() => <h1>Page not found</h1>} />
-          </Switch>
-        </Layout.Content>
-      </Layout>
+      <DictProvider value={this.state.dict}>
+        <Layout>
+          <Header handleLang={this.handleLang} />
+          <Layout.Content>
+            <Switch>
+              <Route path={'/order'} component={OrderPage} />
+              <Route path={'/order-complete'} component={OrderComplete} />
+              <Route path={'/restaurant'} component={RestaurantPage} />
+              <Route
+                path="/"
+                exact
+                render={() => <Redirect to={'/restaurant'} />}
+              />
+              <Route path="/" render={() => <h1>Page not found</h1>} />
+            </Switch>
+          </Layout.Content>
+        </Layout>
+      </DictProvider>
     )
   }
 }

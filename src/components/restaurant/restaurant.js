@@ -9,6 +9,7 @@ import {connect} from 'react-redux'
 import {selectRestaurant} from '../../store/selectors'
 import {NavLink, Route, Redirect} from 'react-router-dom'
 import SubMenu from '../submenu/submenu'
+import {Consumer} from '../../contexts/dict'
 
 class Restaurant extends Component {
   state = {
@@ -31,34 +32,42 @@ class Restaurant extends Component {
     }
 
     return (
-      <div>
-        <Redirect
-          from={'/restaurant/:id'}
-          exact
-          to={`/restaurant/${id}/menu`}
-        />
-        <Typography.Title level={2}>{name}</Typography.Title>
-        <AverageRating id={id} />
-        <div style={{textAlign: 'center', padding: '6px'}}>
-          <SubMenu to={`/restaurant/${id}/menu`}>Menu</SubMenu>
-          <SubMenu to={`/restaurant/${id}/reviews`}>Reviews</SubMenu>
-        </div>
-        <Route
-          path={'/restaurant/:id/:tab'}
-          children={props => {
-            if (!props.match) {
-              return null
-            }
-            switch (props.match.params.tab) {
-              case 'reviews':
-                return <Reviews id={id} />
-              case 'menu':
-              default:
-                return <Menu menu={menu} className={styles.col} />
-            }
-          }}
-        />
-      </div>
+      <Consumer>
+        {consumerValue => (
+          <div>
+            <Redirect
+              from={'/restaurant/:id'}
+              exact
+              to={`/restaurant/${id}/menu`}
+            />
+            <Typography.Title level={2}>{name}</Typography.Title>
+            <AverageRating id={id} />
+            <div style={{textAlign: 'center', padding: '6px'}}>
+              <SubMenu to={`/restaurant/${id}/menu`}>
+                {consumerValue.Menu}
+              </SubMenu>
+              <SubMenu to={`/restaurant/${id}/reviews`}>
+                {consumerValue.Reviews}
+              </SubMenu>
+            </div>
+            <Route
+              path={'/restaurant/:id/:tab'}
+              children={props => {
+                if (!props.match) {
+                  return null
+                }
+                switch (props.match.params.tab) {
+                  case 'reviews':
+                    return <Reviews id={id} />
+                  case 'menu':
+                  default:
+                    return <Menu menu={menu} className={styles.col} />
+                }
+              }}
+            />
+          </div>
+        )}
+      </Consumer>
     )
   }
 }
