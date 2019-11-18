@@ -9,6 +9,9 @@ import CartItem from './cart-item'
 import {connect} from 'react-redux'
 import './cart.css'
 import {selectOrderedDishes} from '../../store/selectors'
+import {NavLink} from 'react-router-dom'
+
+import {Consumer as InterConsumer} from '../../contexts/inter'
 
 function Cart({className, orderedDishes}) {
   const {dishes, totalPrice} = orderedDishes
@@ -16,32 +19,47 @@ function Cart({className, orderedDishes}) {
     return null
   }
   return (
-    <div className={cx(styles.cart, className)}>
-      <TransitionGroup>
-        {dishes.map(({dish, amount, restaurant}) => (
-          <CSSTransition
-            timeout={500}
-            classNames="cart-item-animation"
-            key={dish.id}
-          >
-            <CartItem
-              dish={dish}
-              amount={amount}
-              restaurant={restaurant}
-              key={dish.id}
-            />
-          </CSSTransition>
-        ))}
-      </TransitionGroup>
-      <hr />
+    <InterConsumer>
+      {language => (
+        <div className={cx(styles.cart, className)}>
+          <TransitionGroup>
+            {dishes.map(({dish, amount, restaurant}) => (
+              <CSSTransition
+                timeout={500}
+                classNames="cart-item-animation"
+                key={dish.id}
+              >
+                <CartItem
+                  dish={dish}
+                  amount={amount}
+                  restaurant={restaurant}
+                  key={dish.id}
+                />
+              </CSSTransition>
+            ))}
+          </TransitionGroup>
+          <hr />
 
-      <CartRow leftContent="Sub-total" rightContent={`${totalPrice} $`} />
-      <CartRow leftContent="Delivery costs" rightContent="FREE" />
-      <CartRow leftContent="Total" rightContent={`${totalPrice} $`} />
-      <Button type="primary" size="large" block>
-        Order
-      </Button>
-    </div>
+          <CartRow
+            leftContent={language.subTotal}
+            rightContent={`${totalPrice} $`}
+          />
+          <CartRow
+            leftContent={language.deliveryCosts}
+            rightContent={language.free}
+          />
+          <CartRow
+            leftContent={language.total}
+            rightContent={`${totalPrice} $`}
+          />
+          <NavLink to={'/order'} activeStyle={{display: 'none'}}>
+            <Button type="primary" size="large" block>
+              {language.order}
+            </Button>
+          </NavLink>
+        </div>
+      )}
+    </InterConsumer>
   )
 }
 

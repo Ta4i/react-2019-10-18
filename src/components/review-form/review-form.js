@@ -7,6 +7,8 @@ import styles from './review-form.module.css'
 import {useDispatch} from 'react-redux'
 import {addReview} from '../../store/ac'
 
+import {Consumer as InterConsumer} from '../../contexts/inter'
+
 const ReviewForm = ({id}) => {
   const [rate, setRate] = useState()
   const [name, setName, isValidName, resetName] = useInput()
@@ -26,43 +28,47 @@ const ReviewForm = ({id}) => {
   }
 
   return (
-    <Card className={styles.reviewForm}>
-      <Row type="flex" align="middle">
-        <Col xs={24} md={18} align="left">
-          <Typography.Title className={styles.addReviewTitle} level={4}>
-            Leave your review
-          </Typography.Title>
-          <Form onSubmit={handleSubmit}>
-            <Input
-              placeholder="Your name"
-              value={name}
-              onChange={setName}
-              className={cx(
-                {
-                  [styles.invalid]: !isValidName,
-                },
-                styles.inputName
-              )}
-            />
-            <Input.TextArea
-              rows={3}
-              value={text}
-              onChange={setText}
-              size="large"
-              className={cx({
-                [styles.invalid]: !isValidText,
-              })}
-            />
-            <div>
-              Rating: <Rate value={rate} onChange={setRate} />
-            </div>
-            <Button htmlType="submit" className={styles.submitButton}>
-              PUBLISH REVIEW
-            </Button>
-          </Form>
-        </Col>
-      </Row>
-    </Card>
+    <InterConsumer>
+      {language => (
+        <Card className={styles.reviewForm}>
+          <Row type="flex" align="middle">
+            <Col xs={24} md={18} align="left">
+              <Typography.Title className={styles.addReviewTitle} level={4}>
+                {language.leaveReview}
+              </Typography.Title>
+              <Form onSubmit={handleSubmit}>
+                <Input
+                  placeholder={language.yourName}
+                  value={name}
+                  onChange={setName}
+                  className={cx(
+                    {
+                      [styles.invalid]: !isValidName,
+                    },
+                    styles.inputName
+                  )}
+                />
+                <Input.TextArea
+                  rows={3}
+                  value={text}
+                  onChange={setText}
+                  size="large"
+                  className={cx({
+                    [styles.invalid]: !isValidText,
+                  })}
+                />
+                <div>
+                  {language.rating}: <Rate value={rate} onChange={setRate} />
+                </div>
+                <Button htmlType="submit" className={styles.submitButton}>
+                  {language.publish}
+                </Button>
+              </Form>
+            </Col>
+          </Row>
+        </Card>
+      )}
+    </InterConsumer>
   )
 }
 

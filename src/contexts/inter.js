@@ -1,0 +1,46 @@
+import {createContext} from 'react'
+
+export const languages = {
+  en: {
+    menu: 'Menu',
+    reviews: 'Reviews',
+    leaveReview: 'Leave your review',
+    yourName: 'Your name',
+    rating: 'Rating',
+    publish: 'Publish review',
+    order: 'Order',
+    subTotal: 'Sub-total',
+    deliveryCosts: 'Delivery costs',
+    form: 'Form',
+    total: 'Total',
+    userName: 'User name',
+    sendOrder: 'Send order',
+    free: 'Free',
+    pageNotFound: 'Page not found',
+    sww: 'Something went wrong',
+    thanks: 'Thanks',
+    yoip: 'Your order is preparing',
+  },
+  rus: {
+    menu: 'Меню',
+    reviews: 'Отзывы',
+    leaveReview: 'Оставить отзыв',
+    yourName: 'Ваше имя',
+    rating: 'Рейтинг',
+    publish: 'Опубликовать отзыв',
+    order: 'Закать',
+    subTotal: 'Стоимость заказа',
+    deliveryCosts: 'Стоимость доставки',
+    form: 'Форма',
+    total: 'Итог',
+    userName: 'Имя пользователя',
+    sendOrder: 'Отправить заказ',
+    free: 'Бесплатно',
+    pageNotFound: 'Страница не найдена',
+    thanks: 'Спасибо',
+    sww: 'Что-то пошло не так',
+    yoip: 'Ваш заказ готовиться',
+  },
+}
+
+export const {Provider, Consumer} = createContext(languages.en)

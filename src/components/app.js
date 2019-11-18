@@ -1,9 +1,8 @@
 import React, {Component} from 'react'
-import {Col, Layout, Row} from 'antd'
+import {Layout, Radio} from 'antd'
 import PropTypes from 'prop-types'
 import Header from './header'
 import {connect} from 'react-redux'
-import Cart from './cart'
 import {fetchRestaurants} from '../store/ac'
 import {
   selectRestaurants,
@@ -11,9 +10,12 @@ import {
   selectRestaurantsLoading,
 } from '../store/selectors'
 import Loader from './loader'
-import {restaurants} from '../fixtures'
-import {NavLink, Route, Switch} from 'react-router-dom'
+import {Route, Switch, Redirect} from 'react-router-dom'
 import RestaurantPage from './routes/restaurant-page'
+import OrderPage from './routes/order-page'
+import OrderComplete from './routes/order-complete'
+import {Provider as AuthProvider} from '../contexts/auth'
+import {Provider as InterProvider, languages} from '../contexts/inter'
 
 class App extends Component {
   static defaultProps = {
@@ -24,6 +26,9 @@ class App extends Component {
     value: 0,
     otherValue: 'foo bar',
     currentRestaurantId: null,
+    userName: '',
+    language: languages.en,
+    languageBut: 'en',
   }
 
   // constructor(props) {
@@ -55,6 +60,18 @@ class App extends Component {
   //   // unsubscribe from some events
   // }
 
+  handleUserName = userName => {
+    this.setState({
+      userName,
+    })
+  }
+
+  handleLanguageChange = e => {
+    this.setState(state => ({
+      languageBut: e.target.value,
+      language: e.target.value === 'en' ? languages.en : languages.rus,
+    }))
+  }
   render() {
     const {restaurantsLoading, restaurantsLoaded} = this.props
     if (
@@ -65,46 +82,47 @@ class App extends Component {
       return <Loader />
     }
     return (
-      <Layout>
-        <Header />
-        {/*<Counter />*/}
-        <Layout.Content>
-          <ul>
-            {restaurants.map(restaurant => (
-              <li key={restaurant.id}>
-                <NavLink
-                  to={'/restaurant/' + restaurant.id}
-                  activeStyle={{color: 'red'}}
-                >
-                  {restaurant.name}
-                </NavLink>
-              </li>
-            ))}
-          </ul>
-          {/*<Route*/}
-          {/*  path={'/restaurant'}*/}
-          {/*  render={props => <h1>Exact header</h1>}*/}
-          {/*  exact*/}
-          {/*  strict*/}
-          {/*/>*/}
-          <Switch>
-            <Route
-              path={'/restaurant/:restaurantId'}
-              component={RestaurantPage}
-              // render={props => <RestaurantPage {...props} />}
-            />
-            <Route
-              path={'/foo'}
-              children={props => console.log('Route children', props)}
-            />
-            <Route
-              path={'/restaurant'}
-              render={props => <h1>Rendered for restaurant path</h1>}
-            />
-            <Route path="/" render={() => <h1>Page not found</h1>} />
-          </Switch>
-        </Layout.Content>
-      </Layout>
+      <AuthProvider value={this.state.userName}>
+        <InterProvider
+          value={this.state.language}
+          onChange={this.handleLanguageChange}
+        >
+          <Layout>
+            <Header />
+            <Radio.Group
+              value={this.state.languageBut}
+              onChange={this.handleLanguageChange}
+            >
+              <Radio.Button value="en">en</Radio.Button>
+              <Radio.Button value="rus">rus</Radio.Button>
+            </Radio.Group>
+            <Layout.Content>
+              <Switch>
+                <Route
+                  path={'/order'}
+                  render={props => (
+                    <OrderPage
+                      {...props}
+                      handleUserName={this.handleUserName}
+                    />
+                  )}
+                />
+                <Route path={'/order-complete'} component={OrderComplete} />
+                <Route path={'/restaurant'} component={RestaurantPage} />
+                <Route
+                  path="/"
+                  exact
+                  render={() => <Redirect to={'/restaurant'} />}
+                />
+                <Route
+                  path="/"
+                  render={() => <h1>{this.state.language.pageNotFound}</h1>}
+                />
+              </Switch>
+            </Layout.Content>
+          </Layout>
+        </InterProvider>
+      </AuthProvider>
     )
   }
 }
