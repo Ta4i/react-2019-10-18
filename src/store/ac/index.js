@@ -103,11 +103,3 @@ export const fetchUsers = () => async (dispatch, getState) => {
       })
     )
 }
-
-export const loadDataForReviews = id => async (dispatch, getState) => {
-  const state = getState()
-  const isUsersLoaded = selectUsersIsLoaded(state)
-  return isUsersLoaded
-    ? await dispatch(fetchReviews(id))
-    : await Promise.all([dispatch(fetchUsers()), dispatch(fetchReviews(id))])
-}

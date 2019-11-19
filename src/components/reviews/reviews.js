@@ -11,8 +11,8 @@ import {
   selectUsersIsLoading,
 } from '../../store/selectors'
 import {useDispatch, useSelector} from 'react-redux'
-import {loadDataForReviews} from '../../store/ac'
 import Loader from '../loader'
+import {fetchReviews, fetchUsers} from '../../store/ac/index'
 
 function Reviews(props) {
   const reviews = useSelector(state => selectReviews(state, props))
@@ -26,11 +26,11 @@ function Reviews(props) {
     selectReviewsIsLoading(store, props)
   )
   useEffect(() => {
-    !isUsersLoading &&
-      !isUsersLoaded &&
-      !isReviewsLoading &&
-      !isReviewsLoaded &&
-      dispatch(loadDataForReviews(props.id))
+    console.warn('reviews loaded', isReviewsLoaded)
+
+    !isUsersLoading && !isUsersLoaded && dispatch(fetchUsers())
+
+    !isReviewsLoading && !isReviewsLoaded && dispatch(fetchReviews(props.id))
   }, [
     dispatch,
     isUsersLoading,

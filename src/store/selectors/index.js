@@ -15,7 +15,9 @@ export const selectReviewsImmutableMap = store => store.reviews.entities
 export const selectReviewsIsLoading = createSelector(
   selectReviewsRecord,
   selectId,
-  (reviewsRecord, id) => reviewsRecord.loading.has(id)
+  (reviewsRecord, id) => {
+    return reviewsRecord.loading.has(id)
+  }
 )
 
 export const selectReviewsIsLoaded = createSelector(
