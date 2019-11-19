@@ -1,30 +1,26 @@
 import React from 'react'
-import {Consumer} from '../../contexts/auth'
+import i18n from '../../decorators/i18n'
 
-function OrderComplete() {
+function OrderComplete({t}) {
   return (
-    <Consumer>
-      {consumerValue => (
-        <h1
-          style={{
-            textAlign: 'center',
-            padding: '128px 0',
-          }}
-        >
-          Thanks {consumerValue}! Your order is preparing
-          <span
-            role={'img'}
-            aria-label={'cook'}
-            style={{
-              padding: '0 12px',
-            }}
-          >
-            👨‍🍳
-          </span>
-        </h1>
-      )}
-    </Consumer>
+    <h1
+      style={{
+        textAlign: 'center',
+        padding: '128px 0',
+      }}
+    >
+      {t('Thanks')}
+      <span
+        role={'img'}
+        aria-label={'cook'}
+        style={{
+          padding: '0 12px',
+        }}
+      >
+        👨‍🍳
+      </span>
+    </h1>
   )
 }
 
-export default OrderComplete
+export default i18n(OrderComplete)

@@ -15,6 +15,7 @@ import RestaurantPage from './routes/restaurant-page'
 import OrderPage from './routes/order-page'
 import OrderComplete from './routes/order-complete'
 import {Provider as AuthProvider} from '../contexts/auth'
+import {Provider as LangProvider} from '../contexts/i18n'
 
 class App extends Component {
   static defaultProps = {
@@ -26,6 +27,7 @@ class App extends Component {
     otherValue: 'foo bar',
     currentRestaurantId: null,
     userName: '',
+    lang: 'ru',
   }
 
   // constructor(props) {
@@ -63,6 +65,8 @@ class App extends Component {
     })
   }
 
+  setLang = lang => this.setState({lang})
+
   render() {
     const {restaurantsLoading, restaurantsLoaded} = this.props
     if (
@@ -73,29 +77,34 @@ class App extends Component {
       return <Loader />
     }
     return (
-      <AuthProvider value={this.state.userName}>
-        <Layout>
-          <Header />
-          <Layout.Content>
-            <Switch>
-              <Route
-                path={'/order'}
-                render={props => (
-                  <OrderPage {...props} handleUserName={this.handleUserName} />
-                )}
-              />
-              <Route path={'/order-complete'} component={OrderComplete} />
-              <Route path={'/restaurant'} component={RestaurantPage} />
-              <Route
-                path="/"
-                exact
-                render={() => <Redirect to={'/restaurant'} />}
-              />
-              <Route path="/" render={() => <h1>Page not found</h1>} />
-            </Switch>
-          </Layout.Content>
-        </Layout>
-      </AuthProvider>
+      <LangProvider value={this.state.lang}>
+        <AuthProvider value={this.state.userName}>
+          <Layout>
+            <Header lang={this.state.lang} setLang={this.setLang} />
+            <Layout.Content>
+              <Switch>
+                <Route
+                  path={'/order'}
+                  render={props => (
+                    <OrderPage
+                      {...props}
+                      handleUserName={this.handleUserName}
+                    />
+                  )}
+                />
+                <Route path={'/order-complete'} component={OrderComplete} />
+                <Route path={'/restaurant'} component={RestaurantPage} />
+                <Route
+                  path="/"
+                  exact
+                  render={() => <Redirect to={'/restaurant'} />}
+                />
+                <Route path="/" render={() => <h1>Page not found</h1>} />
+              </Switch>
+            </Layout.Content>
+          </Layout>
+        </AuthProvider>
+      </LangProvider>
     )
   }
 }

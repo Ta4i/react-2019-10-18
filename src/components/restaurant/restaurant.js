@@ -11,6 +11,7 @@ import {Route, Redirect} from 'react-router-dom'
 import SubMenu from '../submenu/submenu'
 import Cart from '../cart/cart'
 import Hero from '../hero'
+import i18n from '../../decorators/i18n'
 
 class Restaurant extends Component {
   state = {
@@ -24,11 +25,13 @@ class Restaurant extends Component {
   }
 
   render() {
-    const {id, restaurant: {name, menu} = {}} = this.props
+    const {id, restaurant: {name, menu} = {}, t} = this.props
 
     if (this.state.error) {
       return (
-        <Typography.Title type="danger">Something went wrong</Typography.Title>
+        <Typography.Title type="danger">
+          {t('something went wrong')}
+        </Typography.Title>
       )
     }
 
@@ -45,8 +48,8 @@ class Restaurant extends Component {
         <Row>
           <Col span={18}>
             <div style={{textAlign: 'center', padding: '6px'}}>
-              <SubMenu to={`/restaurant/${id}/menu`}>Menu</SubMenu>
-              <SubMenu to={`/restaurant/${id}/reviews`}>Reviews</SubMenu>
+              <SubMenu to={`/restaurant/${id}/menu`}>{t('Menu')}</SubMenu>
+              <SubMenu to={`/restaurant/${id}/reviews`}>{t('Reviews')}</SubMenu>
             </div>
             <Route
               path={'/restaurant/:id/:tab'}
@@ -89,4 +92,4 @@ Restaurant.propTypes = {
 
 export default connect((state, ownProps) => ({
   restaurant: selectRestaurant(state, ownProps),
-}))(Restaurant)
+}))(i18n(Restaurant))

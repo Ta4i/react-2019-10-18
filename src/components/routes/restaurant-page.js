@@ -4,7 +4,6 @@ import RestaurantsNavigation from '../restaurants-navigation/restaurants-navigat
 import {Route} from 'react-router-dom'
 
 function RestaurantPage(props) {
-  console.log('RestaurantPage props', props)
   return (
     <>
       <RestaurantsNavigation />
