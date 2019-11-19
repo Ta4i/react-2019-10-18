@@ -11,7 +11,7 @@ function RestaurantPage(props) {
         <Restaurant id={props.match.params.restaurantId} />
       </Col>
       <Col span={6}>
-        <Cart />
+        <Cart {...props} />
       </Col>
     </Row>
   )
