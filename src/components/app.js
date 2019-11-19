@@ -14,6 +14,8 @@ import Loader from './loader'
 import {restaurants} from '../fixtures'
 import {NavLink, Route, Switch} from 'react-router-dom'
 import RestaurantPage from './routes/restaurant-page'
+import OrderPage from './routes/order-page'
+import Navigation from './navigation/navigation'
 
 class App extends Component {
   static defaultProps = {
@@ -56,7 +58,7 @@ class App extends Component {
   // }
 
   render() {
-    const {restaurantsLoading, restaurantsLoaded} = this.props
+    const {restaurantsLoading, restaurantsLoaded, restaurants} = this.props
     if (
       restaurantsLoading ||
       !restaurantsLoaded ||
@@ -69,18 +71,7 @@ class App extends Component {
         <Header />
         {/*<Counter />*/}
         <Layout.Content>
-          <ul>
-            {restaurants.map(restaurant => (
-              <li key={restaurant.id}>
-                <NavLink
-                  to={'/restaurant/' + restaurant.id}
-                  activeStyle={{color: 'red'}}
-                >
-                  {restaurant.name}
-                </NavLink>
-              </li>
-            ))}
-          </ul>
+          <Navigation restaurants={restaurants} />
           {/*<Route*/}
           {/*  path={'/restaurant'}*/}
           {/*  render={props => <h1>Exact header</h1>}*/}
@@ -101,6 +92,7 @@ class App extends Component {
               path={'/restaurant'}
               render={props => <h1>Rendered for restaurant path</h1>}
             />
+            <Route path={'/order'} component={OrderPage} />
             <Route path="/" render={() => <h1>Page not found</h1>} />
           </Switch>
         </Layout.Content>

@@ -26,10 +26,7 @@ function Reviews(props) {
     selectReviewsIsLoading(store, props)
   )
   useEffect(() => {
-    console.warn('reviews loaded', isReviewsLoaded)
-
     !isUsersLoading && !isUsersLoaded && dispatch(fetchUsers())
-
     !isReviewsLoading && !isReviewsLoaded && dispatch(fetchReviews(props.id))
   }, [
     dispatch,
