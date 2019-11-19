@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {Typography} from 'antd'
+import {Col, Row, Typography} from 'antd'
 import Menu from '../menu'
 import Reviews from '../reviews'
 import AverageRating from '../average-rating'
@@ -7,8 +7,10 @@ import PropTypes from 'prop-types'
 import styles from './restaurant.module.css'
 import {connect} from 'react-redux'
 import {selectRestaurant} from '../../store/selectors'
-import {NavLink, Route, Redirect} from 'react-router-dom'
+import {Route, Redirect} from 'react-router-dom'
 import SubMenu from '../submenu/submenu'
+import Cart from '../cart/cart'
+import Hero from '../hero'
 
 class Restaurant extends Component {
   state = {
@@ -37,27 +39,35 @@ class Restaurant extends Component {
           exact
           to={`/restaurant/${id}/menu`}
         />
-        <Typography.Title level={2}>{name}</Typography.Title>
-        <AverageRating id={id} />
-        <div style={{textAlign: 'center', padding: '6px'}}>
-          <SubMenu to={`/restaurant/${id}/menu`}>Menu</SubMenu>
-          <SubMenu to={`/restaurant/${id}/reviews`}>Reviews</SubMenu>
-        </div>
-        <Route
-          path={'/restaurant/:id/:tab'}
-          children={props => {
-            if (!props.match) {
-              return null
-            }
-            switch (props.match.params.tab) {
-              case 'reviews':
-                return <Reviews id={id} />
-              case 'menu':
-              default:
-                return <Menu menu={menu} className={styles.col} />
-            }
-          }}
-        />
+        <Hero heading={name}>
+          <AverageRating id={id} />
+        </Hero>
+        <Row>
+          <Col span={18}>
+            <div style={{textAlign: 'center', padding: '6px'}}>
+              <SubMenu to={`/restaurant/${id}/menu`}>Menu</SubMenu>
+              <SubMenu to={`/restaurant/${id}/reviews`}>Reviews</SubMenu>
+            </div>
+            <Route
+              path={'/restaurant/:id/:tab'}
+              children={props => {
+                if (!props.match) {
+                  return null
+                }
+                switch (props.match.params.tab) {
+                  case 'reviews':
+                    return <Reviews id={id} />
+                  case 'menu':
+                  default:
+                    return <Menu menu={menu} className={styles.col} />
+                }
+              }}
+            />
+          </Col>
+          <Col span={6}>
+            <Cart />
+          </Col>
+        </Row>
       </div>
     )
   }

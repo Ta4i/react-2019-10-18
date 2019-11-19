@@ -1,7 +1,5 @@
-import React, {Fragment} from 'react'
+import React from 'react'
 import Restaurant from '../restaurant/restaurant'
-import {Col, Row} from 'antd'
-import Cart from '../cart/cart'
 import RestaurantsNavigation from '../restaurants-navigation/restaurants-navigation'
 import {Route} from 'react-router-dom'
 
@@ -13,16 +11,7 @@ function RestaurantPage(props) {
       <Route
         path={'/restaurant/:restaurantId'}
         render={props => {
-          return (
-            <Row>
-              <Col span={18}>
-                <Restaurant id={props.match.params.restaurantId} />
-              </Col>
-              <Col span={6}>
-                <Cart />
-              </Col>
-            </Row>
-          )
+          return <Restaurant id={props.match.params.restaurantId} />
         }}
       />
     </>
