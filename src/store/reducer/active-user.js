@@ -10,6 +10,7 @@ export const activeUserReducer = (activeUserState = initialState, action) => {
       return {
         ...activeUserState,
         name: action.payload.name,
+        id: action.userId,
       }
     }
     default:

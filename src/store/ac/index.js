@@ -45,6 +45,8 @@ export const addActiveUser = name => ({
   payload: {
     name,
   },
+  generateId: true,
+  provideUserId: true,
 })
 
 export const addReview = (userName, rating, text, restaurantId) => ({
