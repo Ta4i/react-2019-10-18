@@ -5,7 +5,6 @@ import Cart from '../cart/cart'
 import Navigation from '../navigation/navigation'
 
 function RestaurantsPage(props) {
-  console.log('RestaurantPsage props', props)
   const {restaurants} = props
   return (
     <>
