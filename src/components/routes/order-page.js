@@ -1,5 +1,4 @@
 import React from 'react'
-import {Button} from 'antd'
 import Cart from '../cart/cart'
 
 function OrderPage(props) {

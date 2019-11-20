@@ -13,8 +13,9 @@ import {
 import Loader from './loader'
 import {restaurants} from '../fixtures'
 import {NavLink, Route, Switch} from 'react-router-dom'
-import RestaurantPage from './routes/restaurant-page'
+import RestaurantsPage from './routes/restaurants-page'
 import OrderPage from './routes/order-page'
+import OrderCompletePage from './routes/order-complete-page'
 import Navigation from './navigation/navigation'
 
 class App extends Component {
@@ -71,7 +72,6 @@ class App extends Component {
         <Header />
         {/*<Counter />*/}
         <Layout.Content>
-          <Navigation restaurants={restaurants} />
           {/*<Route*/}
           {/*  path={'/restaurant'}*/}
           {/*  render={props => <h1>Exact header</h1>}*/}
@@ -81,18 +81,22 @@ class App extends Component {
           <Switch>
             <Route
               path={'/restaurant/:restaurantId'}
-              component={RestaurantPage}
-              // render={props => <RestaurantPage {...props} />}
-            />
-            <Route
-              path={'/foo'}
-              children={props => console.log('Route children', props)}
+              render={props => (
+                <RestaurantsPage restaurants={restaurants} {...props} />
+              )}
             />
             <Route
               path={'/restaurant'}
               render={props => <h1>Rendered for restaurant path</h1>}
             />
             <Route path={'/order'} component={OrderPage} />
+            <Route path={'/thank-you'} component={OrderCompletePage} />
+            <Route
+              path={'/'}
+              render={props => (
+                <Navigation restaurants={restaurants} {...props} />
+              )}
+            />
             <Route path="/" render={() => <h1>Page not found</h1>} />
           </Switch>
         </Layout.Content>
