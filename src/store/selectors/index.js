@@ -12,6 +12,8 @@ export const selectReviewsRecord = store => store.reviews
 
 export const selectReviewsImmutableMap = store => store.reviews.entities
 
+export const selectActiveUser = store => store.activeUser
+
 export const selectReviewsIsLoading = createSelector(
   selectReviewsRecord,
   selectId,

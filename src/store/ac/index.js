@@ -1,4 +1,5 @@
 import {
+  ADD_ACTIVE_USER,
   ADD_REVIEW,
   ADD_TO_CART,
   DECREMENT,
@@ -36,6 +37,13 @@ export const removeFromCart = id => ({
   type: REMOVE_FROM_CART,
   payload: {
     dishId: id,
+  },
+})
+
+export const addActiveUser = name => ({
+  type: ADD_ACTIVE_USER,
+  payload: {
+    name,
   },
 })
 
